@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" hr ef="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
     <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
@@ -69,7 +69,7 @@ if(isset($_GET["shop"])){
             <div class="header__top__right__auth" >
                 <a href="../edit.php">
                     <?php 
-                         $cus_username = $_SESSION["C_username"]; 
+                         $cus_username = $_SESSION["cus_username"]; 
                          echo $cus_username
                     ?></a>
                 |
@@ -100,12 +100,6 @@ if(isset($_GET["shop"])){
             <a href="#"><i class="fa fa-linkedin"></i></a>
             <a href="#"><i class="fa fa-pinterest-p"></i></a>
         </div>
-        <div class="humberger__menu__contact">
-            <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                <li>Free Shipping for all Order of $99</li>
-            </ul>
-        </div>
     </div>
     <!-- Humberger End -->
 
@@ -116,10 +110,10 @@ if(isset($_GET["shop"])){
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
-                            <ul>
+                            <!-- <ul>
                                 <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
                                 <li>Free Shipping for all Order of $99</li>
-                            </ul>
+                            </ul> -->
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
@@ -131,16 +125,16 @@ if(isset($_GET["shop"])){
                                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
                             <div class="header__top__right__language">
-                                <img src="img/language.png" alt="">
+                                <!-- <img src="img/language.png" alt="">
                                 <div>English</div>
-                                <!-- <span class="arrow_carrot-down"></span>
+                                <span class="arrow_carrot-down"></span>
                                 <ul>
                                     <li><a href="#">Spanis</a></li>
                                     <li><a href="#">English</a></li>
                                 </ul> -->
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="../edit.php"><i class="fa fa-user"></i><?php 
+                                <a href="../edit.php"><i class="fas fa-user-alt"></i><?php 
                          $cus_username = $_SESSION["C_username"]; 
                          echo $cus_username;
                     ?> </a>

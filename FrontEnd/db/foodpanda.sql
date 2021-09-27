@@ -202,7 +202,6 @@ CREATE TABLE `shop` (
   `S_password` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
   `S_name` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
   `S_address` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
-  `S_distance` float NOT NULL,
   `S_tel` varchar(10) CHARACTER SET utf8mb4 NOT NULL,
   `S_workstatus` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
   `S_earnacc_no` varchar(13) CHARACTER SET utf8mb4 NOT NULL,

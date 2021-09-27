@@ -5,15 +5,15 @@ session_start();
     exit;
 }*/
 require('../connect.php');
-if(empty($_SESSION["shop_username"])){
+if(empty($_SESSION["S_username"])){
     header("location:../index.php");
 }
 
-$shop_username = $_SESSION["shop_username"]; 
+$shop_username = $_SESSION["S_username"]; 
   $sql = "
   SELECT * 
 FROM `shop` 
- WHERE shop_username = '$shop_username' ;
+ WHERE S_username = '$shop_username' ;
     ";
 
   $objQuery = mysqli_query($conn, $sql) or die("Error Query [" . $sql . "]");
@@ -21,28 +21,28 @@ FROM `shop`
 
   $sql2 = "
   SELECT * 
-FROM `shop` JOIN food
-ON shop.shop_username = food.shop_username
- WHERE shop.shop_username = '$shop_username' ;
+    FROM `shop` INNER JOIN food
+    ON shop.ID_shop = food.Food_id
+    WHERE shop.S_username = '$shop_username' ;
     ";
 
   $objQuery2 = mysqli_query($conn, $sql2) or die("Error Query [" . $sql . "]");
 
   
-    $meSql = "SELECT orders.id_orders,orders.id_orders_status,orders.Cus_username,orders.orders_total_price,orders.orders_date_start_send,
-    orders_detail.id_food,orders_detail.orders_detail_item,food.food_name,food.food_size,food.food_cash,
-food.shop_username,shop.shop_username,shop.shop_name,shop.shop_address,shop.shop_tel,shop.shop_business_time_day,shop.shop_business_time_open_time,shop.shop_business_time_close_time,customer.Cus_address,customer.Cus_tel,orders_status.orders_status_name
+    $meSql = "SELECT orders.ID_orders,orders.ID_O_status,orders.C_username,orders.P_totalprice,orders.O_datestartsend,
+    orders_detail.Food_id,food.Food_name,food.Food_size,food.Food_price,
+food.S_username,shop.S_username,shop.S_name,shop.S_address,shop.S_tel,shop.S_openday,shop.S_opentime,shop.S_closetime,customer.A_address,customer.C_tel,orders_status.O_statusname
     FROM `orders` JOIN orders_detail
     ON orders.id_orders = orders_detail.id_orders
     JOIN food
-    ON orders_detail.id_food = food.id_food
+    ON orders_detail.Food_id = food.Food_id
     JOIN shop
-    ON food.shop_username = shop.shop_username
+    ON food.S_username = shop.S_username
     JOIN customer
-    ON orders.Cus_username = customer.Cus_username
+    ON orders.C_username = customer.C_username
    JOIN orders_status
-   ON orders.id_orders_status = orders_status.id_orders_status
-   WHERE shop.shop_username='$shop_username' AND orders.id_orders_status=2
+   ON orders.ID_O_status = orders_status.ID_O_status
+   WHERE shop.S_username='$shop_username' AND orders.ID_O_status=2
     ";
     $head1 = "";
     $head2 = "";
@@ -104,7 +104,7 @@ if(!isset($_GET["show"])){
 <div class="container bootstrap snippet">
     <div class="row font1">
   		<div class="col-sm-10"><h1>ข้อมูลร้านค้า</h1></div>
-    	<div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="https://www.grab.com/th/wp-content/uploads/sites/10/2018/04/Grab-logo-social.png"></a></div>
+    	<div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-responsive" src="https://www.khaosod.co.th/wpapp/uploads/2020/10/foodpanda-logo-696x448.png"></a></div>
     </div>
     <div class="row">
   		<div class="col-sm-3"><!--left col-->
@@ -119,24 +119,24 @@ if(!isset($_GET["show"])){
 
         <div class="panel panel-default font1">
             <div class="panel-heading">ข้อมูลของร้านค้า <i class="fa fa-link fa-1x"></i></div>
-            <!-- <div class="panel-body"> <p> คะแนนลูกค้ท </p> </div> -->
+            <!-- <div class="panel-body"> <p> คะแนนลูกค้า </p> </div> -->
             <form action="check_pass_shop.php" method="post">
             <div class="panel-body form-group">
             <div class="col-xs" style="text-align: center;">
-                <img src="myfile/<?php echo $objResult['FilesName'];?>" width="120px" height="100px" border="0"><br>
+                <img src="myfile/<?php echo $objResult['S_image'];?>" width="120px" height="100px" border="0"><br>
             </div>
 <div class="col-xs">
-<?php $shop_name = $objResult["shop_name"];?>
-    <label for="shop_username"><p>ชื่อผู้ใช้</p></label>
-    <input type="text" class="form-control" name="shop_username" disabled id="shop_username" placeholder="ชื่อผู้ใช้" value="<?=$objResult["shop_username"]?>">
+<?php $shop_name = $objResult["S_name"];?>
+    <label for="S_username"><p>ชื่อผู้ใช้</p></label>
+    <input type="text" class="form-control" name="S_username" disabled id="S_username" placeholder="ชื่อผู้ใช้" value="<?=$objResult["S_username"]?>">
 </div>
 
 <div class="col-xs">
   <label for="shop_password"><p> รหัสผ่าน</p></label>
-    <input type="password" class="form-control" name="shop_password" id="shop_password" placeholder="รหัสผ่าน"
+    <input type="password" class="form-control" name="S_password" id="S_password" placeholder="รหัสผ่าน"
     <?php
         if($pass){
-            echo 'value="'.$objResult["shop_password"].'" disabled';
+            echo 'value="'.$objResult["S_password"].'" disabled';
         }
     ?>><br>
 </div>
@@ -154,7 +154,7 @@ if(!isset($_GET["show"])){
             <div class="panel-body form-group">
                 <div class="col-xs">
                   <label for="shop_earn_price"><p> รายได้รวม</p></label>
-                    <input type="text" disabled class="form-control" name="shop_earn_price" id="shop_earn_price" placeholder="รายได้รวม" value="<?php echo $objResult["shop_earn_price"];?>">
+                    <input type="text" disabled class="form-control" name="S_earnprice" id="S_earnprice" placeholder="รายได้รวม" value="<?php echo $objResult["S_earnprice"];?>">
                 </div>
             </div>
 
@@ -192,57 +192,57 @@ if(!isset($_GET["show"])){
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="shop_name"><h4>ชื่อ และ นามสกุล</h4></label>
-                              <input type="text" class="form-control" Required <?php echo $show;?>  name="shop_name" id="shop_name" placeholder="ชื่อ และ นามสกุล" title="กรุณากรอกชื่อและนามสกุล" value="<?=$shop_name?>">
+                              <label for="shop_name"><h4>ชื่อร้านค้า</h4></label>
+                              <input type="text" class="form-control" Required <?php echo $show;?>  name="S_name" id="S_name" placeholder="ชื่อร้านค้า" title="กรุณากรอกชื่อร้านค้า" value="<?=$objResult["S_name"];?>">
                           </div>
                       </div>
 
                       <div class="form-group">
                           <div class="col-xs-6">
                              <label for="shop_tel"><h4>เบอร์มือถือ</h4></label>
-                              <input type="text" class="form-control" Required <?php echo $show;?> name="shop_tel" id="shop_tel" placeholder="ใส่เบอร์มือถือ" title="กรุณากรอกเบอร์มือถือ" value="<?=$objResult["shop_tel"];?>">
+                              <input type="text" class="form-control" Required <?php echo $show;?> name="S_tel" id="S_tel" placeholder="ใส่เบอร์มือถือ" title="กรุณากรอกเบอร์มือถือ" value="<?=$objResult["S_tel"];?>">
                           </div>
                       </div>
                       <div class="form-group">
 
                           <div class="col-xs-6">
                               <label for="shop_earn_acc_no"><h4>หมายเลขบัญชี</h4></label>
-                              <input type="text" class="form-control" Required <?php echo $show;?> name="shop_earn_acc_no" id="shop_earn_acc_no" placeholder="ใส่หมายเลขบัญชี" title="กรุณาใส่หมายเลขบัญชี" value="<?=$objResult["shop_earn_acc_no"];?>">
+                              <input type="text" class="form-control" Required <?php echo $show;?> name="S_earnacc_no" id="S_earnacc_no" placeholder="ใส่หมายเลขบัญชี" title="กรุณาใส่หมายเลขบัญชี" value="<?=$objResult["S_earnacc_no"];?>">
                           </div>
                       </div>
                       <div class="form-group">
 
                           <div class="col-xs-6">
                               <label for="shop_address"><h4>ที่อยู่</h4></label>
-                              <input type="text" class="form-control" Required <?php echo $show;?> name="shop_address" id="shop_address" placeholder="ใส่ที่อยู่" title="กรุณาใส่ที่อยู่" value="<?=$objResult["shop_address"];?>">
+                              <input type="text" class="form-control" Required <?php echo $show;?> name="S_address" id="S_address" placeholder="ใส่ที่อยู่" title="กรุณาใส่ที่อยู่" value="<?=$objResult["S_address"];?>">
                           </div>
                       </div>
                       <div class="form-group">
 
                           <div class="col-xs-6">
                               <label for="shop_business_time_day"><h4>วันที่เปิด</h4></label>
-                              <input type="text" class="form-control" Required <?php echo $show;?> name="shop_business_time_day" id="shop_business_time_day" placeholder="วันที่เปิด" title="กรุณาใส่วันที่เปิด" value="<?=$objResult["shop_business_time_day"];?>">
+                              <input type="text" class="form-control" Required <?php echo $show;?> name="S_openday" id="S_openday" placeholder="วันที่เปิด" title="กรุณาใส่วันที่เปิด" value="<?=$objResult["S_openday"];?>">
                           </div>
                       </div>
                       <div class="form-group">
 
                           <div class="col-xs-3">
                             <label for="shop_business_time_open_time"><h4>เวลาเปิดเริ่ม</h4></label>
-                              <input type="time" class="form-control" Required <?php echo $show;?> name="shop_business_time_open_time" id="shop_business_time_open_time" placeholder="เวลาเปิดเริ่ม" title="เวลาเปิดเริ่ม" value="<?=$objResult["shop_business_time_open_time"];?>">
+                              <input type="time" class="form-control" Required <?php echo $show;?> name="S_opentime" id="S_opentime" placeholder="เวลาเปิดเริ่ม" title="เวลาเปิดเริ่ม" value="<?=$objResult["S_opentime"];?>">
                           </div>
                       </div>
                       <div class="form-group">
 
                           <div class="col-xs-3">
                             <label for="shop_business_time_close_time"><h4>ถึง</h4></label>
-                              <input type="time" class="form-control" Required <?php echo $show;?> name="shop_business_time_close_time" id="shop_business_time_close_time" placeholder="เวลาเปิดถึง" title="เวลาเปิดถึง" value="<?=$objResult["shop_business_time_close_time"];?>">
+                              <input type="time" class="form-control" Required <?php echo $show;?> name="S_closetime" id="S_closetime" placeholder="เวลาเปิดถึง" title="เวลาเปิดถึง" value="<?=$objResult["S_closetime"];?>">
                           </div>
                       </div>
                       <div class="form-group">
 
                           <div class="col-xs-3">
-                            <label for="shop_work_rate"><h4>ส่วนแบ่ง</h4></label>
-                              <input type="text" class="form-control" disabled name="shop_work_rate" id="shop_work_rate" placeholder="ส่วนแบ่ง" title="สถานะคนขับ" value="<?=$objResult["shop_share"];?>">
+                            <label for="shop_work_rate"><h4>เรทร้านค้า</h4></label>
+                              <input type="text" class="form-control" disabled name="S_rate" id="S_rate" placeholder="เรทร้านค้า" title="เรทร้านค้า" value="<?=$objResult["S_rate"];?>">
                           </div>
                       </div>
                       <div class="form-group">
@@ -253,7 +253,7 @@ if(!isset($_GET["show"])){
                         </div>
                     <div class="form-group">
                         <div class="col-xs-6">
-                        <input type="hidden" name="hdnOldFile" value="<?php echo $objResult["FilesName"];?>">
+                        <input type="hidden" name="hdnOldFile" value="<?php echo $objResult["S_image"];?>">
                             <label for="filUpload"><h4>รูปภาพ</h4></label>
                             <input type="file" name="filUpload" class="form-control" <?php echo $show;?>>
                         </div>
@@ -289,21 +289,21 @@ if(!isset($_GET["show"])){
                     $monthNamesThai = array("มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤษจิกายน","ธันวาคม");
                     while ($meResult = mysqli_fetch_array($objQuery1))
                     {
-                        $splitTimeStamp = explode(" ",$meResult["orders_date_start_send"]);
+                        $splitTimeStamp = explode(" ",$meResult["O_datestartsend"]);
                         $date_a = $splitTimeStamp[0];
                         $time_a = $splitTimeStamp[1];
                         $date = explode("-",$date_a);
                         ?>
                         <tr>
-                            <td><?php echo $meResult['id_orders']; ?></td>
-                            <td><?php echo $meResult['Cus_username']; ?></td>
-                            <td><?php echo $meResult['shop_name']; ?></td>
+                            <td><?php echo $meResult['ID_orders']; ?></td>
+                            <td><?php echo $meResult['C_username']; ?></td>
+                            <td><?php echo $meResult['S_name']; ?></td>
                             <td><?php echo intval($date[2])." ".$monthNamesThai[$date[1]-1]." ".($date[0]+543); ?></td>
                             <td><?php echo $time_a; ?></td>
-                            <td><?php echo $meResult['orders_total_price']; ?></td>
-                            <td><?php echo $meResult['orders_status_name']; ?></td>
+                            <td><?php echo $meResult['P_totalprice']; ?></td>
+                            <td><?php echo $meResult['O_statusname']; ?></td>
                             <td>
-                                <a class="btn btn-primary btn-lg" href="orders_detail_shop.php?id=<?php echo $meResult["id_orders"];?>" role="button" target="_blank">
+                                <a class="btn btn-primary btn-lg" href="orders_detail_shop.php?id=<?php echo $meResult["ID_orders"];?>" role="button" target="_blank">
                                     ดูรายละเอียด</a>
                             </td>
                         </tr>
@@ -347,17 +347,17 @@ if(!isset($_GET["show"])){
                     {echo'
                         
                         <tr>
-                            <td><img src="myfile/'.$meResult['FilesName'].'" width="120px" height="100px" border="0"></td>
+                            <td><img src="myfile/'.$meResult['S_image'].'" width="120px" height="100px" border="0"></td>
                             
                             <td>'.$meResult['food_name'].'</td>
                             <td>'.$meResult['food_size'].'</td>
                             <td>'.number_format($meResult['food_cash'],2).'</td>
                             <td>
-                                <a class="btn btn-primary btn-lg" href="Home.php?state=3&itemId='.$meResult["id_food"].'" role="button">
+                                <a class="btn btn-primary btn-lg" href="Home.php?state=3&itemId='.$meResult["Food_id"].'" role="button">
                                     แก้ไข</a>
                             </td>
                             <td>
-                                <a class="btn btn-danger btn-lg" href="delete.php?itemId='.$meResult["id_food"].'" role="button">
+                                <a class="btn btn-danger btn-lg" href="delete.php?itemId='.$meResult["Food_id"].'" role="button">
                                 <span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>';
@@ -370,23 +370,23 @@ if(!isset($_GET["show"])){
                 else if((strcmp("$head2","active")==0)&(!(strcmp("$p2_edit","active")==0))){
                     echo'
                         <form name="form1" method="post" action="add_data.php" enctype="multipart/form-data">
-                            <input type="text" hidden name="shop_username" value='.$shop_username.'><br>
+                            <input type="text" hidden name="S_username" value='.$shop_username.'><br>
                             <div class="form-group">
                                 <div class="col-xs-12">
                                     <label><h4>name: </h4></label>
-                                    <input type="text" name="food_name" value="" Required><br>
+                                    <input type="text" name="Food_name" value="" Required><br>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-12">
                                     <label><h4>size: </h4></label>
-                                    <input type="text" name="food_size" Required><br>
+                                    <input type="text" name="Food_size" Required><br>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-12">
                                 <label><h4>cash: </h4></label>
-                                     <input type="text" name="food_cash" Required><br>
+                                     <input type="text" name="Food_price" Required><br>
                                     </div>
                             </div>
                             <div class="form-group">
@@ -404,30 +404,30 @@ if(!isset($_GET["show"])){
                     ';
                 }
                 else if((strcmp("$head2","active")==0)&(strcmp("$p2_edit","active")==0)){
-                    $strSQL_edit = "SELECT * FROM food WHERE id_food = '".$_GET["itemId"]."' ;";
+                    $strSQL_edit = "SELECT * FROM food WHERE Food_id = '".$_GET["itemId"]."' ;";
 	                $objQuery_edit = mysqli_query($conn,$strSQL_edit) or die ("Error Query [".$strSQL_edit."]");
 	                $objResult = mysqli_fetch_array($objQuery_edit);
                     echo'
                         <form name="form1" method="post" action="update_data.php?id_food='.$_GET["itemId"].'" enctype="multipart/form-data">
-                            <input type="text" hidden name="shop_username" value='.$shop_username.'><br>
-                            <input type="hidden" name="hdnOldFile" value="'.$objResult["FilesName"].'">
-                            <img src="myfile/'.$objResult["FilesName"].'" width="270px" height="200px"><br><br>
+                            <input type="text" hidden name="S_username" value='.$shop_username.'><br>
+                            <input type="hidden" name="hdnOldFile" value="'.$objResult["S_image"].'">
+                            <img src="myfile/'.$objResult["S_image"].'" width="270px" height="200px"><br><br>
                             <div class="form-group">
                                 <div class="col-xs-12">
                                 <label><h4>name: </h4></label>
-                                <input type="text" name="food_name" value="'.$objResult["food_name"].'" Required><br>
+                                <input type="text" name="food_name" value="'.$objResult["Food_name"].'" Required><br>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-12">
                                 <label><h4>Size: </h4></label>
-                                 <input type="text" name="food_size" value="'.$objResult["food_size"].'" Required><br>
+                                 <input type="text" name="food_size" value="'.$objResult["Food_size"].'" Required><br>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-12">
                                 <label><h4>Cash: </h4></label>
-                                <input type="text" name="food_cash" value="'.$objResult["food_cash"].'" Required><br>
+                                <input type="text" name="food_cash" value="'.$objResult["Food_price"].'" Required><br>
                                     </div>
                             </div>
                             <div class="form-group">

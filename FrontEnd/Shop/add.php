@@ -3,7 +3,7 @@
 <title>ThaiCreate.Com Tutorial</title>
 <?php
 	session_start();
-	$shop_username = $_SESSION["shop_username"];
+	$shop_username = $_SESSION["S_username"];
 
 	$servername = 'localhost';
 		$username = 'root';
@@ -13,7 +13,7 @@
 		$conn = mysqli_connect($servername, $username, $password, $dbname);
 
 		mysqli_set_charset($conn, "utf8");
-		$sql="SELECT * FROM food WHERE (shop_username = '$shop_username');";
+		$sql="SELECT * FROM food WHERE (S_username = '$shop_username');";
 
 		if ($result=mysqli_query($conn,$sql))
   		{
