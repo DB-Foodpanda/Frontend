@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" hr ef="css/nice-select.css" type="text/css">
     <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
@@ -57,7 +57,7 @@ if(isset($_GET["shop"])){
             <div class="header__cart__price">item: <span>$150.00</span></div>
         </div>
         <div class="humberger__menu__widget">
-            <div class="header__top__right__language">
+            <!-- <div class="header__top__right__language">
                 <img src="img/language.png" alt="">
                 <div>English</div>
                 <span class="arrow_carrot-down"></span>
@@ -65,11 +65,11 @@ if(isset($_GET["shop"])){
                     <li><a href="#">Spanis</a></li>
                     <li><a href="#">English</a></li>
                 </ul>
-            </div>
+            </div> -->
             <div class="header__top__right__auth" >
                 <a href="../edit.php">
                     <?php 
-                         $cus_username = $_SESSION["cus_username"]; 
+                         $cus_username = $_SESSION["C_username"]; 
                          echo $cus_username
                     ?></a>
                 |
@@ -141,7 +141,7 @@ if(isset($_GET["shop"])){
                             </div>
                             <div class="header__top__right__auth">
                                 <a href="../edit.php"><i class="fa fa-user"></i><?php 
-                         $cus_username = $_SESSION["cus_username"]; 
+                         $cus_username = $_SESSION["C_username"]; 
                          echo $cus_username;
                     ?> </a>
                 <a href="../website/logout.php">
