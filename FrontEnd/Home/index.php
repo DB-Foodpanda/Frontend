@@ -8,10 +8,13 @@
     <meta name="keywords" content="Home, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home | Template</title>
+    <title>Home | Foodpanda</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -24,7 +27,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <?php
 session_start();
-if(empty($_SESSION["C_username"])){
+if(empty($_SESSION["cus_username"])){
     header("location:../index.php");
 }
 if(isset($_GET["shop"])){
@@ -44,7 +47,7 @@ if(isset($_GET["shop"])){
     </div>
 
     <!-- Humberger Begin -->
-    <div class="humberger__menu__overlay" ></div>
+    <!--<div class="humberger__menu__overlay" ></div>
     <div class="humberger__menu__wrapper" >
         <div class="humberger__menu__logo">
             <a href="#"><img src="img/logo.png" alt=""></a>
@@ -53,11 +56,11 @@ if(isset($_GET["shop"])){
             <ul>
                 <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
                 <li><a href="../shopping/monitor_order.php"><i class="fa fa-shopping-bag"></i> <!--<span>3</span>--></a></li>  <!--เอาไว้บอกจำนวน order เดี๋ยวค่อยเชื่อม db เอา-->
-            </ul>
+            <!--</ul>
             <div class="header__cart__price">item: <span>$150.00</span></div>
         </div>
         <div class="humberger__menu__widget">
-            <!-- <div class="header__top__right__language">
+            <div class="header__top__right__language">
                 <img src="img/language.png" alt="">
                 <div>English</div>
                 <span class="arrow_carrot-down"></span>
@@ -65,7 +68,7 @@ if(isset($_GET["shop"])){
                     <li><a href="#">Spanis</a></li>
                     <li><a href="#">English</a></li>
                 </ul>
-            </div> -->
+            </div>
             <div class="header__top__right__auth" >
                 <a href="../edit.php">
                     <?php 
@@ -100,20 +103,26 @@ if(isset($_GET["shop"])){
             <a href="#"><i class="fa fa-linkedin"></i></a>
             <a href="#"><i class="fa fa-pinterest-p"></i></a>
         </div>
-    </div>
+        <div class="humberger__menu__contact">
+            <ul>
+                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                <li>Free Shipping for all Order of $99</li>
+            </ul>
+        </div>
+    </div>-->
     <!-- Humberger End -->
 
     <!-- Header Section Begin -->
-    <header class="header" style= "background: #FF99CC">
+    <header class="header">
         <div class="header__top" >
-            <div class="container" >
+            <!--<div class="container" >
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
-                            <!-- <ul>
+                            <ul>
                                 <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
                                 <li>Free Shipping for all Order of $99</li>
-                            </ul> -->
+                            </ul>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
@@ -125,26 +134,26 @@ if(isset($_GET["shop"])){
                                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
                             <div class="header__top__right__language">
-                                <!-- <img src="img/language.png" alt="">
+                                <img src="img/language.png" alt="">
                                 <div>English</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
                                     <li><a href="#">Spanis</a></li>
                                     <li><a href="#">English</a></li>
-                                </ul> -->
+                                </ul>
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="../edit.php"><i class="fas fa-user-alt"></i><?php 
-                         $cus_username = $_SESSION["C_username"]; 
-                         echo $cus_username;
-                    ?> </a>
-                <a href="../website/logout.php">
-                    ออกจากระบบ</a>
+                                <a href="../edit.php"><i class="fa fa-user"></i>
+                                    <?php 
+                                        $cus_username = $_SESSION["cus_username"]; 
+                                        echo $cus_username;
+                                    ?> </a>
+                                <a href="../website/logout.php">ออกจากระบบ</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
         <div class="container">
             <div class="row">
@@ -154,7 +163,14 @@ if(isset($_GET["shop"])){
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <nav class="header__menu">
+                <div class="header__top__right__auth">
+                    <a href="../edit.php">
+                        <?php 
+                            $cus_username = $_SESSION["C_username"]; 
+                            echo $cus_username;
+                        ?> </a>
+                </div>
+                    <!--<nav class="header__menu">
                         <ul>
                             <li class="active" ><a href="./index.php">Home</a></li>
                             <?php
@@ -177,20 +193,18 @@ if(isset($_GET["shop"])){
                             <li><a href="./blog.html">Blog</a></li>
                             <li><a href="./contact.html">Contact</a></li>
                         </ul>
-                    </nav>
+                    </nav>-->
                 </div>
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                            <li><a href="#"><i class="bi bi-basket-fill"></i><span>1</span></a></li>
                             <li><a href="../shopping/monitor_order.php"><i class="fa fa-shopping-bag"></i></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                        <!--<div class="header__cart__price">item: <span>$150.00</span></div><br>-->
+                        <a href="../website/logout.php" style="color: #000000">ออกจากระบบ</a>
                     </div>
                 </div>
-            </div>
-            <div class="humberger__open">
-                <i class="fa fa-bars"></i>
             </div>
         </div>
     </header>
@@ -199,10 +213,19 @@ if(isset($_GET["shop"])){
     <!-- Hero Section Begin -->
     <section class="hero" >
         <div class="container" >
+            
             <div class="row">
-                <div class="col-lg-3">
-                    <div class="hero__categories ">
+                <div class="col-lg-6 ">
+                    <br>
+                <div class="hero__search__form">
+                    <form action="#">
+                        <input type="text" placeholder="What do yo u need?">
+                        <button type="submit" class="site-btn" style="background: deeppink">SEARCH</button>
+                    </form>
+                </div>
+                    <!--<div class="hero__categories ">
                         <div class="hero__categories__all " style= "background: #FF99CC">
+                        
                             <i class="fa fa-bars "></i>
                             <span>All departments</span>
                         </div>
@@ -236,7 +259,7 @@ if(isset($_GET["shop"])){
                             <h2>Vegetable <br />100% Organic</h2>
                             <p>Free Pickup and Delivery Available</p>
                             <a href="#" class="site-btn" style= "background: #FF99CC">SHOP NOW</a>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -248,30 +271,50 @@ if(isset($_GET["shop"])){
     <section class="categories">
         <div class="container">
             <div class="row">
-                <div class="categories__slider owl-carousel">
+                <div class="categories__slider owl-carousel ">
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-1.jpg">
-                            <h5><a href="#">Fresh Fruit</a></h5>
+                        <div class="categories__item set-bg" data-setbg="img/categories/dessert.jpg">
+                            <h5><a href="#">Desserts</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-2.jpg">
-                            <h5><a href="#">Dried Fruit</a></h5>
+                        <div class="categories__item set-bg" data-setbg="img/categories/chicken.jpg">
+                            <h5><a href="#">Chicken</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-3.jpg">
-                            <h5><a href="#">Vegetables</a></h5>
+                        <div class="categories__item set-bg" data-setbg="img/categories/thai.jpg">
+                            <h5><a href="#">Thai</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-4.jpg">
-                            <h5><a href="#">drink fruits</a></h5>
+                        <div class="categories__item set-bg" data-setbg="img/categories/coffee.jpg">
+                            <h5><a href="#">coffee & tea</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-5.jpg">
-                            <h5><a href="#">drink fruits</a></h5>
+                        <div class="categories__item set-bg" data-setbg="img/categories/sushi.jpg">
+                            <h5><a href="#">japanese</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="img/categories/bakery.jpg">
+                            <h5><a href="#">bakery</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="img/categories/fastfood.jpg">
+                            <h5><a href="#">fastfood</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="img/categories/korean.jpg">
+                            <h5><a href="#">korean</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="img/categories/steak.jpg">
+                            <h5><a href="#">steak</a></h5>
                         </div>
                     </div>
                 </div>
@@ -283,7 +326,7 @@ if(isset($_GET["shop"])){
     <!-- Featured Section Begin -->
     <section class="featured spad">
         <div class="container">
-            <div class="row">
+            <!--<div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
                         <h2>Featured Product</h2>
@@ -298,125 +341,117 @@ if(isset($_GET["shop"])){
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="row featured__filter">
                 <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-1.jpg">
-                            <ul class="featured__item__pic__hover">
+                            <!--<ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
+                            </ul>-->
                         </div>
                         <div class="featured__item__text">
                             <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-2.jpg">
-                            <ul class="featured__item__pic__hover">
+                            <!--<ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
+                            </ul>-->
                         </div>
                         <div class="featured__item__text">
                             <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-3.jpg">
-                            <ul class="featured__item__pic__hover">
+                            <!--<ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
+                            </ul>-->
                         </div>
                         <div class="featured__item__text">
                             <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-4.jpg">
-                            <ul class="featured__item__pic__hover">
+                            <!--<ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
+                            </ul>-->
                         </div>
                         <div class="featured__item__text">
                             <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-5.jpg">
-                            <ul class="featured__item__pic__hover">
+                            <!--<ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
+                            </ul>-->
                         </div>
                         <div class="featured__item__text">
                             <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-6.jpg">
-                            <ul class="featured__item__pic__hover">
+                            <!--<ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
+                            </ul>-->
                         </div>
                         <div class="featured__item__text">
                             <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-7.jpg">
-                            <ul class="featured__item__pic__hover">
+                            <!--<ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
+                            </ul>-->
                         </div>
                         <div class="featured__item__text">
                             <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-8.jpg">
-                            <ul class="featured__item__pic__hover">
+                            <!--<ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
+                            </ul>-->
                         </div>
                         <div class="featured__item__text">
                             <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
                         </div>
                     </div>
                 </div>
@@ -426,7 +461,7 @@ if(isset($_GET["shop"])){
     <!-- Featured Section End -->
 
     <!-- Banner Begin -->
-    <div class="banner">
+    <!--<div class="banner">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
@@ -441,11 +476,11 @@ if(isset($_GET["shop"])){
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <!-- Banner End -->
 
     <!-- Latest Product Section Begin -->
-    <section class="latest-product spad">
+    <!--<section class="latest-product spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6">
@@ -645,11 +680,11 @@ if(isset($_GET["shop"])){
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
     <!-- Latest Product Section End -->
 
     <!-- Blog Section Begin -->
-    <section class="from-blog spad">
+    <!--<section class="from-blog spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -706,11 +741,11 @@ if(isset($_GET["shop"])){
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
     <!-- Blog Section End -->
 
     <!-- Footer Section Begin -->
-    <footer class="footer spad" style= "background: #FF99CC">
+    <footer class="footer spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
@@ -752,14 +787,14 @@ if(isset($_GET["shop"])){
                         <p>Get E-mail updates about our latest shop and special offers.</p>
                         <form action="#">
                             <input type="text" placeholder="Enter your mail">
-                            <button type="submit" class="site-btn" style= "background: #FF99CC">Subscribe</button>
+                            <button type="submit" class="site-btn" style= "background: deeppink">Subscribe</button>
                         </form>
-                        <div class="footer__widget__social">
+                        <!--<div class="footer__widget__social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-instagram"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
                             <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>

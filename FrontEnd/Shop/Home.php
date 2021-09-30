@@ -21,7 +21,7 @@ FROM `shop`
 
   $sql2 = "
   SELECT * 
-    FROM `shop` INNER JOIN food
+    FROM `shop` JOIN food
     ON shop.ID_shop = food.Food_id
     WHERE shop.S_username = '$shop_username' ;
     ";
@@ -29,20 +29,20 @@ FROM `shop`
   $objQuery2 = mysqli_query($conn, $sql2) or die("Error Query [" . $sql . "]");
 
   
-    $meSql = "SELECT orders.ID_orders,orders.ID_O_status,orders.C_username,orders.P_totalprice,orders.O_datestartsend,
-    orders_detail.Food_id,food.Food_name,food.Food_size,food.Food_price,
-food.S_username,shop.S_username,shop.S_name,shop.S_address,shop.S_tel,shop.S_openday,shop.S_opentime,shop.S_closetime,customer.A_address,customer.C_tel,orders_status.O_statusname
-    FROM `orders` JOIN orders_detail
-    ON orders.id_orders = orders_detail.id_orders
+    $meSql = "SELECT orders.ID_orders,orders_status.ID_O_status,orders.P_totalprice,orders.O_datestartsend,
+    food.Food_name,food.Food_size,food.Food_price,shop.S_username,shop.S_name,
+    shop.S_address,shop.S_tel,shop.S_openday,shop.S_opentime,shop.S_closetime,customer.C_tel,orders_status.O_statusname
+    FROM `orders`
+    JOIN orders_status
+    ON orders.ID_orders = orders_status.ID_O_status
     JOIN food
-    ON orders_detail.Food_id = food.Food_id
+    ON orders_status.ID_O_status = food.Food_id
     JOIN shop
-    ON food.S_username = shop.S_username
+    ON food.Food_id = shop.ID_shop
     JOIN customer
-    ON orders.C_username = customer.C_username
-   JOIN orders_status
-   ON orders.ID_O_status = orders_status.ID_O_status
-   WHERE shop.S_username='$shop_username' AND orders.ID_O_status=2
+    ON shop.ID_shop = customer.C_id
+   
+   WHERE shop.S_username='$shop_username' AND orders_status.ID_O_status=2
     ";
     $head1 = "";
     $head2 = "";
@@ -68,8 +68,9 @@ food.S_username,shop.S_username,shop.S_name,shop.S_address,shop.S_tel,shop.S_ope
         $p1 = "active";
         $head1 = "active";
     }
-    $meSql.="GROUP BY orders.id_orders";
+    $meSql ="GROUP BY orders.ID_orders";
     $objQuery1 = mysqli_query($conn, $meSql);
+    print_r ($objQuery1);
 ?>
 <?php
 $show="";
@@ -91,6 +92,10 @@ if(!isset($_GET["show"])){
     .font1 {
       font-family: title;
       font-size: 15px;
+    }
+    .button-pink{
+        background-color: #D70F64;
+        color: white;
     }
     </style>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -141,7 +146,7 @@ if(!isset($_GET["show"])){
     ?>><br>
 </div>
 <div class="col-xs">
-    <input type="submit" class="btn btn-lg btn-success" name="submit" value="แก้ไขข้อมูล" id="shop_password" placeholder="รหัสผ่าน">
+    <input type="submit" class="btn btn-lg button-pink" name="submit" value="แก้ไขข้อมูล" id="shop_password" placeholder="รหัสผ่าน">
 </div>
 </div>
             </form>
@@ -261,7 +266,7 @@ if(!isset($_GET["show"])){
                       <div class="form-group">
                            <div class="col-xs-12">
                                 <br>
-                              	<button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> บันทึกข้อมูล</button>
+                              	<button class="btn btn-lg button-pink" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> บันทึกข้อมูล</button>
                                	<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> ลบทั้งหมด</button>
                             </div>
                       </div>
@@ -302,13 +307,10 @@ if(!isset($_GET["show"])){
                             <td><?php echo $time_a; ?></td>
                             <td><?php echo $meResult['P_totalprice']; ?></td>
                             <td><?php echo $meResult['O_statusname']; ?></td>
-                            <td>
-                                <a class="btn btn-primary btn-lg" href="orders_detail_shop.php?id=<?php echo $meResult["ID_orders"];?>" role="button" target="_blank">
-                                    ดูรายละเอียด</a>
-                            </td>
                         </tr>
                         <?php
                     }
+                    print_r ($objQuery1);
                     ?>
                 </tbody>
             </table>
@@ -392,7 +394,7 @@ if(!isset($_GET["show"])){
                             <div class="form-group">
                                 <div class="col-xs-12">
                                 <label><h4>Picture: </h4></label>
-                                    <input type="file" name="filUpload" Required><br>
+                                    <input type="file" name="Food_image" Required><br>
                                     </div>
                             </div>
                             <div class="form-group">

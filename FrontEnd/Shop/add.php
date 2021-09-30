@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>ThaiCreate.Com Tutorial</title>
+<title>Foodpand-admin</title>
 <?php
 	session_start();
 	$shop_username = $_SESSION["S_username"];
@@ -8,7 +8,7 @@
 	$servername = 'localhost';
 		$username = 'root';
 		$password = '';
-		$dbname = 'grab';
+		$dbname = 'foodpanda';
 
 		$conn = mysqli_connect($servername, $username, $password, $dbname);
 
@@ -26,11 +26,11 @@
 </head>
 <body>
 	<form name="form1" method="post" action="add_data.php" enctype="multipart/form-data">
-	<input type="text" hidden name="shop_username" value=<?php echo $shop_username ?>><br>
-	name : <input type="text" name="food_name" value=""><br>
-	size : <input type="text" name="food_size"><br>
-	cash : <input type="text" name="food_cash"><br>
-	Picture : <input type="file" name="filUpload"><br>
+	<input type="text" hidden name="S_username" value=<?php echo $shop_username ?>><br>
+	name : <input type="text" name="Food_name" value=""><br>
+	size : <input type="text" name="Food_size"><br>
+	cash : <input type="text" name="Food_price"><br>
+	Picture : <input type="file" name="Food_image"><br>
 	<input name="btnSubmit" type="submit" value="Submit">
 	</form>
 </body>
