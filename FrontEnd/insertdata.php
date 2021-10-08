@@ -69,9 +69,10 @@ if(count($errors) == 0){
 	$addrinsertresults = mysqli_query($conn, $addrinsert);
 	// printf($addrinsertresults);
 
-	// echo '<script>
-	// alert( "Successful registration!");
- 	// </script>';
+	echo '<script>
+	 alert( "Successful registration!");
+	window.location.href="index.php";
+    </script>';
 	// print_r($address_detail);
 }
 // print_r ($errors);

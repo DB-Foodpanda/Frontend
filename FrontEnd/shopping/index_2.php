@@ -1,10 +1,34 @@
 <?php
 session_start();
 require 'connect.php';
-$id_shop = $_GET["shop"];
-$_SESSION["shop"] = $id_shop;
-$meSql = "SELECT * FROM food WHERE shop_username ='$id_shop'";
+// $id_shop = $_SESSION["shop_id"];
+$shop_name = $_GET['shop'];
+// echo($shop_name);
+if($_GET['shop']){
+    $sqlgetshop = "SELECT * FROM shop WHERE shop_username LIKE '%".$shop_name."%'";
+    $getshop_id = mysqli_query($meConnect, $sqlgetshop);
+    $objshop = mysqli_fetch_array($getshop_id);
+    // print_r($objshop);
+    // echo($objshop);
+    // print_r($objshop);
+    $id_shop = $objshop["shop_id"];
+}
+// echo($_GET['shop']);
+// $_SESSION["shop"] = $id_shop;
+$meSql = "SELECT * FROM food WHERE shop_id ='$id_shop'";
+// $meSql = "SELECT * FROM food";
 $meQuery = mysqli_query($meConnect,$meSql);
+// print_r($meQuery);
+
+
+// echo("<pre>");
+// print_r($_SESSION);
+// echo("</pre>");
+
+
+// echo($_GET["shop"]);
+// echo($_SESSION["shop"]);
+//js -> console.log($meQuery)
 
 $action = isset($_GET['a']) ? $_GET['a'] : "";
 
@@ -113,15 +137,17 @@ if($action == 'finishOrder'){
                     <?php
                     while ($meResult = mysqli_fetch_array($meQuery))
                     {
+                        
                         ?>
                         <tr>
-                            <td><img src="../Shop/myfile/<?php echo $meResult['FilesName'];?>" width="120px" height="100px" border="0"></td>
+                            
+                            <td><img src="../Shop/myfile/<?php echo $meResult['food_image'];?>" width="120px" height="100px" border="0"></td>
                             
                             <td><?php echo $meResult['food_name']; ?></td>
                             <td><?php echo $meResult['food_size']; ?></td>
-                            <td><?php echo number_format($meResult['food_cash'],2); ?></td>
+                            <td><?php echo number_format($meResult['food_price'],2); ?></td>
                             <td>
-                                <a class="btn btn-primary btn-lg" href="updatecart.php?itemId=<?php echo $meResult["id_food"];?>&shop=<?php echo $id_shop?>" role="button">
+                                <a class="btn btn-primary btn-lg" href="updatecart.php?itemId=<?php echo $meResult["food_id"];?>&shop=<?php echo $id_shop?>" role="button">
                                     <span class="glyphicon glyphicon-shopping-cart"></span>
                                     หยิบใส่ตะกร้า</a>
                             </td>

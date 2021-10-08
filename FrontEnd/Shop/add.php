@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Foodpand-admin</title>
+<title>Shopfoodpanda | Add</title>
 <?php
 	session_start();
 	$shop_username = $_SESSION["S_username"];
@@ -13,7 +13,7 @@
 		$conn = mysqli_connect($servername, $username, $password, $dbname);
 
 		mysqli_set_charset($conn, "utf8");
-		$sql="SELECT * FROM food WHERE (S_username = '$shop_username');";
+		$sql="SELECT * FROM food WHERE (shop_username = '$shop_username');";
 
 		if ($result=mysqli_query($conn,$sql))
   		{

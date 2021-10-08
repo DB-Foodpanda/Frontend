@@ -33,6 +33,9 @@ if(empty($_SESSION["cus_username"])){
 if(isset($_GET["shop"])){
     $id_shop = $_GET["shop"];
 }
+
+
+
 /*if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     header("location: ../Grab_present/index.php");
     exit;
@@ -166,7 +169,7 @@ if(isset($_GET["shop"])){
                 <div class="header__top__right__auth">
                     <a href="../edit.php">
                         <?php 
-                            $cus_username = $_SESSION["C_username"]; 
+                            $cus_username = $_SESSION["cus_username"]; 
                             echo $cus_username;
                         ?> </a>
                 </div>
@@ -223,6 +226,15 @@ if(isset($_GET["shop"])){
                         <button type="submit" class="site-btn" style="background: deeppink">SEARCH</button>
                     </form>
                 </div>
+                         
+                <div class="hero__shop__form">
+                    <form action="#">
+                        
+                        <a href="../shopping/index.php">Shop </a>
+                    </form>
+                </div>
+             
+
                     <!--<div class="hero__categories ">
                         <div class="hero__categories__all " style= "background: #FF99CC">
                         
@@ -353,7 +365,7 @@ if(isset($_GET["shop"])){
                             </ul>-->
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
+                            <h6><a href="../shopping/index.php">Meat</a></h6>
                         </div>
                     </div>
                 </div>
@@ -367,7 +379,7 @@ if(isset($_GET["shop"])){
                             </ul>-->
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
+                        <h6><a href="../shopping/index.php">Banana</a></h6>
                         </div>
                     </div>
                 </div>
@@ -381,7 +393,7 @@ if(isset($_GET["shop"])){
                             </ul>-->
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
+                        <h6><a href="../shopping/index.php">Figs </a></h6>
                         </div>
                     </div>
                 </div>
@@ -395,7 +407,7 @@ if(isset($_GET["shop"])){
                             </ul>-->
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
+                        <h6><a href="../shopping/index.php">Watermelon</a></h6>
                         </div>
                     </div>
                 </div>
@@ -409,7 +421,7 @@ if(isset($_GET["shop"])){
                             </ul>-->
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
+                        <h6><a href="../shopping/index.php">Blueberry</a></h6>
                         </div>
                     </div>
                 </div>
@@ -423,7 +435,7 @@ if(isset($_GET["shop"])){
                             </ul>-->
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
+                        <h6><a href="../shopping/index.php">Hamburger</a></h6>
                         </div>
                     </div>
                 </div>
@@ -437,7 +449,7 @@ if(isset($_GET["shop"])){
                             </ul>-->
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
+                        <h6><a href="../shopping/index.php">Mango</a></h6>
                         </div>
                     </div>
                 </div>
@@ -451,7 +463,7 @@ if(isset($_GET["shop"])){
                             </ul>-->
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
+                        <h6><a href="../shopping/index.php">Apple</a></h6>
                         </div>
                     </div>
                 </div>

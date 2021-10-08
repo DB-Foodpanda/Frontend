@@ -71,7 +71,7 @@ if(isset($_SESSION['qty'])){
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="index.php">หน้าแรกร้านค้า</a></li>
-                            <li><a href="cart.php?shop=<?php echo $id_shop?>">ตะกร้าสินค้าของฉัน <span class="badge"><?php echo $meQty; ?></span></a></li>
+                            <li><a href="cart.php?shop=<?php echo $id_shop;?>">ตะกร้าสินค้าของฉัน <span class="badge"><?php echo $meQty; ?></span></a></li>
                             <form action="search.php" method="post">
                                 <input type="text" name="keyword" id="search_name">
                                 <input type="submit" value="ค้นหา" class="btn btn-primary btn-lg">
@@ -119,12 +119,12 @@ if($action == 'finishOrder'){
                     {
                         ?>
                         <tr>
-                            <td><img src="../Shop/myfile/<?php echo $meResult['FilesName'];?>" width="120px" height="100px" border="0"></td>
+                            <td><img src="../Shop/myfile/<?php echo $meResult['shop_image'];?>" width="120px" height="100px" border="0"></td>
                             <td><?php echo $meResult['shop_name']; ?></td>
                             <td><?php echo $meResult['shop_address']; ?></td>
                             <td><?php echo $meResult['shop_tel']; ?></td>
-                            <td><?php echo $meResult['shop_business_time_day']; ?></td>
-                            <td><?php echo $meResult['shop_business_time_open_time']." - ".$meResult['shop_business_time_open_time']; ?></td>
+                            <td><?php echo $meResult['shop_openday']; ?></td>
+                            <td><?php echo $meResult['shop_opentime']." - ".$meResult['shop_closetime']; ?></td>
                             <td>
                                 <a class="btn btn-primary btn-lg" href="index_2.php?shop=<?php echo $meResult["shop_username"];?>" role="button">
                                     <span class="glyphicon glyphicon-shopping-cart"></span>

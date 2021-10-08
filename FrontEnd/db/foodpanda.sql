@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 30, 2021 at 01:36 PM
+-- Generation Time: Oct 03, 2021 at 06:19 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.3.29
 
@@ -38,9 +38,8 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`address_id`, `address_detail`, `cus_id`) VALUES
-(1, 'หอพักนักศึกษามจพ กรุงเทพฯ', 1),
-(2, 'หอ The Curve Salcha 316/73 ห้อง 302 ซ.วงสว่าง11 แขวงวงศ์สว่าง เขตบางซื่อ จ.กรุงเทพมหานคร 10800 เขตบา', 2),
-(3, '389 หอพักทรัพย์ทวีรุ่งเรือง ห้อง 602 ซ.7 วงศ์สว่าง ถ.วงศ์สว่าง เขตบางซื่อ แขวงบางซื่อ กรุงเทพฯ 10800', 3);
+(1, 'ป่้าช้า', 1),
+(2, 'sfsdf', 3);
 
 -- --------------------------------------------------------
 
@@ -54,6 +53,7 @@ CREATE TABLE `customer` (
   `cus_password` varchar(10) CHARACTER SET utf8 NOT NULL,
   `cus_name` varchar(100) CHARACTER SET utf8 NOT NULL,
   `cus_surname` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `cus_birthday` date DEFAULT NULL,
   `cus_tel` char(10) CHARACTER SET utf8 NOT NULL,
   `cus_email` varchar(50) NOT NULL,
   `cus_creditcard_no` char(16) NOT NULL,
@@ -65,12 +65,10 @@ CREATE TABLE `customer` (
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`cus_id`, `cus_username`, `cus_password`, `cus_name`, `cus_surname`, `cus_tel`, `cus_email`, `cus_creditcard_no`, `cus_creditcard_exp`, `cus_creditcard_cvv`) VALUES
-(1, 'Bell', 'abc1234', 'Emma', 'Olivia', '0817854327', '', '1234567890123456', '2024-09-03', 567),
-(2, 'James', 'fgh5679', 'Hello', 'It\'s me', '0956783456', '', '2345678902736483', '2023-07-24', 568),
-(3, 'Pop', 'hjk@erwer', 'Kojo', 'Shinobu', '0993241234', '', '1429472550247590', '2025-04-24', 789),
-(21, 'Proy3245', 'proy@3258', 'Wanat', 'Churvivat', '0974533632', 'fgdgg@gmail.com', '6746365746757364', '2023-05-14', 567),
-(22, 'Halo', 'proy@1809', 'Helloitsme', 'kkkkkk', '0981233467', 'asdasd@outlook.com', '', '0000-00-00', 0);
+INSERT INTO `customer` (`cus_id`, `cus_username`, `cus_password`, `cus_name`, `cus_surname`, `cus_birthday`, `cus_tel`, `cus_email`, `cus_creditcard_no`, `cus_creditcard_exp`, `cus_creditcard_cvv`) VALUES
+(1, 'namee', '', 'na', 'mee', '0000-00-00', '', '', '', '0000-00-00', 0),
+(2, 'namee', '', 'na', 'mee', '0000-00-00', '', '', '', '0000-00-00', 0),
+(3, 'Hello', '12345', 'Proy', 'Wanat', '2021-09-14', '0873561245', 'dsfsdf@gmail.com', '', '0000-00-00', 0);
 
 -- --------------------------------------------------------
 
@@ -88,17 +86,18 @@ CREATE TABLE `driver` (
   `driver_earnacc_no` varchar(13) NOT NULL,
   `driver_earnprice` double NOT NULL,
   `driver_workstatus` bit(1) NOT NULL,
-  `driver_rate` double NOT NULL
+  `driver_rate` double NOT NULL,
+  `orders_status_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `driver`
 --
 
-INSERT INTO `driver` (`driver_id`, `driver_username`, `driver_password`, `driver_name`, `driver_surname`, `driver_tel`, `driver_earnacc_no`, `driver_earnprice`, `driver_workstatus`, `driver_rate`) VALUES
-(5648, 'cat245', '123453453j', 'catmash', 'meow', '0993265478', '4598762103549', 100, b'1', 15),
-(5778, 'dog5648', '13284535hp', 'corndog', 'mashita', '0994568712', '2655598443018', 525, b'0', 78.75),
-(6548, 'payut112', '23154513', 'payut', 'oho', '0123456789', '1654028793125', 250, b'0', 37.5);
+INSERT INTO `driver` (`driver_id`, `driver_username`, `driver_password`, `driver_name`, `driver_surname`, `driver_tel`, `driver_earnacc_no`, `driver_earnprice`, `driver_workstatus`, `driver_rate`, `orders_status_id`) VALUES
+(1, 'cat245', '123453453j', 'catmash', 'meow', '0993265478', '4598762103549', 100, b'1', 15, 0),
+(2, 'dog5648', '13284535hp', 'corndog', 'mashita', '0994568712', '2655598443018', 525, b'0', 78.75, 1),
+(3, 'payut112', '23154513', 'payut', 'oho', '0123456789', '1654028793125', 250, b'0', 37.5, 2);
 
 -- --------------------------------------------------------
 
@@ -113,17 +112,18 @@ CREATE TABLE `food` (
   `food_price` double NOT NULL,
   `food_image` varchar(100) CHARACTER SET utf8 NOT NULL,
   `food_detail` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `food_type` varchar(50) CHARACTER SET utf8 NOT NULL
+  `food_type` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `shop_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `food`
 --
 
-INSERT INTO `food` (`food_id`, `food_name`, `food_size`, `food_price`, `food_image`, `food_detail`, `food_type`) VALUES
-(1121, 'ข้าวผัดเเมว', 'พิเศษ', 150, '', 'ไม่ใส่ไข่เเมว', 'ผัด'),
-(1122, 'เเมวทอดกระเทียม', 'ปกติ', 100, '', 'เเมวทุกตัวสะอาด(เเมววัด)', 'ทอด'),
-(1123, 'อึ่งทอดผัดกระเพรา', 'ปกติ', 100, '', 'อึ่งตัวโตๆน่ากิน', 'ผัด');
+INSERT INTO `food` (`food_id`, `food_name`, `food_size`, `food_price`, `food_image`, `food_detail`, `food_type`, `shop_id`) VALUES
+(1121, 'ข้าวผัดเเมว', 'พิเศษ', 150, '', 'ไม่ใส่ไข่เเมว', 'ผัด', 1),
+(1122, 'เเมวทอดกระเทียม', 'ปกติ', 100, '', 'เเมวทุกตัวสะอาด(เเมววัด)', 'ทอด', 2),
+(1123, 'อึ่งทอดผัดกระเพรา', 'ปกติ', 100, '', 'อึ่งตัวโตๆน่ากิน', 'ผัด', 3);
 
 -- --------------------------------------------------------
 
@@ -158,17 +158,18 @@ INSERT INTO `orders` (`orders_id`, `orders_paytype`, `products_totalprice`, `ord
 
 CREATE TABLE `orders_status` (
   `orders_status_id` int(11) NOT NULL,
-  `order_status_name` varchar(100) NOT NULL
+  `order_status_name` varchar(100) NOT NULL,
+  `driver_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `orders_status`
 --
 
-INSERT INTO `orders_status` (`orders_status_id`, `order_status_name`) VALUES
-(0, 'on hold'),
-(1, 'complete'),
-(2, 'pending');
+INSERT INTO `orders_status` (`orders_status_id`, `order_status_name`, `driver_id`) VALUES
+(0, 'on hold', 1),
+(1, 'complete', 2),
+(2, 'pending', 3);
 
 -- --------------------------------------------------------
 
@@ -211,7 +212,7 @@ INSERT INTO `shop` (`shop_id`, `shop_username`, `shop_password`, `shop_name`, `s
 --
 ALTER TABLE `address`
   ADD PRIMARY KEY (`address_id`),
-  ADD KEY `C_id` (`cus_id`);
+  ADD KEY `customer` (`cus_id`);
 
 --
 -- Indexes for table `customer`
@@ -223,13 +224,15 @@ ALTER TABLE `customer`
 -- Indexes for table `driver`
 --
 ALTER TABLE `driver`
-  ADD PRIMARY KEY (`driver_id`);
+  ADD PRIMARY KEY (`driver_id`),
+  ADD KEY `orders_status_id` (`orders_status_id`);
 
 --
 -- Indexes for table `food`
 --
 ALTER TABLE `food`
-  ADD PRIMARY KEY (`food_id`);
+  ADD PRIMARY KEY (`food_id`),
+  ADD KEY `shop_id` (`shop_id`);
 
 --
 -- Indexes for table `orders`
@@ -241,7 +244,8 @@ ALTER TABLE `orders`
 -- Indexes for table `orders_status`
 --
 ALTER TABLE `orders_status`
-  ADD PRIMARY KEY (`orders_status_id`);
+  ADD PRIMARY KEY (`orders_status_id`),
+  ADD KEY `driver_id` (`driver_id`);
 
 --
 -- Indexes for table `shop`
@@ -257,13 +261,13 @@ ALTER TABLE `shop`
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `cus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `cus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `driver`
@@ -291,13 +295,19 @@ ALTER TABLE `shop`
 -- Constraints for table `address`
 --
 ALTER TABLE `address`
-  ADD CONSTRAINT `C_id` FOREIGN KEY (`cus_id`) REFERENCES `customer` (`cus_id`);
+  ADD CONSTRAINT `customer` FOREIGN KEY (`cus_id`) REFERENCES `customer` (`cus_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `food`
 --
 ALTER TABLE `food`
-  ADD CONSTRAINT `Test` FOREIGN KEY (`ID_Orders`) REFERENCES `orders` (`orders_id`);
+  ADD CONSTRAINT `shop_id` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`shop_id`);
+
+--
+-- Constraints for table `orders_status`
+--
+ALTER TABLE `orders_status`
+  ADD CONSTRAINT `driver_id` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`driver_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -12,8 +12,8 @@ if(empty($_SESSION["driver_username"])){
 $driver_username = $_SESSION["driver_username"]; 
   $sql = "
   SELECT * 
-FROM `driver` JOIN driver_status
-ON driver.ID_driver_status = driver_status.ID_driver_status WHERE driver_username = '$driver_username' ;
+FROM `driver` 
+WHERE driver_username = '$driver_username' ;
     ";
 
   $objQuery = mysqli_query($conn, $sql) or die("Error Query [" . $sql . "]");
@@ -94,7 +94,7 @@ if(!isset($_GET["show"])){
 <div class="container bootstrap snippet">
     <div class="row font1">
   		<div class="col-sm-10"><h1>ข้อมูลคนขับ</h1></div>
-    	<div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="https://www.grab.com/th/wp-content/uploads/sites/10/2018/04/Grab-logo-social.png"></a></div>
+    	<div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class=" img-responsive" src="https://www.khaosod.co.th/wpapp/uploads/2020/10/foodpanda-logo-696x448.png"></a></div>
     </div>
     <div class="row">
   		<div class="col-sm-3"><!--left col-->
@@ -140,9 +140,9 @@ if(!isset($_GET["show"])){
             <!-- <div class="panel-body"> <p> คะแนนลูกค้ท </p> </div> -->
             <div class="panel-body form-group">
                 <div class="col-xs">
-                  <label for="driver_earn_price"><p> รายได้รวม</p></label>
-                    <input type="text" disabled class="form-control" name="driver_earn_price" id="driver_earn_price" 
-                    placeholder="รายได้รวม" value="<?php echo $objResult["driver_earn_price"];?>">
+                  <label for="driver_earnprice"><p> รายได้รวม</p></label>
+                    <input type="text" disabled class="form-control" name="driver_earnprice" id="driver_earnprice" 
+                    placeholder="รายได้รวม" value="<?php echo $objResult["driver_earnprice"];?>">
                 </div>
             </div>
 
@@ -197,11 +197,11 @@ if(!isset($_GET["show"])){
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="driver_earn_acc_no"><h4>หมายเลขบัญชี</h4></label>
+                              <label for="driver_earnacc_no"><h4>หมายเลขบัญชี</h4></label>
                               <input type="text" class="form-control" 
-                              <?php echo $show;?> name="driver_earn_acc_no" 
-                              id="driver_earn_acc_no" placeholder="ใส่หมายเลขบัญชี" title="กรุณาใส่หมายเลขบัญชี" 
-                              value="<?=$objResult["driver_earn_acc_no"];?>" Required>
+                              <?php echo $show;?> name="driver_earnacc_no" 
+                              id="driver_earnacc_no" placeholder="ใส่หมายเลขบัญชี" title="กรุณาใส่หมายเลขบัญชี" 
+                              value="<?=$objResult["driver_earnacc_no"];?>" Required>
                           </div>
                       </div>
                       <div class="form-group">
@@ -211,7 +211,7 @@ if(!isset($_GET["show"])){
                               <input type="text" class="form-control" 
                               disabled name="driver_work_name" id="driver_work_name"
                                placeholder="สถานะของคนขับ" title="สถานะคนขับ" 
-                               value="<?=$objResult["driver_status_name"];?>">
+                               value="<?=$objResult["driver_workstatus"];?>">
                           </div>
                       </div>
                       <div class="form-group">
@@ -220,7 +220,7 @@ if(!isset($_GET["show"])){
                             <label for="driver_work_rate"><h4>ส่วนแบ่ง</h4></label>
                               <input type="text" class="form-control" disabled name="driver_work_rate" 
                               id="driver_work_rate" placeholder="ส่วนแบ่ง" title="สถานะคนขับ" 
-                              value="<?=$objResult["driver_status_rate"];?>">
+                              value="<?=$objResult["driver_rate"];?>">
                           </div>
                       </div>
                       <div class="form-group">

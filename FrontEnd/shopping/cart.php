@@ -29,7 +29,7 @@ if (isset($_SESSION['cart']) and $itemCount > 0)
     $parts=array_filter($parts);
     $inputItems = implode(",",$parts);
     //echo "$inputItems";
-    $meSql = "SELECT * FROM food WHERE id_food in ({$inputItems})";
+    $meSql = "SELECT * FROM food WHERE food_id in ({$inputItems})";
     $meQuery = mysqli_query($meConnect,$meSql);
     $meCount = mysqli_num_rows($meQuery);
 } else
@@ -106,8 +106,8 @@ if (isset($_SESSION['cart']) and $itemCount > 0)
                             $num = 0;
                             while ($meResult = mysqli_fetch_array($meQuery))
                             {
-                                $key = array_search($meResult['id_food'], $_SESSION['cart']);
-                                $total_price = $total_price + ($meResult['food_cash'] * $_SESSION['qty'][$key]);
+                                $key = array_search($meResult['food_id'], $_SESSION['cart']);
+                                $total_price = $total_price + ($meResult['food_price'] * $_SESSION['qty'][$key]);
                                 ?>
                                 <tr>
                                     <td><img src="../Shop/myfile/<?php echo $meResult['FilesName']; ?>" width="120px" height="100px" border="0"></td>
@@ -118,10 +118,10 @@ if (isset($_SESSION['cart']) and $itemCount > 0)
                                         <input type="text" name="qty[<?php echo $num; ?>]" value="<?php echo $_SESSION['qty'][$key]; ?>" class="form-control" style="width: 60px;text-align: center;">
                                         <input type="hidden" name="arr_key_<?php echo $num; ?>" value="<?php echo $key; ?>">
                                     </td>
-                                    <td><?php echo number_format($meResult['food_cash'],2); ?></td>
-                                    <td><?php echo number_format(($meResult['food_cash'] * $_SESSION['qty'][$key]),2); ?></td>
+                                    <td><?php echo number_format($meResult['food_price'],2); ?></td>
+                                    <td><?php echo number_format(($meResult['food_price'] * $_SESSION['qty'][$key]),2); ?></td>
                                     <td>
-                                        <a class="btn btn-danger btn-lg" href="removecart.php?itemId=<?php echo $meResult["id_food"]; ?>&shop=<?php echo $id_shop?>" role="button">
+                                        <a class="btn btn-danger btn-lg" href="removecart.php?itemId=<?php echo $meResult["food_id"]; ?>&shop=<?php echo $id_shop?>" role="button">
                                             <span class="glyphicon glyphicon-trash"></span>
                                             ลบทิ้ง</a>
                                     </td>

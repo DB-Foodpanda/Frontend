@@ -5,7 +5,7 @@
 $cfHost = "localhost";
 $cfUser = "root";
 $cfPassword = "";
-$cfDatabase = "grab";
+$cfDatabase = "foodpanda";
 
 /*
  * connection mysql
