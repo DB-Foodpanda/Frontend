@@ -1,8 +1,8 @@
 <?php
 
-$servername = 'thoranin.org';
-$username = 'proy3258';
-$password = 'Ns94ox^0';
+$servername = 'localhost';
+$username = 'root';
+$password = '';
 $dbname = 'foodpanda';
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);

@@ -50,7 +50,7 @@
   
 </head>
 <body>
-<form action="../Shop/regis_shop_data.php" method="POST" class="mbr-form form-with-styler" enctype="multipart/form-data">
+<form action="insertdata.php" method="POST">
         
         <div class="page-wrapper p-t-180 p-b-100 font-robo">
             <div class="wrapper wrapper--w960">
@@ -58,14 +58,14 @@
                     <div class="card-heading"></div>
                     <div class="card-body">
                         <form class="form-insert">
-                            <img src="../images/foodpanda_shop.png">
+                            <img src="../images/foodpanda.png">
                             <div class="form-group">
                                 <input type="text" name="shop_username" class="form-control" value="" id="name-form4-y" >
-                                <label class="form-label">Shop Username</label>
+                                <label class="form-label">Username</label>
                             </div>
                             <div class="form-group">
                                 <input type="password" name="shop_password" class="form-control" value="" id="email-form4-y" >
-                                <label class="form-label">Shop Password</label>
+                                <label class="form-label">Password</label>
                             </div>
                             <div class="form-group">
                                 <input type="text" name="shop_name" class="form-control" value="" id="name-form4-y">
@@ -80,7 +80,7 @@
                                 <label class="form-label">Address</label>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="shop_earnacc_no" class="form-control" placeholder="เลขบัญชีธนาคาร" value="" id="email-form4-y" >
+                                <input type="text" name="shop_earnacc_no" class="form-control" value="" id="email-form4-y" >
                                 <label class="form-label">Account number</label>
                             </div>
                             <div class="form-group">
@@ -96,8 +96,8 @@
                                 <label class="form-label">Close Time</label>
                             </div>
                             <div class="form-group">
-                                <label for="filUpload" class="form-label">Shop Profile</label><br><br>
-                                <input type="file" name="filUpload" Required>
+                                <input type="file" name="shop_image" class="form-control" value="" id="email-form4-y">
+                                <label class="form-label">Shop Profile</label>
                             </div>
                             <button class="btn" type="submit" >Register</button>
                         </form>
