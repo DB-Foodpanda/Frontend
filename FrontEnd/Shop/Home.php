@@ -1,9 +1,5 @@
 <?php
 session_start();
-/*if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: ../Grab_present/index.php");
-    exit;
-}*/
 require('../connect.php');
 if(empty($_SESSION["shop_username"])){
     header("location:../index.php");
@@ -24,7 +20,12 @@ $shop_username = $_SESSION["shop_username"];
 
   $objQuery2 = mysqli_query($conn, $sql2) or die("Error Query [" . $sql . "]");
 
+  $sql3 = " SELECT *
+  FROM `food`
   
+  ";
+    $objQuery3 = mysqli_query($conn, $sql3) or die("Error Query [" . $sql . "]");
+
     // $meSql = "SELECT * FROM `orders`
     // INNER JOIN orders_status
     // ON orders.orders_id = orders_status.orders_status_id
@@ -36,14 +37,17 @@ $shop_username = $_SESSION["shop_username"];
     // ON shop.shop_id = customer.cus_id
     // WHERE shop.shop_username='$shop_username' AND orders_status.orders_status_id=2
     // ";
-    $meSql = "SELECT * FROM orders a
-    INNER JOIN orders_status b
-    ON a.orders_id = b.orders_status_id
+    
+    $meSql = "SELECT * FROM `order` 
+    JOIN order_details ON order.order_id = order_details.order_id
+    JOIN food ON order_details.food_id = food.food_id 
+    JOIN customer ON order.cus_id = customer.cus_id
+    JOIN shop ON order.shop_id = shop.shop_id
     ";
     
 
     $objQuery1 = mysqli_query($conn,$meSql);
-    print_r($objQuery1);
+    // print_r($objQuery1);
     // echo($objQuery1);
     
     $head1 = "";
@@ -115,29 +119,29 @@ if(!isset($_GET["show"])){
             <div class="panel-heading">ข้อมูลของร้านค้า <i class="fa fa-link fa-1x"></i></div>
             <!-- <div class="panel-body"> <p> คะแนนลูกค้า </p> </div> -->
             <form action="check_pass_shop.php" method="post">
-            <div class="panel-body form-group">
-            <div class="col-xs" style="text-align: center;">
-                <img src="myfile/<?php echo $objResult['shop_image'];?>" width="120px" height="100px" border="0"><br>
-            </div>
-            <div class="col-xs">
-            <?php $shop_name = $objResult["shop_name"];?>
-                <label for="shop_username"><p>ชื่อผู้ใช้</p></label>
-                <input type="text" class="form-control" name="shop_username" disabled id="shop_username" placeholder="ชื่อผู้ใช้" value="<?=$objResult["shop_username"]?>">
-            </div>
+                <div class="panel-body form-group">
+                    <div class="col-xs" style="text-align: center;">
+                        <img src="myfile/<?php echo $objResult['shop_image'];?>" width="120px" height="100px" border="0"><br>
+                    </div>
+                <div class="col-xs">
+                <?php $shop_name = $objResult["shop_name"];?>
+                    <label for="shop_username"><p>ชื่อผู้ใช้</p></label>
+                    <input type="text" class="form-control" name="shop_username" disabled id="shop_username" placeholder="ชื่อผู้ใช้" value="<?=$objResult["shop_username"]?>">
+                </div>
 
-            <div class="col-xs">
-            <label for="shop_password"><p> รหัสผ่าน</p></label>
-                <input type="password" class="form-control" name="shop_password" id="shop_password" placeholder="รหัสผ่าน"
-                <?php
-                    if($pass){
-                        echo 'value="'.$objResult["shop_password"].'" disabled';
-                    }
-                ?>><br>
-            </div>
-            <div class="col-xs">
-                <input type="submit" class="btn btn-lg button-pink" name="submit" value="แก้ไขข้อมูล" id="shop_password" placeholder="รหัสผ่าน">
-            </div>
-            </div>
+                <div class="col-xs">
+                <label for="shop_password"><p> รหัสผ่าน</p></label>
+                    <input type="password" class="form-control" name="shop_password" id="shop_password" placeholder="รหัสผ่าน"
+                    <?php
+                        if($pass){
+                            echo 'value="'.$objResult["shop_password"].'" disabled';
+                        }
+                    ?>><br>
+                </div>
+                    <div class="col-xs">
+                        <input type="submit" class="btn btn-lg button-pink" name="submit" value="แก้ไขข้อมูล" id="shop_password" placeholder="รหัสผ่าน">
+                    </div>
+                </div>
             </form>
 
 
@@ -243,17 +247,17 @@ if(!isset($_GET["show"])){
                       </div>
                       <div class="form-group">
                             <div class="col-xs-3">
-                                <label for="shop_new_password"><h4>รหัสผ่านใหม่</h4></label>
-                                <input type="text" class="form-control" <?php echo $show;?> name="shop_new_password" id="shop_new_password" placeholder="รหัสผ่านใหม่" title="รหัสผ่านใหม่" value="">
+                                <label for="shop_password"><h4>รหัสผ่านใหม่</h4></label>
+                                <input type="text" class="form-control" <?php echo $show;?> name="shop_password" id="shop_new_password" placeholder="รหัสผ่านใหม่" title="รหัสผ่านใหม่" value="">
                             </div>
                         </div>
-                    <div class="form-group">
+                      <div class="form-group">
                         <div class="col-xs-6">
                         <input type="hidden" name="hdnOldFile" value="<?php echo $objResult["shop_image"];?>">
                             <label for="filUpload"><h4>รูปภาพ</h4></label>
                             <input type="file" name="filUpload" class="form-control" <?php echo $show;?>>
                         </div>
-                    </div>
+                      </div>
                       <div class="form-group">
                            <div class="col-xs-12">
                                 <br>
@@ -288,27 +292,34 @@ if(!isset($_GET["show"])){
                 <?php while($meResult = mysqli_fetch_array($objQuery1)):?>
                         <?php
                         $monthNamesThai = array("มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤษจิกายน","ธันวาคม");
-                        $splitTimeStamp = explode(" ",$meResult["orders_datestartsend"]);
+                        $splitTimeStamp = explode(" ",$meResult["order_datestartsend"]);
                         $date_a = $splitTimeStamp[0];
                         $time_a = $splitTimeStamp[1];
                         $date = explode("-",$date_a);
                         ?>
                         <tr>
-                            <td><?php echo $meResult['#']; ?></td>
-                            <td><?php echo $meResult['#']; ?></td>
+                            <td><?php echo $meResult['order_id']; ?></td>
+                            <td><?php echo $meResult['cus_username']; ?></td>
                             <td><?php echo $meResult['shop_name']; ?></td>
-                            <td><?php echo $meResult['#']; ?></td>
-                            <td><?php echo $meResult['#']; ?></td>
+                            <td><?php echo intval($date[2])." ".$monthNamesThai[$date[1]-1]." ".($date[0]+543); ?></td>
+                            <td><?php echo $time_a; ?></td>
+                            <td><?php echo $meResult['order_price']; ?></td>
+                            <td><?php echo $meResult['order_status']; ?></td>
                         </tr>
                         <?php endwhile;?>
                 </tbody>
             </table>
 
-          <!-- ------==END==------
+             <!-- ------==END==------
                 รายละเอียดหน้าออเดอร์
                 ------=====------ -->
 
-             </div>
+             <!-- ------==START==------
+                รายละเอียดหน้าจัดการเมนู
+                ------=====------ -->
+            
+
+            </div>
               <div class='tab-pane <?=$p2?>' id="menu">
               <div style="text-align: right;">
                 <ul class="nav nav-tabs">
@@ -339,15 +350,15 @@ if(!isset($_GET["show"])){
                 </thead>
                 <tbody>
                     ';
-                    while ($meResult = mysqli_fetch_array($objQuery2))
+                    while ($meResult = mysqli_fetch_array($objQuery3))
                     {echo'
                         
                         <tr>
-                            <td><img src="myfile/'.$meResult['shop_image'].'" width="120px" height="120px" border="0"></td>
+                            <td><img src="myfile/'.$meResult['food_image'].'" width="120px" height="120px" border="0"></td>
                             
                             <td>'.$meResult['food_name'].'</td>
                             <td>'.$meResult['food_size'].'</td>
-                            <td>'.number_format($meResult['food_cash'],2).'</td>
+                            <td>'.number_format($meResult['food_price'],2).'</td>
                             <td>
                                 <a class="btn btn-primary btn-lg" href="Home.php?state=3&itemId='.$meResult["food_id"].'" role="button">
                                     แก้ไข</a>
@@ -361,7 +372,7 @@ if(!isset($_GET["show"])){
                 echo '</tbody>
             </table>
   
-             </div>';
+            </div>';
                 }
                 else if((strcmp("$head2","active")==0)&(!(strcmp("$p2_edit","active")==0))){
                     echo'
@@ -369,26 +380,38 @@ if(!isset($_GET["show"])){
                             <input type="text" hidden name="shop_username" value='.$shop_username.'><br>
                             <div class="form-group">
                                 <div class="col-xs-12">
-                                    <label><h4>name: </h4></label>
+                                    <label><h4>Name: </h4></label>
                                     <input type="text" name="food_name" value="" Required><br>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-12">
-                                    <label><h4>size: </h4></label>
+                                    <label><h4>Size: </h4></label>
                                     <input type="text" name="food_size" Required><br>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-12">
-                                <label><h4>cash: </h4></label>
+                                <label><h4>Price: </h4></label>
                                      <input type="text" name="food_price" Required><br>
                                     </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-12">
+                                <label><h4>Detail: </h4></label>
+                                     <input type="text" name="food_detail" Required><br>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                <label><h4>Type: </h4></label>
+                                     <input type="text" name="food_type" Required><br>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
                                 <label><h4>Picture: </h4></label>
-                                    <input type="file" name="food_image" Required><br>
+                                    <input type="file" name="filUpload" Required><br>
                                     </div>
                             </div>
                             <div class="form-group">
@@ -404,13 +427,13 @@ if(!isset($_GET["show"])){
 	                $objQuery_edit = mysqli_query($conn,$strSQL_edit) or die ("Error Query [".$strSQL_edit."]");
 	                $objResult = mysqli_fetch_array($objQuery_edit);
                     echo'
-                        <form name="form1" method="post" action="update_data.php?id_food='.$_GET["itemId"].'" enctype="multipart/form-data">
-                            <input type="text" hidden name="S_username" value='.$shop_username.'><br>
-                            <input type="hidden" name="hdnOldFile" value="'.$objResult["S_image"].'">
-                            <img src="myfile/'.$objResult["shop_image"].'" width="200px" height="200px"><br><br>
+                        <form name="form1" method="post" action="update_data.php?food_id='.$_GET["itemId"].'" enctype="multipart/form-data">
+                            <input type="text" hidden name="shop_username" value='.$shop_username.'><br>
+                            <input type="hidden" name="hdnOldFile" value="'.$objResult["food_image"].'">
+                            <img src="myfile/'.$objResult["food_image"].'" width="200px" height="200px"><br><br>
                             <div class="form-group">
                                 <div class="col-xs-12">
-                                <label><h4>name: </h4></label>
+                                <label><h4>Name: </h4></label>
                                 <input type="text" name="food_name" value="'.$objResult["food_name"].'" Required><br>
                                 </div>
                             </div>
@@ -422,8 +445,14 @@ if(!isset($_GET["show"])){
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-12">
-                                <label><h4>Cash: </h4></label>
-                                <input type="text" name="food_cash" value="'.$objResult["food_price"].'" Required><br>
+                                <label><h4>Price: </h4></label>
+                                <input type="text" name="food_price" value="'.$objResult["food_price"].'" Required><br>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                <label><h4>Detail: </h4></label>
+                                <input type="text" name="food_detail" value="'.$objResult["food_detail"].'" Required><br>
                                     </div>
                             </div>
                             <div class="form-group">
@@ -441,7 +470,11 @@ if(!isset($_GET["show"])){
                     ';
                 }
             ?>
-              </div><!--/tab-pane-->
+              </div>
+              
+               <!-- ------==END==------
+                รายละเอียดหน้าจัดการเมนู
+                ------=====------ --><!--/tab-pane-->
           </div><!--/tab-content-->
 
         </div><!--/col-9-->

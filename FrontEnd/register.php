@@ -2,6 +2,13 @@
 <html>
 
 <head>
+    <style>
+        img{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,7 +17,7 @@
     <meta name="keywords" content="Colorlib Templates">
 
     <!-- Title Page-->
-    <title>REGISTER</title>
+    <title>Foodpanda register form</title>
 
     <!-- Icons font CSS-->
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -20,9 +27,9 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
         rel="stylesheet">
 
-    <!-- Vendor CSS
+    <!-- Vendor CSS-->
     <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">-->
+    <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
     <link href="css/main.css" rel="stylesheet" media="all">
@@ -55,7 +62,7 @@
                     <div class="card-heading"></div>
                     <div class="card-body">
                         <form class="form-insert">
-                            <img src="images/foodpanda.png">
+                            <img src="images/foodpanda.png" width="250px"height="250px">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="cus_name"/>
                                 <label class="form-label">Name</label>
@@ -65,8 +72,11 @@
                                 <label class="form-label">Surname</label>
                             </div>
                             <div class="form-group">
-                                <input type="date" class="form-control" name="cus_birthday"/>
                                 <label class="form-label">Birthday</label>
+                            </div>
+                            <br><br>
+                            <div class="form-group">
+                                <input type="date" class="form-control" name="cus_birthday"/>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="cus_tel" pattern="[0-9]{10}"/>
@@ -96,17 +106,17 @@
         </div>
     </form>
 
-    <!-- Jquery JS
+    <!-- Jquery JS-->
     <script src="vendor/jquery/jquery.min.js"></script>
-     Vendor JS
+    <!-- Vendor JS-->
     <script src="vendor/select2/select2.min.js"></script>
     <script src="vendor/datepicker/moment.min.js"></script>
-    <script src="vendor/datepicker/daterangepicker.js"></script>-->
+    <script src="vendor/datepicker/daterangepicker.js"></script>
 
     <!-- Main JS-->
     <script src="js/global.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script type="text/javascript" src="AutoProvince.js"></script>
+<script type="text/javascript" src="AutoProvince.js"></script>
 <script>
 	$('body').AutoProvince({
 		PROVINCE:		'#province', // select div สำหรับรายชื่อจังหวัด

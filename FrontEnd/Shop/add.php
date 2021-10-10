@@ -2,16 +2,11 @@
 <head>
 <title>Shop | Add</title>
 <?php
+	require('../connect.php');
 	session_start();
 	$shop_username = $_SESSION["shop_username"];
 
-	$servername = 'localhost';
-		$username = 'root';
-		$password = '';
-		$dbname = 'foodpanda';
-
-		$conn = mysqli_connect($servername, $username, $password, $dbname);
-
+		
 		mysqli_set_charset($conn, "utf8");
 		$sql="SELECT * FROM food WHERE (shop_username = '$shop_username');";
 
