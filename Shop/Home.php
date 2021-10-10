@@ -84,24 +84,11 @@ if(!isset($_GET["show"])){
 ?>
 
 <head>
-  <title>กรอกข้อมูลร้านค้า</title>
+  <title>Shop</title>
   <meta charset="utf-8">
-  <style type = "text/css">
-    @font-face {
-      font-family: title;
-      src :url('fonts/Prompt-Light.ttf');
-    }
-    .font1 {
-      font-family: title;
-      font-size: 15px;
-    }
-    .button-pink{
-        background-color: #D70F64;
-        color: white;
-    }
-    </style>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="css/home.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -132,25 +119,25 @@ if(!isset($_GET["show"])){
             <div class="col-xs" style="text-align: center;">
                 <img src="myfile/<?php echo $objResult['shop_image'];?>" width="120px" height="100px" border="0"><br>
             </div>
-<div class="col-xs">
-<?php $shop_name = $objResult["shop_name"];?>
-    <label for="shop_username"><p>ชื่อผู้ใช้</p></label>
-    <input type="text" class="form-control" name="shop_username" disabled id="shop_username" placeholder="ชื่อผู้ใช้" value="<?=$objResult["shop_username"]?>">
-</div>
+            <div class="col-xs">
+            <?php $shop_name = $objResult["shop_name"];?>
+                <label for="shop_username"><p>ชื่อผู้ใช้</p></label>
+                <input type="text" class="form-control" name="shop_username" disabled id="shop_username" placeholder="ชื่อผู้ใช้" value="<?=$objResult["shop_username"]?>">
+            </div>
 
-<div class="col-xs">
-  <label for="shop_password"><p> รหัสผ่าน</p></label>
-    <input type="password" class="form-control" name="shop_password" id="shop_password" placeholder="รหัสผ่าน"
-    <?php
-        if($pass){
-            echo 'value="'.$objResult["shop_password"].'" disabled';
-        }
-    ?>><br>
-</div>
-<div class="col-xs">
-    <input type="submit" class="btn btn-lg button-pink" name="submit" value="แก้ไขข้อมูล" id="shop_password" placeholder="รหัสผ่าน">
-</div>
-</div>
+            <div class="col-xs">
+            <label for="shop_password"><p> รหัสผ่าน</p></label>
+                <input type="password" class="form-control" name="shop_password" id="shop_password" placeholder="รหัสผ่าน"
+                <?php
+                    if($pass){
+                        echo 'value="'.$objResult["shop_password"].'" disabled';
+                    }
+                ?>><br>
+            </div>
+            <div class="col-xs">
+                <input type="submit" class="btn btn-lg button-pink" name="submit" value="แก้ไขข้อมูล" id="shop_password" placeholder="รหัสผ่าน">
+            </div>
+            </div>
             </form>
 
 
@@ -166,7 +153,9 @@ if(!isset($_GET["show"])){
             </div>
 
           </div>
-          <a href="../website/logout.php">ออกจากระบบ</a>
+          <div class="logout">
+            <a href="../website/logout.php" >ออกจากระบบ</a>
+          </div>
 
         <!--  <ul class="list-group font1 ">
             <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>

@@ -70,6 +70,7 @@ if(isset($_GET["shop"])){
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
+                        <li><a href="../shopping/index.php"><i class="fa fa-home"></i></a></li>
                             <li><a href="../shopping/monitor_order.php"><i class="fa fa-check-circle"></i></a></li>
                             <li><a href="../shopping/cart.php"><i class="fa fa-shopping-cart"></i></a></li>
                         </ul>
@@ -94,13 +95,6 @@ if(isset($_GET["shop"])){
                         <button type="submit" class="site-btn" style="background: deeppink">SEARCH</button>
                     </form>
                 </div>
-
-                    <div class="hero__shop__form">
-                        <form action="#">
-
-                            <a href="../shopping/index.php">Shop </a>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>

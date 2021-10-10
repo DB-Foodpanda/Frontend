@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Shopfoodpanda | Add_data</title>
+<title>Shop | Add_data</title>
 </head>
 <body>
 <?php

@@ -73,18 +73,9 @@ if(!isset($_GET["show"])){
 <head>
   <title>กรอกข้อมูลคนขับ</title>
   <meta charset="utf-8">
-  <style type = "text/css">
-    @font-face {
-      font-family: title;
-      src :url('fonts/Prompt-Light.ttf');
-    }
-    .font1 {
-      font-family: title;
-      font-size: 15px;
-    }
-    </style>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="../Shop/css/home.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -128,7 +119,7 @@ if(!isset($_GET["show"])){
     ?>><br>
 </div>
 <div class="col-xs">
-    <input type="submit" class="btn btn-lg btn-success" name="submit" value="แก้ไขข้อมูล" id="driver_password" placeholder="รหัสผ่าน">
+    <input type="submit" class="btn btn-lg button-pink" name="submit" value="แก้ไขข้อมูล" id="driver_password" placeholder="รหัสผ่าน">
 </div>
 </div>
             </form>
@@ -147,7 +138,9 @@ if(!isset($_GET["show"])){
             </div>
 
           </div>
-          <a href="logout.php">ออกจากระบบ</a>
+          <div class="logout">
+            <a href="../website/logout.php" >ออกจากระบบ</a>
+          </div>
 
         <!--  <ul class="list-group font1 ">
             <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
@@ -235,7 +228,7 @@ if(!isset($_GET["show"])){
                       <div class="form-group">
                            <div class="col-xs-12">
                                 <br>
-                              	<button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> บันทึกข้อมูล</button>
+                              	<button class="btn btn-lg button-pink" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> บันทึกข้อมูล</button>
                                	<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> ลบทั้งหมด</button>
                             </div>
                       </div>
