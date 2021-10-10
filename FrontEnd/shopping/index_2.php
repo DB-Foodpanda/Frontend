@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'connect.php';
+require ('connect.php');
 $id_shop = $_SESSION["shop_id"];
 $shop_name = $_GET['shop'];
 // echo($shop_name);

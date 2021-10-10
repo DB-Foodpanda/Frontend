@@ -58,7 +58,7 @@
                     <div class="card-heading"></div>
                     <div class="card-body">
                         <form class="form-insert">
-                            <img src="../images/foodpanda.png">
+                            <img src="../images/foodpanda_driver.png">
                             <div class="form-group">
                                 <input type="text" name="driver_name" class="form-control" value="" id="name-form4-y">
                                 <label class="form-label">Name</label>

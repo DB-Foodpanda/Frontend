@@ -2,9 +2,9 @@
 /*
  * set var
  */
-$cfHost = "localhost";
-$cfUser = "root";
-$cfPassword = "";
+$cfHost = "thoranin.org";
+$cfUser = "proy3258";
+$cfPassword = "Ns94ox^0";
 $cfDatabase = "foodpanda";
 
 /*
