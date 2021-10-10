@@ -1,7 +1,8 @@
 <?php
 session_start();
 require 'connect.php';
-
+$id_shop = $_SESSION["shop_id"];
+$meSql = "SELECT * FROM food WHERE shop_id ='$id_shop'";
 $meSql = "SELECT * FROM shop";
 if(isset($_GET['shop_name'])){
     $name = $_GET['shop_name'];
@@ -34,6 +35,7 @@ if(isset($_SESSION['qty'])){
         <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="bootstrap/css/nava.css" rel="stylesheet">
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -127,7 +129,7 @@ if($action == 'finishOrder'){
                             <td><?php echo $meResult['shop_opentime']." - ".$meResult['shop_closetime']; ?></td>
                             <td>
                                 <a class="btn btn-primary btn-lg" href="index_2.php?shop=<?php echo $meResult["shop_username"];?>" role="button">
-                                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                                    <span class="fa fa-shopping-cart"></span>
                                     เข้าร้าน</a>
                             </td>
                         </tr>

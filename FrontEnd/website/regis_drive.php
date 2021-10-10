@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html  >
+<html>
 <head>
-  <!-- Site made with Mobirise Website Builder v5.1.4, https://mobirise.com -->
+  <!-- Site made with Mobirise Website Builder v5.1.4, https://mobirise.com 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Mobirise v5.1.4, mobirise.com">
@@ -19,15 +19,82 @@
   <link rel="stylesheet" href="assets/dropdown/css/style.css">
   <link rel="stylesheet" href="assets/socicon/css/styles.css">
   <link rel="stylesheet" href="assets/theme/css/style.css">
-  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-  
-  
-  
-  
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">-->
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>REGISTER DRIVER</title>
+
+    <!-- Icons font CSS
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">-->
+    <script src="https://kit.fontawesome.com/a1850e5a9e.js" crossorigin="anonymous"></script>
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">-->
+
+    <!-- Main CSS-->
+    <link href="../css/main.css" rel="stylesheet" media="all">
+    <link href="../css/style-register.css" rel="stylesheet" media="all">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+
+    
 </head>
 <body>
-  
-  <section class="menu cid-s48OLK6784" once="menu" id="menu1-s">
+<form action="regis_drive_data.php" method="POST">
+        
+        <div class="page-wrapper p-t-180 p-b-100 font-robo">
+            <div class="wrapper wrapper--w960">
+                <div class="card card-2">
+                    <div class="card-heading"></div>
+                    <div class="card-body">
+                        <form class="form-insert">
+                            <img src="../images/foodpanda.png">
+                            <div class="form-group">
+                                <input type="text" name="driver_name" class="form-control" value="" id="name-form4-y">
+                                <label class="form-label">Name</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="driver_surname" class="form-control" value="" id="email-form4-y" >
+                                <label class="form-label">Surname</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="driver_username" class="form-control" value="" id="name-form4-y" >
+                                <label class="form-label">Username</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="driver_password" class="form-control" value="" id="email-form4-y" >
+                                <label class="form-label">Password</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="driver_tel" class="form-control" value="" id="email-form4-v" pattern="[0-9]{10}">
+                                <label class="form-label">Tel</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="driver_earnacc_no" class="form-control" value="" id="email-form4-v">
+                                <label class="form-label">Account number</label>
+                            </div>
+                            <button class="btn" type="submit" >Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="AutoProvince.js"></script>
+  <!--<section class="menu cid-s48OLK6784" once="menu" id="menu1-s">
     
     <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
         <div class="container-fluid">
@@ -199,7 +266,7 @@
             </div>
         </div>
     </div>
-</section><section style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;"><a href="https://mobirise.site/v" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a><p style="flex: 0 0 auto; margin:0; padding-right:1rem;">How to make your own site - <a href="https://mobirise.site/x" style="color:#aaa;">Check it out</a></p></section><script src="assets/web/assets/jquery/jquery.min.js"></script>  <script src="assets/popper/popper.min.js"></script>  <script src="assets/tether/tether.min.js"></script>  <script src="assets/bootstrap/js/bootstrap.min.js"></script>  <script src="assets/smoothscroll/smooth-scroll.js"></script>  <script src="assets/dropdown/js/nav-dropdown.js"></script>  <script src="assets/dropdown/js/navbar-dropdown.js"></script>  <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>  <script src="assets/playervimeo/vimeo_player.js"></script>  <script src="assets/theme/js/script.js"></script>  <script src="assets/formoid/formoid.min.js"></script>  
+</section><section style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;"><a href="https://mobirise.site/v" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a><p style="flex: 0 0 auto; margin:0; padding-right:1rem;">How to make your own site - <a href="https://mobirise.site/x" style="color:#aaa;">Check it out</a></p></section><script src="assets/web/assets/jquery/jquery.min.js"></script>  <script src="assets/popper/popper.min.js"></script>  <script src="assets/tether/tether.min.js"></script>  <script src="assets/bootstrap/js/bootstrap.min.js"></script>  <script src="assets/smoothscroll/smooth-scroll.js"></script>  <script src="assets/dropdown/js/nav-dropdown.js"></script>  <script src="assets/dropdown/js/navbar-dropdown.js"></script>  <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>  <script src="assets/playervimeo/vimeo_player.js"></script>  <script src="assets/theme/js/script.js"></script>  <script src="assets/formoid/formoid.min.js"></script>  -->
   
   
 </body>

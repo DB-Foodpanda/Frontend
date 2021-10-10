@@ -1,6 +1,6 @@
 <?php
 
-require('./connect.php');
+require('../connect.php');
 session_start();
 $shop_username = $_SESSION["shop_username"];
 

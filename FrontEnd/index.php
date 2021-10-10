@@ -43,13 +43,16 @@
     <div class="form-group">
       <input type="password" class="form-control" name="cus_password" Required/>
       <label class="form-label">Password</label>
-      <p class="alert">Invalid Credentials..!!</p>
+      <p class="alert">Invalid Login..!!</p>
       <button class="btn" type="submit">Login </button>
     </div>
   </form>
 
   <br><br> Not a member? <br><br>
-  <a href="register.php" target="_blank" rel="" style = color:white;font-size:16px;>Register for member</a><br>
+  <a href="register.php" target="_blank" rel="" style = color:white;font-size:16px;>Register for member</a><br><br>
+  <a href="website/regis_shop.php" target="_blank" rel="" style = color:white;font-size:16px;>Register for shop</a><br><br>
+  <a href="website/regis_drive.php" target="_blank" rel="" style = color:white;font-size:16px;>Register for driver</a><br><br>
+
   <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
   <script src="./js/script.js"></script>

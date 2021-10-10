@@ -64,7 +64,6 @@ if(count($errors) == 0){
 	$getinsertcusid = mysqli_insert_id($conn);
 	// echo($getinsertcusid);
 
-	
 	$addrinsert = "INSERT INTO address(address_detail, cus_id) VALUES ('$address_detail', $getinsertcusid)";
 	$addrinsertresults = mysqli_query($conn, $addrinsert);
 	// printf($addrinsertresults);

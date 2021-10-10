@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Dancing+Script|Roboto);
+@import url('https://fonts.googleapis.com/css2?family=Mali:wght@200&display=swap');
 *, *:after, *:before {
   box-sizing: border-box;
 }
@@ -6,7 +6,7 @@
 body {
   background: #cc3367;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Mali', cursive;
 }
 
 .panda {
@@ -224,7 +224,7 @@ form.up {
 
 h1 {
   color: #FF4081;
-  font-family: 'Dancing Script', cursive;
+  font-family: 'Mali', cursive;
 }
 
 .btn {
@@ -260,6 +260,8 @@ h1 {
   z-index: 1;
   left: 0;
   top: 5px;
+  color: #FF4081;
+  font-weight: bold;
   transition: 0.3s;
 }
 .form-group .form-control {
@@ -281,10 +283,12 @@ h1 {
   outline: none;
   box-shadow: 0 1px #FF4081;
   border-color: #FF4081;
+  font-weight: bold;
 }
 .form-group .form-control:focus + .form-label, .form-group .form-control:valid + .form-label {
-  font-size: 12px;
+  font-size: 14px;
   color: #FF4081;
+  font-weight: bold;
   transform: translateY(-15px);
 }
 
@@ -332,6 +336,15 @@ h1 {
 .wrong-entry .alert {
   opacity: 1;
   transform: scale(1, 1);
+}
+::-webkit-file-upload-button{
+	background: #FF4081;
+	border: 1px solid #FF4081;
+  margin-top: 2%;
+	padding: 2px 12px 2px 12px;
+	color: #FFFF;
+	font-size: 10px;
+	font-family: 'Mali', cursive;
 }
 @-webkit-keyframes eye-blink {
   to {

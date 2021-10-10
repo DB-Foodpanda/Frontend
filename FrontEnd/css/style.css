@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Dancing+Script|Roboto);
+@import url('https://fonts.googleapis.com/css2?family=Mali:wght@200&display=swap');
 *, *:after, *:before {
   box-sizing: border-box;
 }
@@ -6,9 +6,25 @@
 body {
   background: #cc3367;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  font-family: 'Mali', cursive;
 }
-
+.button {
+  background-color: #fff;
+  border: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button a{
+  color: black;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Mali', cursive;
+}
 .panda {
   position: relative;
   width: 200px;
@@ -227,7 +243,7 @@ form.up {
 
 h1 {
   color: #FF4081;
-  font-family: 'Dancing Script', cursive;
+  font-family: 'Mali', cursive;
 }
 
 .btn {
@@ -241,6 +257,8 @@ h1 {
   transition: 0.3s;
   box-shadow: 0 50px #FF4081 inset;
   color: #fff;
+  font-family: 'Mali', cursive;
+  font-weight: bold;
 }
 .btn:hover {
   box-shadow: 0 0 #FF4081 inset;
