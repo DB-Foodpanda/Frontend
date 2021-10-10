@@ -88,16 +88,7 @@ if(!isset($_GET["show"])){
     	<div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class=" img-responsive" src="https://www.khaosod.co.th/wpapp/uploads/2020/10/foodpanda-logo-696x448.png"></a></div>
     </div>
     <div class="row">
-  		<div class="col-sm-3"><!--left col-->
-
-
-      <!--<div class="text-center">
-        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
-        <h6>Upload a different photo...</h6>
-        <input type="file" class="text-center center-block file-upload">
-      </div></hr><br>-->
-
-
+  		<div class="col-sm-3">
         <div class="panel panel-default font1">
             <div class="panel-heading">ข้อมูลของคนขับ <i class="fa fa-link fa-1x"></i></div>
             <!-- <div class="panel-body"> <p> คะแนนลูกค้ท </p> </div> -->
@@ -123,12 +114,9 @@ if(!isset($_GET["show"])){
 </div>
 </div>
             </form>
-
-
           </div>
           <div class="panel panel-default font1">
             <div class="panel-heading">ข้อมูล<i class="fa fa-link fa-1x"></i></div>
-            <!-- <div class="panel-body"> <p> คะแนนลูกค้ท </p> </div> -->
             <div class="panel-body form-group">
                 <div class="col-xs">
                   <label for="driver_earnprice"><p> รายได้รวม</p></label>
@@ -142,20 +130,6 @@ if(!isset($_GET["show"])){
             <a href="../website/logout.php" >ออกจากระบบ</a>
           </div>
 
-        <!--  <ul class="list-group font1 ">
-            <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
-            <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
-            <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
-            <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
-            <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
-          </ul> -->
-
-        <!--  <div class="panel panel-default">
-            <div class="panel-heading">Social Media</div>
-            <div class="panel-body">
-            	<i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x font1"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
-            </div>
-          </div> -->
 
         </div><!--/col-3-->
     	<div class="col-sm-9 font1">
