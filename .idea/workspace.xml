@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5cd187e7-c5de-473b-9c9c-d5f48fe3b667" name="Changes" comment="UPDATE[driver.php driver_edit.php]">
+      <change beforePath="$PROJECT_DIR$/Shop/delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/Shop/delete.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shop/regis_shop_data.php" beforeDir="false" afterPath="$PROJECT_DIR$/Shop/regis_shop_data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shop/shop_edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/Shop/shop_edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shop/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/Shop/update.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shop/update_data.php" beforeDir="false" afterPath="$PROJECT_DIR$/Shop/update_data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/connect.php" beforeDir="false" afterPath="$PROJECT_DIR$/connect.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insertdata.php" beforeDir="false" afterPath="$PROJECT_DIR$/insertdata.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shopping/connect.php" beforeDir="false" afterPath="$PROJECT_DIR$/shopping/connect.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/regis_drive.php" beforeDir="false" afterPath="$PROJECT_DIR$/website/regis_drive.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/regis_drive_data.php" beforeDir="false" afterPath="$PROJECT_DIR$/website/regis_drive_data.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +22,7 @@
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$/.." value="Proy" />
+        <entry key="$PROJECT_DIR$" value="aomsin" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
