@@ -4,32 +4,30 @@ require 'connect.php';
 $cus_username = $_SESSION["cus_username"];
 $meSql = "SELECT *
 FROM orders JOIN orders_status
-ON orders.id_orders_status = orders_status.id_orders_status
+ON orders.orders_status_id = orders_status.orders_status_id
 JOIN orders_detail
-ON orders.id_orders = orders_detail.id_orders
+ON orders.orders_id = orders_detail.orders_id
 JOIN food
-ON orders_detail.id_food = food.id_food
+ON orders_detail.food_id = food.food_id
 JOIN shop
 ON food.shop_username = shop.shop_username
 JOIN driver
 ON orders.driver_username = driver.driver_username
-JOIN driver_status
-ON driver.ID_driver_status = driver_status.ID_driver_status
-WHERE orders.Cus_username =  '$cus_username' AND orders.id_orders_status IN
+WHERE orders.Cus_username =  '$cus_username' AND orders.orders_status_id IN
 ";
 $meSql1 = "SELECT *
 FROM orders JOIN orders_status
-ON orders.id_orders_status = orders_status.id_orders_status
+ON orders.orders_status_id = orders_status.orders_status_id
 JOIN orders_detail
-ON orders.id_orders = orders_detail.id_orders
+ON orders.orders_id = orders_detail.orders_id
 JOIN food
-ON orders_detail.id_food = food.id_food
+ON orders_detail.food_id = food.food_id
 JOIN shop
 ON food.shop_username = shop.shop_username
-WHERE orders.Cus_username =  '$cus_username' AND orders.id_orders_status IN
+WHERE orders.cus_username =  '$cus_username' AND orders.orders_status_id IN
 ";
-if(isset($_GET["id_orders_status"])){
-    $name = $_GET['id_orders_status'];
+if(isset($_GET["orders_status_id"])){
+    $name = $_GET['orders_status_id'];
     $meSql .= "(".$name.")";
     $meSql1 .= "(".$name.")";
 }

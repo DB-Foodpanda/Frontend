@@ -2,7 +2,7 @@
 session_start();
 require 'connect.php';
 $cus_username = $_SESSION["cus_username"];
-$Cus_address = $_SESSION["cus_address"] ;
+$Cus_address = $_SESSION["address_detail"] ;
 $id_shop = $_GET["shop"];
 $action = isset($_GET['a']) ? $_GET['a'] : "";
 $itemCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
@@ -139,8 +139,8 @@ $obj = mysqli_fetch_array($Query);
                             $num = 0;
                             while ($meResult = mysqli_fetch_array($meQuery))
                             {
-                                $key = array_search($meResult['id_food'], $_SESSION['cart']);
-                                $total_price = $total_price + ($meResult['food_cash'] * $_SESSION['qty'][$key]);
+                                $key = array_search($meResult['food_id'], $_SESSION['cart']);
+                                $total_price = $total_price + ($meResult['food_price'] * $_SESSION['qty'][$key]);
                                 $vat = $total_price*0.07;
                                 $total_price_non_vat = $total_price;
                                 $total_price = $total_price+$vat;

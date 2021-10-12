@@ -1,10 +1,34 @@
 <?php
 session_start();
-require 'connect.php';
-$id_shop = $_GET["shop"];
-$_SESSION["shop"] = $id_shop;
-$meSql = "SELECT * FROM food WHERE shop_username ='$id_shop'";
+require ('connect.php');
+$id_shop = $_SESSION["shop_id"];
+$shop_name = $_GET['shop'];
+// echo($shop_name);
+if($_GET['shop']){
+    $sqlgetshop = "SELECT * FROM shop WHERE shop_username LIKE '%".$shop_name."%'";
+    $getshop_id = mysqli_query($meConnect, $sqlgetshop);
+    $objshop = mysqli_fetch_array($getshop_id);
+    // print_r($objshop);
+    // echo($objshop);
+    // print_r($objshop);
+    $id_shop = $objshop["shop_id"];
+}
+// echo($_GET['shop']);
+// $_SESSION["shop"] = $id_shop;
+$meSql = "SELECT * FROM food WHERE shop_id ='$id_shop'";
+// $meSql = "SELECT * FROM food";
 $meQuery = mysqli_query($meConnect,$meSql);
+// print_r($meQuery);
+
+
+// echo("<pre>");
+// print_r($_SESSION);
+// echo("</pre>");
+
+
+// echo($_GET["shop"]);
+// echo($_SESSION["shop"]);
+//js -> console.log($meQuery)
 
 $action = isset($_GET['a']) ? $_GET['a'] : "";
 
@@ -27,18 +51,14 @@ if(isset($_SESSION['qty'])){
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>itoffside.com shopping cart</title>
+        <title>SHOP</title>
 
         <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="bootstrap/css/nava.css" rel="stylesheet">
+        <!--css-->
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
 
     </head>
     <body>
@@ -49,7 +69,7 @@ if(isset($_SESSION['qty'])){
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
+                            <!--<span class="sr-only">Toggle navigation</span>-->
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -113,16 +133,17 @@ if($action == 'finishOrder'){
                     <?php
                     while ($meResult = mysqli_fetch_array($meQuery))
                     {
+                        
                         ?>
                         <tr>
-                            <td><img src="../Shop/myfile/<?php echo $meResult['FilesName'];?>" width="120px" height="100px" border="0"></td>
+                            
+                            <td><img src="../Shop/myfile/<?php echo $meResult['food_image'];?>" width="120px" height="100px" border="0"></td>
                             
                             <td><?php echo $meResult['food_name']; ?></td>
                             <td><?php echo $meResult['food_size']; ?></td>
-                            <td><?php echo number_format($meResult['food_cash'],2); ?></td>
+                            <td><?php echo number_format($meResult['food_price'],2); ?></td>
                             <td>
-                                <a class="btn btn-primary btn-lg" href="updatecart.php?itemId=<?php echo $meResult["id_food"];?>&shop=<?php echo $id_shop?>" role="button">
-                                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                                <a class="btn btn-primary btn-lg" href="updatecart.php?itemId=<?php echo $meResult["food_id"];?>&shop=<?php echo $id_shop?>" role="button">
                                     หยิบใส่ตะกร้า</a>
                             </td>
                         </tr>

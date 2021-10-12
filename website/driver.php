@@ -12,8 +12,8 @@ if(empty($_SESSION["driver_username"])){
 $driver_username = $_SESSION["driver_username"]; 
   $sql = "
   SELECT * 
-FROM `driver` JOIN driver_status
-ON driver.ID_driver_status = driver_status.ID_driver_status WHERE driver_username = '$driver_username' ;
+FROM `driver` 
+WHERE driver_username = '$driver_username' ;
     ";
 
   $objQuery = mysqli_query($conn, $sql) or die("Error Query [" . $sql . "]");
@@ -73,18 +73,9 @@ if(!isset($_GET["show"])){
 <head>
   <title>กรอกข้อมูลคนขับ</title>
   <meta charset="utf-8">
-  <style type = "text/css">
-    @font-face {
-      font-family: title;
-      src :url('fonts/Prompt-Light.ttf');
-    }
-    .font1 {
-      font-family: title;
-      font-size: 15px;
-    }
-    </style>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="../Shop/css/home.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -94,26 +85,17 @@ if(!isset($_GET["show"])){
 <div class="container bootstrap snippet">
     <div class="row font1">
   		<div class="col-sm-10"><h1>ข้อมูลคนขับ</h1></div>
-    	<div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="https://www.grab.com/th/wp-content/uploads/sites/10/2018/04/Grab-logo-social.png"></a></div>
+    	<div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class=" img-responsive" src="https://www.khaosod.co.th/wpapp/uploads/2020/10/foodpanda-logo-696x448.png"></a></div>
     </div>
     <div class="row">
-  		<div class="col-sm-3"><!--left col-->
-
-
-      <!--<div class="text-center">
-        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
-        <h6>Upload a different photo...</h6>
-        <input type="file" class="text-center center-block file-upload">
-      </div></hr><br>-->
-
-
+  		<div class="col-sm-3">
         <div class="panel panel-default font1">
             <div class="panel-heading">ข้อมูลของคนขับ <i class="fa fa-link fa-1x"></i></div>
             <!-- <div class="panel-body"> <p> คะแนนลูกค้ท </p> </div> -->
             <form action="check_pass.php" method="post">
             <div class="panel-body form-group">
 <div class="col-xs">
-<?php $driver_name = $objResult["driver_name"];?>
+<?php $driver_name = $objResult["driver_firstname"];?>
     <label for="driver_username"><p>ชื่อผู้ใช้</p></label>
     <input type="text" class="form-control" name="driver_username" disabled id="driver_username" placeholder="ชื่อผู้ใช้" value="<?=$objResult["driver_username"]?>">
 </div>
@@ -128,41 +110,26 @@ if(!isset($_GET["show"])){
     ?>><br>
 </div>
 <div class="col-xs">
-    <input type="submit" class="btn btn-lg btn-success" name="submit" value="แก้ไขข้อมูล" id="driver_password" placeholder="รหัสผ่าน">
+    <input type="submit" class="btn btn-lg button-pink" name="submit" value="แก้ไขข้อมูล" id="driver_password" placeholder="รหัสผ่าน">
 </div>
 </div>
             </form>
-
-
           </div>
           <div class="panel panel-default font1">
             <div class="panel-heading">ข้อมูล<i class="fa fa-link fa-1x"></i></div>
-            <!-- <div class="panel-body"> <p> คะแนนลูกค้ท </p> </div> -->
             <div class="panel-body form-group">
                 <div class="col-xs">
-                  <label for="driver_earn_price"><p> รายได้รวม</p></label>
-                    <input type="text" disabled class="form-control" name="driver_earn_price" id="driver_earn_price" 
-                    placeholder="รายได้รวม" value="<?php echo $objResult["driver_earn_price"];?>">
+                  <label for="driver_earnprice"><p> รายได้รวม</p></label>
+                    <input type="text" disabled class="form-control" name="driver_earnprice" id="driver_earnprice" 
+                    placeholder="รายได้รวม" value="<?php echo $objResult["driver_earnprice"];?>">
                 </div>
             </div>
 
           </div>
-          <a href="logout.php">ออกจากระบบ</a>
+          <div class="logout">
+            <a href="../website/logout.php" class="btn btn-lg button-pink">ออกจากระบบ</a>
+          </div>
 
-        <!--  <ul class="list-group font1 ">
-            <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
-            <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
-            <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
-            <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
-            <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
-          </ul> -->
-
-        <!--  <div class="panel panel-default">
-            <div class="panel-heading">Social Media</div>
-            <div class="panel-body">
-            	<i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x font1"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
-            </div>
-          </div> -->
 
         </div><!--/col-3-->
     	<div class="col-sm-9 font1">
@@ -197,11 +164,11 @@ if(!isset($_GET["show"])){
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="driver_earn_acc_no"><h4>หมายเลขบัญชี</h4></label>
+                              <label for="driver_earnacc_no"><h4>หมายเลขบัญชี</h4></label>
                               <input type="text" class="form-control" 
-                              <?php echo $show;?> name="driver_earn_acc_no" 
-                              id="driver_earn_acc_no" placeholder="ใส่หมายเลขบัญชี" title="กรุณาใส่หมายเลขบัญชี" 
-                              value="<?=$objResult["driver_earn_acc_no"];?>" Required>
+                              <?php echo $show;?> name="driver_earnacc_no" 
+                              id="driver_earnacc_no" placeholder="ใส่หมายเลขบัญชี" title="กรุณาใส่หมายเลขบัญชี" 
+                              value="<?=$objResult["driver_earnacc_no"];?>" Required>
                           </div>
                       </div>
                       <div class="form-group">
@@ -211,7 +178,7 @@ if(!isset($_GET["show"])){
                               <input type="text" class="form-control" 
                               disabled name="driver_work_name" id="driver_work_name"
                                placeholder="สถานะของคนขับ" title="สถานะคนขับ" 
-                               value="<?=$objResult["driver_status_name"];?>">
+                               value="<?=$objResult["driver_workstatus"];?>">
                           </div>
                       </div>
                       <div class="form-group">
@@ -220,7 +187,7 @@ if(!isset($_GET["show"])){
                             <label for="driver_work_rate"><h4>ส่วนแบ่ง</h4></label>
                               <input type="text" class="form-control" disabled name="driver_work_rate" 
                               id="driver_work_rate" placeholder="ส่วนแบ่ง" title="สถานะคนขับ" 
-                              value="<?=$objResult["driver_status_rate"];?>">
+                              value="<?=$objResult["driver_rate"];?>">
                           </div>
                       </div>
                       <div class="form-group">
@@ -235,7 +202,7 @@ if(!isset($_GET["show"])){
                       <div class="form-group">
                            <div class="col-xs-12">
                                 <br>
-                              	<button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> บันทึกข้อมูล</button>
+                              	<button class="btn btn-lg button-pink" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> บันทึกข้อมูล</button>
                                	<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> ลบทั้งหมด</button>
                             </div>
                       </div>

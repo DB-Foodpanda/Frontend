@@ -1,12 +1,12 @@
 <?php
 
-require('../../Grab_present/connect.php');
+require('../connect.php');
 session_start();
 $shop_username = $_SESSION["shop_username"];
 
 $sql = "
     DELETE FROM food
-    WHERE id_food Like '".$_GET["itemId"]."';
+    WHERE food_id Like '".$_GET["itemId"]."';
     ";
 //echo $sql;
 $objQuery = mysqli_query($conn, $sql);

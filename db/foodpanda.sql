@@ -1,239 +1,315 @@
--- MySQL dump 10.14  Distrib 5.5.68-MariaDB, for Linux (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost    Database: foodpanda
--- ------------------------------------------------------
--- Server version	5.5.68-MariaDB
+-- Host: 127.0.0.1
+-- Generation Time: Oct 03, 2021 at 06:19 AM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 7.3.29
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Current Database: `foodpanda`
+-- Database: `foodpanda`
 --
 
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `address`
 --
 
-DROP TABLE IF EXISTS `address`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `address` (
-  `ID_address` int(11) NOT NULL AUTO_INCREMENT,
-  `A_detail` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
-  PRIMARY KEY (`ID_address`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `address_id` int(11) NOT NULL,
+  `address_detail` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+  `cus_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `address`
 --
 
-LOCK TABLES `address` WRITE;
-/*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` VALUES (1,'หอพักนักศึกษามจพ กรุงเทพฯ'),(2,'หอ The Curve Salcha 316/73 ห้อง 302 ซ.วงสว่าง11 แขวงวงศ์สว่าง เขตบางซื่อ จ.กรุงเทพมหานคร 10800 เขตบา'),(3,'389 หอพักทรัพย์ทวีรุ่งเรือง ห้อง 602 ซ.7 วงศ์สว่าง ถ.วงศ์สว่าง เขตบางซื่อ แขวงบางซื่อ กรุงเทพฯ 10800');
-/*!40000 ALTER TABLE `address` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `address` (`address_id`, `address_detail`, `cus_id`) VALUES
+(1, 'ป่้าช้า', 1),
+(2, 'sfsdf', 3);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `customer`
 --
 
-DROP TABLE IF EXISTS `customer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer` (
-  `C_id` int(11) NOT NULL AUTO_INCREMENT,
-  `C_username` varchar(20) CHARACTER SET utf8 NOT NULL,
-  `C_password` varchar(10) CHARACTER SET utf8 NOT NULL,
-  `C_name` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `C_surname` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `C_tel` char(10) CHARACTER SET utf8 NOT NULL,
-  `C_creditcard_no` char(16) CHARACTER SET utf8 NOT NULL,
-  `C_creditcard_exp` date NOT NULL,
-  `C_creditcard_cvv` int(3) NOT NULL,
-  PRIMARY KEY (`C_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `cus_id` int(11) NOT NULL,
+  `cus_username` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `cus_password` varchar(10) CHARACTER SET utf8 NOT NULL,
+  `cus_name` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `cus_surname` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `cus_birthday` date DEFAULT NULL,
+  `cus_tel` char(10) CHARACTER SET utf8 NOT NULL,
+  `cus_email` varchar(50) NOT NULL,
+  `cus_creditcard_no` char(16) NOT NULL,
+  `cus_creditcard_exp` date NOT NULL,
+  `cus_creditcard_cvv` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `customer`
 --
 
-LOCK TABLES `customer` WRITE;
-/*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'๊Bell','abc1234','Emma','Olivia','0817854327','1234567890123456','2024-09-03',567),(2,'James','fgh5679','Hello','It\'s me','0956783456','2345678902736483','2023-07-24',568),(3,'Pop','hjk@erwer','Kojo','Shinobu','0993241234','1429472550247590','2025-04-24',789);
-/*!40000 ALTER TABLE `customer` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `customer` (`cus_id`, `cus_username`, `cus_password`, `cus_name`, `cus_surname`, `cus_birthday`, `cus_tel`, `cus_email`, `cus_creditcard_no`, `cus_creditcard_exp`, `cus_creditcard_cvv`) VALUES
+(1, 'namee', '', 'na', 'mee', '0000-00-00', '', '', '', '0000-00-00', 0),
+(2, 'namee', '', 'na', 'mee', '0000-00-00', '', '', '', '0000-00-00', 0),
+(3, 'Hello', '12345', 'Proy', 'Wanat', '2021-09-14', '0873561245', 'dsfsdf@gmail.com', '', '0000-00-00', 0);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `driver`
 --
 
-DROP TABLE IF EXISTS `driver`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `driver` (
-  `D_id` int(11) NOT NULL AUTO_INCREMENT,
-  `D_username` varchar(20) NOT NULL,
-  `D_password` varchar(20) NOT NULL,
-  `D_name` varchar(50) NOT NULL,
-  `D_surname` varchar(50) NOT NULL,
-  `D_tel` char(10) NOT NULL,
-  `D_earnacc_no` varchar(13) NOT NULL,
-  `D_earnprice` double NOT NULL,
-  `D_workstatus` bit(1) NOT NULL,
-  `D_rate` double NOT NULL,
-  PRIMARY KEY (`D_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6549 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `driver_id` int(11) NOT NULL,
+  `driver_username` varchar(20) NOT NULL,
+  `driver_password` varchar(20) NOT NULL,
+  `driver_name` varchar(50) NOT NULL,
+  `driver_surname` varchar(50) NOT NULL,
+  `driver_tel` char(10) NOT NULL,
+  `driver_earnacc_no` varchar(13) NOT NULL,
+  `driver_earnprice` double NOT NULL,
+  `driver_workstatus` bit(1) NOT NULL,
+  `driver_rate` double NOT NULL,
+  `orders_status_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `driver`
 --
 
-LOCK TABLES `driver` WRITE;
-/*!40000 ALTER TABLE `driver` DISABLE KEYS */;
-INSERT INTO `driver` VALUES (5648,'cat245','123453453j','catmash','meow','0993265478','4598762103549',100,'',15),(5778,'dog5648','13284535hp','corndog','mashita','0994568712','2655598443018',525,'\0',78.75),(6548,'payut112','23154513','payut','oho','0123456789','1654028793125',250,'\0',37.5);
-/*!40000 ALTER TABLE `driver` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `driver` (`driver_id`, `driver_username`, `driver_password`, `driver_name`, `driver_surname`, `driver_tel`, `driver_earnacc_no`, `driver_earnprice`, `driver_workstatus`, `driver_rate`, `orders_status_id`) VALUES
+(1, 'cat245', '123453453j', 'catmash', 'meow', '0993265478', '4598762103549', 100, b'1', 15, 0),
+(2, 'dog5648', '13284535hp', 'corndog', 'mashita', '0994568712', '2655598443018', 525, b'0', 78.75, 1),
+(3, 'payut112', '23154513', 'payut', 'oho', '0123456789', '1654028793125', 250, b'0', 37.5, 2);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `food`
 --
 
-DROP TABLE IF EXISTS `food`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `food` (
-  `Food_id` int(11) NOT NULL AUTO_INCREMENT,
-  `Food_name` varchar(70) CHARACTER SET utf8 NOT NULL,
-  `Food_size` varchar(5) CHARACTER SET utf8 NOT NULL,
-  `Food_price` double NOT NULL,
-  `Food_image` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `Food_detail` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `Food_type` varchar(50) CHARACTER SET utf8 NOT NULL,
-  PRIMARY KEY (`Food_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1124 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `food_id` int(11) NOT NULL,
+  `food_name` varchar(70) CHARACTER SET utf8 NOT NULL,
+  `food_size` varchar(5) CHARACTER SET utf8 NOT NULL,
+  `food_price` double NOT NULL,
+  `food_image` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `food_detail` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `food_type` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `shop_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `food`
 --
 
-LOCK TABLES `food` WRITE;
-/*!40000 ALTER TABLE `food` DISABLE KEYS */;
-INSERT INTO `food` VALUES (1121,'ข้าวผัดเเมว','พิเศษ',150,'','ไม่ใส่ไข่เเมว','ผัด'),(1122,'เเมวทอดกระเทียม','ปกติ',100,'','เเมวทุกตัวสะอาด(เเมววัด)','ทอด'),(1123,'อึ่งทอดผัดกระเพรา','ปกติ',100,'','อึ่งตัวโตๆน่ากิน','ผัด');
-/*!40000 ALTER TABLE `food` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `food` (`food_id`, `food_name`, `food_size`, `food_price`, `food_image`, `food_detail`, `food_type`, `shop_id`) VALUES
+(1121, 'ข้าวผัดเเมว', 'พิเศษ', 150, '', 'ไม่ใส่ไข่เเมว', 'ผัด', 1),
+(1122, 'เเมวทอดกระเทียม', 'ปกติ', 100, '', 'เเมวทุกตัวสะอาด(เเมววัด)', 'ทอด', 2),
+(1123, 'อึ่งทอดผัดกระเพรา', 'ปกติ', 100, '', 'อึ่งตัวโตๆน่ากิน', 'ผัด', 3);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `orders`
 --
 
-DROP TABLE IF EXISTS `orders`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orders` (
-  `ID_orders` int(11) NOT NULL,
-  `O_paytype` bit(1) NOT NULL,
-  `P_totalprice` double NOT NULL,
-  `O_vat` double NOT NULL,
-  `O_datestartsend` datetime NOT NULL,
-  `O_dateendsend` datetime NOT NULL,
-  `P_number` int(100) NOT NULL,
-  PRIMARY KEY (`ID_orders`)
+  `orders_id` int(11) NOT NULL,
+  `orders_paytype` bit(1) NOT NULL,
+  `products_totalprice` double NOT NULL,
+  `orders_vat` double NOT NULL,
+  `orders_datestartsend` datetime NOT NULL,
+  `orders_dateendsend` datetime NOT NULL,
+  `products_number` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `orders`
 --
 
-LOCK TABLES `orders` WRITE;
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,'\0',100,7,'2021-09-12 16:56:20','2021-09-12 17:12:25',1),(2,'',180,12.6,'2021-09-12 16:58:14','2021-09-12 17:25:22',2),(3,'\0',200,14,'2021-09-12 16:59:14','2021-09-12 17:31:08',3);
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `orders` (`orders_id`, `orders_paytype`, `products_totalprice`, `orders_vat`, `orders_datestartsend`, `orders_dateendsend`, `products_number`) VALUES
+(1, b'0', 100, 7, '2021-09-12 16:56:20', '2021-09-12 17:12:25', 1),
+(2, b'1', 180, 12.6, '2021-09-12 16:58:14', '2021-09-12 17:25:22', 2),
+(3, b'0', 200, 14, '2021-09-12 16:59:14', '2021-09-12 17:31:08', 3);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `orders_status`
 --
 
-DROP TABLE IF EXISTS `orders_status`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orders_status` (
-  `ID_O_status` int(11) NOT NULL,
-  `O_statusname` varchar(100) NOT NULL,
-  PRIMARY KEY (`ID_O_status`)
+  `orders_status_id` int(11) NOT NULL,
+  `order_status_name` varchar(100) NOT NULL,
+  `driver_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `orders_status`
 --
 
-LOCK TABLES `orders_status` WRITE;
-/*!40000 ALTER TABLE `orders_status` DISABLE KEYS */;
-INSERT INTO `orders_status` VALUES (0,'on hold'),(1,'complete'),(2,'pending');
-/*!40000 ALTER TABLE `orders_status` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `orders_status` (`orders_status_id`, `order_status_name`, `driver_id`) VALUES
+(0, 'on hold', 1),
+(1, 'complete', 2),
+(2, 'pending', 3);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `shop`
 --
 
-DROP TABLE IF EXISTS `shop`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `shop` (
-  `ID_shop` int(11) NOT NULL AUTO_INCREMENT,
-  `S_username` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
-  `S_password` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
-  `S_name` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
-  `S_address` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
-  `S_distance` float NOT NULL,
-  `S_tel` varchar(10) CHARACTER SET utf8mb4 NOT NULL,
-  `S_workstatus` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
-  `S_earnacc_no` varchar(13) CHARACTER SET utf8mb4 NOT NULL,
-  `S_earnprice` float NOT NULL,
-  `S_openday` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
-  `S_opentime` time NOT NULL,
-  `S_closetime` time NOT NULL,
-  `S_rate` float NOT NULL,
-  `S_image` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
-  PRIMARY KEY (`ID_shop`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `shop_id` int(11) NOT NULL,
+  `shop_username` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+  `shop_password` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+  `shop_name` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+  `shop_address` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+  `shop_tel` varchar(10) CHARACTER SET utf8mb4 NOT NULL,
+  `shop_workstatus` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+  `shop_earnacc_no` varchar(13) CHARACTER SET utf8mb4 NOT NULL,
+  `shop_earnprice` float NOT NULL,
+  `shop_openday` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+  `shop_opentime` time NOT NULL,
+  `shop_closetime` time NOT NULL,
+  `shop_rate` float NOT NULL,
+  `shop_image` varchar(100) CHARACTER SET utf8mb4 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `shop`
 --
 
-LOCK TABLES `shop` WRITE;
-/*!40000 ALTER TABLE `shop` DISABLE KEYS */;
-INSERT INTO `shop` VALUES (1,'p_porn','1996e__','ร้านอาหารสารพัดนึก','ปากซอยวงศ์สว่าง21,บางซื่อ,บางซื่อ,กรุงเทพมหานคร,10',2.6,'0890000000','ปิด','7660000000',1209,'จ-ศ','09:30:00','21:30:00',4.9,'IMG20210906123922.jpg'),(2,'cat_U','03012544','เรื่องแมวๆ','1518 ถนนประชาราษฎ์1,วงศ์สว่าง,บางซื่อ,กรุงเทพมหานค',3.9,'0954567891','เปิด','9071234567897',2546,'จ-ศ','10:00:00','21:00:00',4.8,'IMG202110091709.jpg'),(3,'inti_01','03012544','วอเตอร์','ปากซอยวงศ์สว่าง11,วงศ์สว่าง,บางซื่อ,กรุงเทพมหานค',1.5,'0954567891','เปิด','9071234567897',2546,'จ-ศ','08:30:00','21:00:00',4.8,'IMG202110091709.jpg');
-/*!40000 ALTER TABLE `shop` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `shop` (`shop_id`, `shop_username`, `shop_password`, `shop_name`, `shop_address`, `shop_tel`, `shop_workstatus`, `shop_earnacc_no`, `shop_earnprice`, `shop_openday`, `shop_opentime`, `shop_closetime`, `shop_rate`, `shop_image`) VALUES
+(1, 'p_porn', '1996e__', 'ร้านอาหารสารพัดนึก', 'ปากซอยวงศ์สว่าง21,บางซื่อ,บางซื่อ,กรุงเทพมหานคร,10', '0890000000', 'ปิด', '7660000000', 1209, 'จ-ศ', '09:30:00', '21:30:00', 4.9, 'shop1.jpg'),
+(2, 'cat_U', '03012544', 'เรื่องแมวๆ', '1518 ถนนประชาราษฎ์1,วงศ์สว่าง,บางซื่อ,กรุงเทพมหานค', '0954567891', 'เปิด', '9071234567897', 2546, 'จ-ศ', '10:00:00', '21:00:00', 4.8, 'IMG202110091709.jpg'),
+(3, 'inti_01', '03012544', 'วอเตอร์', 'ปากซอยวงศ์สว่าง11,วงศ์สว่าง,บางซื่อ,กรุงเทพมหานค', '0954567891', 'เปิด', '9071234567897', 2546, 'จ-ศ', '08:30:00', '21:00:00', 4.8, 'IMG202110091709.jpg');
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `address`
+--
+ALTER TABLE `address`
+  ADD PRIMARY KEY (`address_id`),
+  ADD KEY `customer` (`cus_id`);
+
+--
+-- Indexes for table `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`cus_id`);
+
+--
+-- Indexes for table `driver`
+--
+ALTER TABLE `driver`
+  ADD PRIMARY KEY (`driver_id`),
+  ADD KEY `orders_status_id` (`orders_status_id`);
+
+--
+-- Indexes for table `food`
+--
+ALTER TABLE `food`
+  ADD PRIMARY KEY (`food_id`),
+  ADD KEY `shop_id` (`shop_id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`orders_id`);
+
+--
+-- Indexes for table `orders_status`
+--
+ALTER TABLE `orders_status`
+  ADD PRIMARY KEY (`orders_status_id`),
+  ADD KEY `driver_id` (`driver_id`);
+
+--
+-- Indexes for table `shop`
+--
+ALTER TABLE `shop`
+  ADD PRIMARY KEY (`shop_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `address`
+--
+ALTER TABLE `address`
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `cus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `driver`
+--
+ALTER TABLE `driver`
+  MODIFY `driver_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6549;
+
+--
+-- AUTO_INCREMENT for table `food`
+--
+ALTER TABLE `food`
+  MODIFY `food_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1126;
+
+--
+-- AUTO_INCREMENT for table `shop`
+--
+ALTER TABLE `shop`
+  MODIFY `shop_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `address`
+--
+ALTER TABLE `address`
+  ADD CONSTRAINT `customer` FOREIGN KEY (`cus_id`) REFERENCES `customer` (`cus_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `food`
+--
+ALTER TABLE `food`
+  ADD CONSTRAINT `shop_id` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`shop_id`);
+
+--
+-- Constraints for table `orders_status`
+--
+ALTER TABLE `orders_status`
+  ADD CONSTRAINT `driver_id` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`driver_id`);
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2021-09-20 20:29:19
-

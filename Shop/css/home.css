@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Mali:wght@200&display=swap');
+.font1{
+    font-family: 'Mali', cursive;
+    font-size: 18px;
+    font-weight: bold;
+}.font1 h4,td{
+    font-family: 'Mali', cursive;
+    font-size: 18px;
+    font-weight: bold;
+}
+.button-pink{
+    background-color: #D70F64;
+    color: white;
+}
+.logout a{
+    font-family: 'Mali', cursive;
+    font-size: 18px;
+    text-decoration: none;
+    color: #fff;
+}
+::-webkit-file-upload-button{
+	background: #FF4081;
+	border: 1px solid #FF4081;
+	padding: 0px 12px 2px 12px;
+	color: #FFFF;
+	font-size: 10px;
+	font-family: 'Mali', cursive;
+}

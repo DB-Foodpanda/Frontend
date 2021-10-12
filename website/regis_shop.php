@@ -1,33 +1,89 @@
 <!DOCTYPE html>
 <html  >
 <head>
-  <!-- Site made with Mobirise Website Builder v5.1.4, https://mobirise.com -->
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Mobirise v5.1.4, mobirise.com">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="assets/images/grab-final-master-logo-2019-rgb-green-121x48.png" type="image/x-icon">
-  <meta name="description" content="">
-  
-  
-  <title>Marketing</title>
-  <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
-  <link rel="stylesheet" href="assets/tether/tether.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="assets/socicon/css/styles.css">
-  <link rel="stylesheet" href="assets/theme/css/style.css">
-  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-  
-  
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>REGISTER SHOP</title>
+
+    <!-- Icons font CSS-->
+    <script src="https://kit.fontawesome.com/a1850e5a9e.js" crossorigin="anonymous"></script>
+    
+
+    <!-- Main CSS-->
+    <link href="../css/main.css" rel="stylesheet" media="all">
+    <link href="../css/style-register.css" rel="stylesheet" media="all">
+    <html xmlns="http://www.w3.org/1999/xhtml">
   
   
 </head>
 <body>
-  
-  <section class="menu cid-s48OLK6784" once="menu" id="menu1-w">
+<form action="../Shop/regis_shop_data.php" method="POST" class="mbr-form form-with-styler" enctype="multipart/form-data">
+        
+        <div class="page-wrapper p-t-180 p-b-100 font-robo">
+            <div class="wrapper wrapper--w960">
+                <div class="card card-2">
+                    <div class="card-heading"></div>
+                    <div class="card-body">
+                        <form class="form-insert">
+                            <img src="../images/foodpanda_shop.png">
+                            <div class="form-group">
+                                <input type="text" name="shop_username" class="form-control" value="" id="name-form4-y" >
+                                <label class="form-label">Shop Username</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="shop_password" class="form-control" value="" id="email-form4-y" >
+                                <label class="form-label">Shop Password</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="shop_name" class="form-control" value="" id="name-form4-y">
+                                <label class="form-label">Shop Name</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="shop_tel"  class="form-control" value="" id="email-form4-y" pattern="[0-9]{10}">
+                                <label class="form-label">Tel</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="shop_address" class="form-control" value="" id="email-form4-y" >
+                                <label class="form-label">Address</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="shop_earnacc_no" class="form-control" placeholder="เลขบัญชีธนาคาร" value="" id="email-form4-y" >
+                                <label class="form-label">Account number</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="shop_openday" placeholder="ตัวอย่าง:จ-ศ"  class="form-control" value="" id="email-form4-y" >
+                                <label class="form-label">Open Days</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="time" name="shop_opentime" class="form-control" value="" id="email-form4-y" >
+                                <label class="form-label">Open Time</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="time" name="shop_closetime" class="form-control" value="" id="email-form4-y">
+                                <label class="form-label">Close Time</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="filUpload" class="form-label">Shop Profile</label><br><br>
+                                <input type="file" name="filUpload" Required>
+                            </div>
+                            <button class="btn" type="submit" >Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="AutoProvince.js"></script>
+  <!--<section class="menu cid-s48OLK6784" once="menu" id="menu1-w">
     
     <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
         <div class="container-fluid">
@@ -161,7 +217,7 @@
             </div>
         </div>
     </div>
-</section><section style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;"><a href="https://mobirise.site/q" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a><p style="flex: 0 0 auto; margin:0; padding-right:1rem;">Mobirise web page creator - <a href="https://mobirise.site/o" style="color:#aaa;">More info</a></p></section><script src="assets/web/assets/jquery/jquery.min.js"></script>  <script src="assets/popper/popper.min.js"></script>  <script src="assets/tether/tether.min.js"></script>  <script src="assets/bootstrap/js/bootstrap.min.js"></script>  <script src="assets/smoothscroll/smooth-scroll.js"></script>  <script src="assets/dropdown/js/nav-dropdown.js"></script>  <script src="assets/dropdown/js/navbar-dropdown.js"></script>  <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>  <script src="assets/theme/js/script.js"></script>  <script src="assets/formoid/formoid.min.js"></script>  
+</section><section style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;"><a href="https://mobirise.site/q" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a><p style="flex: 0 0 auto; margin:0; padding-right:1rem;">Mobirise web page creator - <a href="https://mobirise.site/o" style="color:#aaa;">More info</a></p></section><script src="assets/web/assets/jquery/jquery.min.js"></script>  <script src="assets/popper/popper.min.js"></script>  <script src="assets/tether/tether.min.js"></script>  <script src="assets/bootstrap/js/bootstrap.min.js"></script>  <script src="assets/smoothscroll/smooth-scroll.js"></script>  <script src="assets/dropdown/js/nav-dropdown.js"></script>  <script src="assets/dropdown/js/navbar-dropdown.js"></script>  <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>  <script src="assets/theme/js/script.js"></script>  <script src="assets/formoid/formoid.min.js"></script>--> 
   
   
 </body>

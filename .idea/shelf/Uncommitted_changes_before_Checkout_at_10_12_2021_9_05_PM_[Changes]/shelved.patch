@@ -1,0 +1,411 @@
+Index: Shop/update_data.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><html>\r\n<head>\r\n<title>Foodpanda-admin</title>\r\n</head>\r\n<body>\r\n<?php\r\n\tsession_start();\r\n\r\n\t\t//*** Update Record ***//\r\n\t\t$servername = 'localhost';\r\n\t\t$username = 'root';\r\n\t\t$password = '';\r\n\t\t$dbname = 'foodpanda';\r\n\r\n\t\t$conn = mysqli_connect($servername, $username, $password, $dbname);\r\n\r\n\t\tmysqli_set_charset($conn, \"utf8\");\r\n\r\n\t\t$strSQL = \"UPDATE food \";\r\n\t\t$strSQL .=\" SET Food_name = '\".$_POST[\"Food_name\"].\"',Food_size = '\".$_POST[\"Food_size\"].\"',Food_price = '\".$_POST[\"Food_price\"].\"' WHERE Food_id = '\".$_GET[\"Food_id\"].\"' \";\r\n\t\t$objQuery = mysqli_query($conn,$strSQL);\t\t\r\n\t\r\n\tif($_FILES[\"Food_image\"][\"name\"] != \"\")\r\n\t{\r\n\t\tif(move_uploaded_file($_FILES[\"Food_image\"][\"tmp_name\"],\"myfile/\".$_FILES[\"Food_image\"][\"name\"]))\r\n\t\t{\r\n\r\n\t\t\t//*** Delete Old File ***//\t\t\t\r\n\t\t\t@unlink(\"myfile/\".$_POST[\"hdnOldFile\"]);\r\n\t\t\t\r\n\t\t\t//*** Update New File ***//\r\n\t\t\t$strSQL = \"UPDATE food \";\r\n\t\t\t$strSQL .=\" SET Food_image = '\".$_FILES[\"Food_image\"][\"name\"].\"' WHERE Food_id = '\".$_GET[\"Food_id\"].\"' \";\r\n\t\t\t$objQuery = mysqli_query($conn,$strSQL);\t\t\r\n\r\n\t\t\techo \"Copy/Upload Complete<br>\";\r\n\r\n\t\t}\r\n\t}\r\n\theader(\"location:Home.php?state=1\");\r\n?>\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Shop/update_data.php b/Shop/update_data.php
+--- a/Shop/update_data.php	(revision 55a64cec1ccdaa57c0fbf56c4678745f4bca4535)
++++ b/Shop/update_data.php	(date 1634010768162)
+@@ -4,40 +4,34 @@
+ </head>
+ <body>
+ <?php
++	require('../connect.php');
+ 	session_start();
+ 
+-		//*** Update Record ***//
+-		$servername = 'localhost';
+-		$username = 'root';
+-		$password = '';
+-		$dbname = 'foodpanda';
+-
+-		$conn = mysqli_connect($servername, $username, $password, $dbname);
+-
+-		mysqli_set_charset($conn, "utf8");
+-
+-		$strSQL = "UPDATE food ";
+-		$strSQL .=" SET Food_name = '".$_POST["Food_name"]."',Food_size = '".$_POST["Food_size"]."',Food_price = '".$_POST["Food_price"]."' WHERE Food_id = '".$_GET["Food_id"]."' ";
++		// mysqli_set_charset($conn, "utf8");
++		
++		
++		$strSQL = "UPDATE food";
++		$strSQL .=" SET food_name = '".$_POST["food_name"]."',food_size = '".$_POST["food_size"]."',food_price = '".$_POST["food_price"]."',food_detail = '".$_POST["food_detail"]."' WHERE food_id = '".$_GET["food_id"]."' ";
+ 		$objQuery = mysqli_query($conn,$strSQL);		
+-	
+-	if($_FILES["Food_image"]["name"] != "")
++		// print_r ($_GET["food_id"]);
++	if($_FILES["filUpload"]["name"] != "")
+ 	{
+-		if(move_uploaded_file($_FILES["Food_image"]["tmp_name"],"myfile/".$_FILES["Food_image"]["name"]))
++		if(move_uploaded_file($_FILES["filUpload"]["tmp_name"],"myfile/".$_FILES["filUpload"]["name"]))
+ 		{
+ 
+ 			//*** Delete Old File ***//			
+ 			@unlink("myfile/".$_POST["hdnOldFile"]);
+ 			
+ 			//*** Update New File ***//
+-			$strSQL = "UPDATE food ";
+-			$strSQL .=" SET Food_image = '".$_FILES["Food_image"]["name"]."' WHERE Food_id = '".$_GET["Food_id"]."' ";
++			$strSQL = "UPDATE food";
++			$strSQL .=" SET food_image = '".$_FILES["filUpload"]["name"]."' WHERE food_id = '".$_GET["food_id"]."' ";
+ 			$objQuery = mysqli_query($conn,$strSQL);		
+ 
+ 			echo "Copy/Upload Complete<br>";
+ 
+ 		}
+ 	}
+-	header("location:Home.php?state=1");
++     header("location:Home.php?state=1");
+ ?>
+ </body>
+ </html>
+\ No newline at end of file
+Index: Shop/regis_shop_data.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n    session_start();\r\n\tif(move_uploaded_file($_FILES[\"filUpload\"][\"tmp_name\"],\"myfile/\".$_FILES[\"filUpload\"][\"name\"]))\r\n\t{\r\n\t\techo \"Copy/Upload Complete<br>\";\r\n\r\n\t\t//*** Insert Record ***//\r\n\t\t$servername = 'localhost';\r\n\t\t$username = 'root';\r\n\t\t$password = '';\r\n\t\t$dbname = 'grab';\r\n\r\n\t\t$conn = mysqli_connect($servername, $username, $password, $dbname);\r\n\r\n\t\tmysqli_set_charset($conn, \"utf8\");\r\n\r\n\t\t$shop_username = $_REQUEST[\"shop_username\"];\r\n\t\t$shop_password = $_REQUEST[\"shop_password\"];\r\n        $shop_name = $_REQUEST[\"shop_name\"];\r\n        $shop_address = $_REQUEST[\"shop_address\"];\r\n\t\t$shop_tel = $_REQUEST[\"shop_tel\"];\r\n\t\t$shop_earn_acc_no = $_REQUEST[\"shop_earn_acc_no\"];\r\n        $shop_business_time_day = $_REQUEST[\"shop_business_time_day\"];\r\n        $shop_business_time_open_time = $_REQUEST[\"shop_business_time_open_time\"];\r\n\t\t$shop_business_time_close_time = $_REQUEST[\"shop_business_time_close_time\"];\r\n\t\t$FilesName = $_REQUEST[\"filUpload\"];\r\n\t\t\r\n\r\n\t\t$strSQL = \"INSERT INTO shop \";\r\n\t\t$strSQL .=\"(`shop_username`, `shop_password`, `shop_name`, `shop_address`, `shop_tel`, `shop_earn_acc_no`, `shop_business_time_day`, `shop_business_time_open_time`, `shop_business_time_close_time`, `FilesName`) \r\n\t\tVALUES ('$shop_username','$shop_password','$shop_name','$shop_address','$shop_tel','$shop_earn_acc_no','$shop_business_time_day','$shop_business_time_open_time','$shop_business_time_close_time','\".$_FILES[\"filUpload\"][\"name\"].\"') ;\";\r\n\t\t$objQuery = mysqli_query($conn,$strSQL);\t\t\r\n\t}\r\n\telse{\r\n\t\techo \"1234555555555\";\r\n\t}\r\n\tmysqli_close($conn);\r\n\theader(\"location:../index.php\");\r\n?>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Shop/regis_shop_data.php b/Shop/regis_shop_data.php
+--- a/Shop/regis_shop_data.php	(revision 55a64cec1ccdaa57c0fbf56c4678745f4bca4535)
++++ b/Shop/regis_shop_data.php	(date 1634010767975)
+@@ -1,17 +1,10 @@
+ <?php
++	require('../connect.php');
+     session_start();
+ 	if(move_uploaded_file($_FILES["filUpload"]["tmp_name"],"myfile/".$_FILES["filUpload"]["name"]))
+ 	{
+ 		echo "Copy/Upload Complete<br>";
+-
+-		//*** Insert Record ***//
+-		$servername = 'localhost';
+-		$username = 'root';
+-		$password = '';
+-		$dbname = 'grab';
+-
+-		$conn = mysqli_connect($servername, $username, $password, $dbname);
+-
++		
+ 		mysqli_set_charset($conn, "utf8");
+ 
+ 		$shop_username = $_REQUEST["shop_username"];
+@@ -19,17 +12,16 @@
+         $shop_name = $_REQUEST["shop_name"];
+         $shop_address = $_REQUEST["shop_address"];
+ 		$shop_tel = $_REQUEST["shop_tel"];
+-		$shop_earn_acc_no = $_REQUEST["shop_earn_acc_no"];
+-        $shop_business_time_day = $_REQUEST["shop_business_time_day"];
+-        $shop_business_time_open_time = $_REQUEST["shop_business_time_open_time"];
+-		$shop_business_time_close_time = $_REQUEST["shop_business_time_close_time"];
+-		$FilesName = $_REQUEST["filUpload"];
+-		
++		$shop_earnacc_no = $_REQUEST["shop_earnacc_no"];
++        $shop_openday = $_REQUEST["shop_openday"];
++        $shop_opentime = $_REQUEST["shop_opentime"];
++		$shop_closetime = $_REQUEST["shop_closetime"];
+ 
+-		$strSQL = "INSERT INTO shop ";
+-		$strSQL .="(`shop_username`, `shop_password`, `shop_name`, `shop_address`, `shop_tel`, `shop_earn_acc_no`, `shop_business_time_day`, `shop_business_time_open_time`, `shop_business_time_close_time`, `FilesName`) 
+-		VALUES ('$shop_username','$shop_password','$shop_name','$shop_address','$shop_tel','$shop_earn_acc_no','$shop_business_time_day','$shop_business_time_open_time','$shop_business_time_close_time','".$_FILES["filUpload"]["name"]."') ;";
+-		$objQuery = mysqli_query($conn,$strSQL);		
++		$strSQL = "INSERT INTO shop";
++		$strSQL .="(shop_username,shop_password,shop_name,shop_address,shop_tel,shop_earnacc_no,shop_openday,shop_opentime,shop_closetime,shop_image) 
++		VALUES ('$shop_username','$shop_password','$shop_name','$shop_address','$shop_tel','$shop_earnacc_no','$shop_openday','$shop_opentime','$shop_closetime','".$_FILES["filUpload"]["name"]."')";
++		$objQuery = mysqli_query($conn,$strSQL);
++		
+ 	}
+ 	else{
+ 		echo "1234555555555";
+Index: connect.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\n$servername = 'localhost';\r\n$username = 'root';\r\n$password = '';\r\n$dbname = 'foodpanda';\r\n\r\n$conn = mysqli_connect($servername, $username, $password, $dbname);\r\n\r\nmysqli_set_charset($conn, \"utf8\");\r\n\r\nif (!$conn){\r\n    die(\"Database Connection Failed\" . mysqli_error($conn));\r\n}\r\n$select_db = mysqli_select_db($conn, $dbname);\r\nif (!$select_db){\r\n    die(\"Database Selection Failed\" . mysqli_error($conn));\r\n}\r\n\r\n?>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/connect.php b/connect.php
+--- a/connect.php	(revision 55a64cec1ccdaa57c0fbf56c4678745f4bca4535)
++++ b/connect.php	(date 1634010768167)
+@@ -1,8 +1,8 @@
+ <?php
+ 
+-$servername = 'localhost';
+-$username = 'root';
+-$password = '';
++$servername = 'thoranin.org';
++$username = 'proy3258';
++$password = 'Ns94ox^0';
+ $dbname = 'foodpanda';
+ 
+ $conn = mysqli_connect($servername, $username, $password, $dbname);
+Index: Shop/update.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><html>\r\n<head>\r\n<title>Foodpanda-admin</title>\r\n</head>\r\n<body>\r\n<?php\r\n\tsession_start();\r\n\t$shop_username = $_SESSION[\"S_username\"];\r\n\t$servername = 'localhost';\r\n\t$username = 'root';\r\n\t$password = '';\r\n\t$dbname = 'foodpanda';\r\n\r\n\t$conn = mysqli_connect($servername, $username, $password, $dbname);\r\n\t$id_food = $_GET[\"Food_id\"];\r\n\techo \"$id_food\";\r\n\tmysqli_set_charset($conn, \"utf8\");\r\n\t$strSQL = \"SELECT * FROM food WHERE id_food = '\".$_GET[\"Food_id\"].\"' ;\";\r\n\t$objQuery = mysqli_query($conn,$strSQL) or die (\"Error Query [\".$strSQL.\"]\");\r\n\t$objResult = mysqli_fetch_array($objQuery);\r\n?>\r\n\t<form name=\"form1\" method=\"post\" action=\"update_data.php?id_food=<?php echo $_GET[\"Food_id\"];?>\" enctype=\"multipart/form-data\">\r\n\tEdit Picture :<br>\r\n\tName : <input type=\"text\" name=\"food_name\" value=\"<?php echo $objResult[\"Food_name\"];?>\"><br>\r\n\t<img src=\"myfile/<?php echo $objResult[\"Food_image\"];?>\"><br>\r\n\tPicture : <input type=\"file\" name=\"filUpload\"><br>\r\n\t<input type=\"hidden\" name=\"hdnOldFile\" value=\"<?php echo $objResult[\"Food_image\"];?>\">\r\n\tSize: <input type=\"text\" name=\"food_size\" value=\"<?php echo $objResult[\"Food_size\"];?>\"><br>\r\n\tCash : <input type=\"text\" name=\"food_cash\" value=\"<?php echo $objResult[\"Food_price\"];?>\"><br>\r\n\t<input name=\"btnSubmit\" type=\"submit\" value=\"Submit\">\r\n\t</form>\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Shop/update.php b/Shop/update.php
+--- a/Shop/update.php	(revision 55a64cec1ccdaa57c0fbf56c4678745f4bca4535)
++++ b/Shop/update.php	(date 1634010768160)
+@@ -4,29 +4,24 @@
+ </head>
+ <body>
+ <?php
++	require('../connect.php');
+ 	session_start();
+-	$shop_username = $_SESSION["S_username"];
+-	$servername = 'localhost';
+-	$username = 'root';
+-	$password = '';
+-	$dbname = 'foodpanda';
+-
+-	$conn = mysqli_connect($servername, $username, $password, $dbname);
+-	$id_food = $_GET["Food_id"];
++	$shop_username = $_SESSION["shop_username"];
++	$id_food = $_GET["food_id"];
+ 	echo "$id_food";
+ 	mysqli_set_charset($conn, "utf8");
+-	$strSQL = "SELECT * FROM food WHERE id_food = '".$_GET["Food_id"]."' ;";
++	$strSQL = "SELECT * FROM food WHERE id_food = '".$_GET["food_id"]."' ;";
+ 	$objQuery = mysqli_query($conn,$strSQL) or die ("Error Query [".$strSQL."]");
+ 	$objResult = mysqli_fetch_array($objQuery);
+ ?>
+-	<form name="form1" method="post" action="update_data.php?id_food=<?php echo $_GET["Food_id"];?>" enctype="multipart/form-data">
++	<form name="form1" method="post" action="update_data.php?id_food=<?php echo $_GET["food_id"];?>" enctype="multipart/form-data">
+ 	Edit Picture :<br>
+-	Name : <input type="text" name="food_name" value="<?php echo $objResult["Food_name"];?>"><br>
+-	<img src="myfile/<?php echo $objResult["Food_image"];?>"><br>
++	Name : <input type="text" name="food_name" value="<?php echo $objResult["food_name"];?>"><br>
++	<img src="myfile/<?php echo $objResult["food_image"];?>"><br>
+ 	Picture : <input type="file" name="filUpload"><br>
+-	<input type="hidden" name="hdnOldFile" value="<?php echo $objResult["Food_image"];?>">
+-	Size: <input type="text" name="food_size" value="<?php echo $objResult["Food_size"];?>"><br>
+-	Cash : <input type="text" name="food_cash" value="<?php echo $objResult["Food_price"];?>"><br>
++	<input type="hidden" name="hdnOldFile" value="<?php echo $objResult["food_image"];?>">
++	Size: <input type="text" name="food_size" value="<?php echo $objResult["food_size"];?>"><br>
++	Cash : <input type="text" name="food_price" value="<?php echo $objResult["food_price"];?>"><br>
+ 	<input name="btnSubmit" type="submit" value="Submit">
+ 	</form>
+ </body>
+Index: Shop/shop_edit.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><html>\r\n<head>\r\n<title>Foodpanda-admin</title>\r\n</head>\r\n<body>\r\n<?php\r\n\tsession_start();\r\n\r\n\t\t//*** Update Record ***//\r\n\t\t$servername = 'localhost';\r\n\t\t$username = 'root';\r\n\t\t$password = '';\r\n        $dbname = 'foodpanda';\r\n        \r\n        $shop_username = $_SESSION[\"S_username\"];\r\n        $shop_password = $_REQUEST[\"S_password\"];\r\n        $shop_name = $_REQUEST[\"S_name\"];\r\n        $shop_tel = $_REQUEST[\"S_tel\"];\r\n        $shop_address = $_REQUEST[\"S_address\"];\r\n        $shop_earn_acc_no = $_REQUEST[\"S_earnacc_no\"];\r\n        $shop_business_time_day = $_REQUEST[\"S_openday\"];\r\n        $shop_business_time_open_time = $_REQUEST[\"S_opentime\"];\r\n        $shop_business_time_close_time = $_REQUEST[\"S_closetime\"];\r\n\r\n\r\n\r\n\t\t$conn = mysqli_connect($servername, $username, $password, $dbname);\r\n\r\n\t\tmysqli_set_charset($conn, \"utf8\");\r\n\r\n\t\tif(!($shop_password==\"\")){\r\n            $strSQL = \"UPDATE shop \";\r\n            $strSQL .=\" SET `S_password`='$shop_password',`S_name`='$shop_name',`S_address`='$shop_address',`S_tel`='$shop_tel',\r\n            `S_earnacc_no`='$shop_earn_acc_no',`S_openday`='$shop_business_time_day',`S_opentime`='$shop_business_time_open_time',\r\n            `S_closetime`='$shop_business_time_close_time'\r\n            WHERE S_username='$shop_username'\";\r\n            echo $strSQL;\r\n\t\t    $objQuery = mysqli_query($conn,$strSQL);\r\n        }\r\n        else{\r\n            $strSQL = \"UPDATE shop \";\r\n        $strSQL .=\" SET `S_name`='$shop_name',`S_address`='$shop_address',`S_tel`='$shop_tel',\r\n        `S_earnacc_no`='$shop_earn_acc_no',`S_openday`='$shop_business_time_day',`S_opentime`='$shop_business_time_open_time',\r\n        `S_closetime`='$shop_business_time_close_time'\r\n        WHERE S_username='$shop_username'\";\r\n\t\t$objQuery = mysqli_query($conn,$strSQL);\r\n        }\r\n        if($_FILES[\"S_image\"][\"name\"] != \"\")\r\n        {\r\n            if(move_uploaded_file($_FILES[\"S_image\"][\"tmp_name\"],\"myfile/\".$_FILES[\"S_image\"][\"name\"]))\r\n            {\r\n    \r\n                //*** Delete Old File ***//\t\t\t\r\n                @unlink(\"myfile/\".$_POST[\"hdnOldFile\"]);\r\n                \r\n                //*** Update New File ***//\r\n                $strSQL = \"UPDATE shop \";\r\n                $strSQL .=\" SET S_image = '\".$_FILES[\"S_image\"][\"name\"].\"' WHERE S_username = '$shop_username' \";\r\n                $objQuery = mysqli_query($conn,$strSQL);\t\t\r\n    \r\n                echo \"Copy/Upload Complete<br>\";\r\n    \r\n            }\r\n        }\r\n\theader(\"location:Home.php\");\r\n?>\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Shop/shop_edit.php b/Shop/shop_edit.php
+--- a/Shop/shop_edit.php	(revision 55a64cec1ccdaa57c0fbf56c4678745f4bca4535)
++++ b/Shop/shop_edit.php	(date 1634010768156)
+@@ -4,50 +4,40 @@
+ </head>
+ <body>
+ <?php
++    require('../connect.php');
+ 	session_start();
+-
+-		//*** Update Record ***//
+-		$servername = 'localhost';
+-		$username = 'root';
+-		$password = '';
+-        $dbname = 'foodpanda';
+         
+-        $shop_username = $_SESSION["S_username"];
+-        $shop_password = $_REQUEST["S_password"];
+-        $shop_name = $_REQUEST["S_name"];
+-        $shop_tel = $_REQUEST["S_tel"];
+-        $shop_address = $_REQUEST["S_address"];
+-        $shop_earn_acc_no = $_REQUEST["S_earnacc_no"];
+-        $shop_business_time_day = $_REQUEST["S_openday"];
+-        $shop_business_time_open_time = $_REQUEST["S_opentime"];
+-        $shop_business_time_close_time = $_REQUEST["S_closetime"];
++        $shop_username = $_SESSION["shop_username"];
++        $shop_password = $_REQUEST["shop_password"];
++        $shop_name = $_REQUEST["shop_name"];
++        $shop_tel = $_REQUEST["shop_tel"];
++        $shop_address = $_REQUEST["shop_address"];
++        $shop_earnacc_no = $_REQUEST["shop_earnacc_no"];
++        $shop_openday = $_REQUEST["shop_openday"];
++        $shop_opentime = $_REQUEST["shop_opentime"];
++        $shop_closetime = $_REQUEST["shop_closetime"];
++        // print_r($shop_username);
+ 
+-
+-
+-		$conn = mysqli_connect($servername, $username, $password, $dbname);
+-
+ 		mysqli_set_charset($conn, "utf8");
+ 
+ 		if(!($shop_password=="")){
+-            $strSQL = "UPDATE shop ";
+-            $strSQL .=" SET `S_password`='$shop_password',`S_name`='$shop_name',`S_address`='$shop_address',`S_tel`='$shop_tel',
+-            `S_earnacc_no`='$shop_earn_acc_no',`S_openday`='$shop_business_time_day',`S_opentime`='$shop_business_time_open_time',
+-            `S_closetime`='$shop_business_time_close_time'
+-            WHERE S_username='$shop_username'";
++            $strSQL = "UPDATE shop SET `shop_password`='$shop_password',`shop_name`='$shop_name',`shop_address`='$shop_address',`shop_tel`='$shop_tel',
++            `shop_earnacc_no`='$shop_earnacc_no',`shop_openday`='$shop_openday',`shop_opentime`='$shop_opentime',
++            `shop_closetime`='$shop_closetime'
++            WHERE shop_username='$shop_username'";
+             echo $strSQL;
+ 		    $objQuery = mysqli_query($conn,$strSQL);
+         }
+         else{
+-            $strSQL = "UPDATE shop ";
+-        $strSQL .=" SET `S_name`='$shop_name',`S_address`='$shop_address',`S_tel`='$shop_tel',
+-        `S_earnacc_no`='$shop_earn_acc_no',`S_openday`='$shop_business_time_day',`S_opentime`='$shop_business_time_open_time',
+-        `S_closetime`='$shop_business_time_close_time'
+-        WHERE S_username='$shop_username'";
+-		$objQuery = mysqli_query($conn,$strSQL);
++            $strSQL = "UPDATE shop SET `shop_name`='$shop_name',`shop_address`='$shop_address',`shop_tel`='$shop_tel',
++            `shop_earnacc_no`='$shop_earnacc_no',`shop_openday`='$shop_openday',`shop_opentime`='$shop_opentime',
++            `shop_closetime`='$shop_closetime'
++            WHERE shop_username='$shop_username'";
++            $objQuery = mysqli_query($conn,$strSQL);
+         }
+-        if($_FILES["S_image"]["name"] != "")
++        if($_FILES["shop_image"]["name"] != "")
+         {
+-            if(move_uploaded_file($_FILES["S_image"]["tmp_name"],"myfile/".$_FILES["S_image"]["name"]))
++            if(move_uploaded_file($_FILES["shop_image"]["tmp_name"],"myfile/".$_FILES["shop_image"]["name"]))
+             {
+     
+                 //*** Delete Old File ***//			
+@@ -55,7 +45,7 @@
+                 
+                 //*** Update New File ***//
+                 $strSQL = "UPDATE shop ";
+-                $strSQL .=" SET S_image = '".$_FILES["S_image"]["name"]."' WHERE S_username = '$shop_username' ";
++                $strSQL .=" SET shop_image = '".$_FILES["shop_image"]["name"]."' WHERE shop_username = '$shop_username' ";
+                 $objQuery = mysqli_query($conn,$strSQL);		
+     
+                 echo "Copy/Upload Complete<br>";
+Index: Shop/delete.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nrequire('./connect.php');\r\nsession_start();\r\n$shop_username = $_SESSION[\"shop_username\"];\r\n\r\n$sql = \"\r\n    DELETE FROM food\r\n    WHERE food_id Like '\".$_GET[\"itemId\"].\"';\r\n    \";\r\n//echo $sql;\r\n$objQuery = mysqli_query($conn, $sql);\r\nif ($objQuery) {\r\n    header(\"location:Home.php?state=1\");\r\n} else {\r\n    echo \"Error : Delete\";\r\n}\r\n\r\nmysqli_close($conn); // ปิดฐานข้อมูล\r\n\r\n?>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Shop/delete.php b/Shop/delete.php
+--- a/Shop/delete.php	(revision 55a64cec1ccdaa57c0fbf56c4678745f4bca4535)
++++ b/Shop/delete.php	(date 1634010767786)
+@@ -1,6 +1,6 @@
+ <?php
+ 
+-require('./connect.php');
++require('../connect.php');
+ session_start();
+ $shop_username = $_SESSION["shop_username"];
+ 
+Index: website/regis_drive_data.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n    session_start();\r\n\t\techo \"Copy/Upload Complete<br>\";\r\n\r\n\t\t//*** Insert Record ***//\r\n\t\t$servername = 'localhost';\r\n\t\t$username = 'root';\r\n\t\t$password = '';\r\n\t\t$dbname = 'grab';\r\n\r\n\t\t$conn = mysqli_connect($servername, $username, $password, $dbname);\r\n\r\n\t\tmysqli_set_charset($conn, \"utf8\");\r\n\r\n\t\t$driver_username = $_REQUEST[\"driver_username\"];\r\n\t\t$driver_password = $_REQUEST[\"driver_password\"];\r\n        $driver_name = $_REQUEST[\"driver_name\"];\r\n        $driver_tel = $_REQUEST[\"driver_tel\"];\r\n\t\t$driver_earn_acc_no = $_REQUEST[\"driver_earn_acc_no\"];\r\n        $ID_driver_status = $_REQUEST['ID_driver_status'];\r\n\r\n        echo $driver_username;\r\n        echo $driver_password;\r\n        echo $driver_name;\r\n        echo $driver_tel;\r\n        echo $driver_earn_acc_no;\r\n        echo $ID_driver_status;\r\n\r\n\t\t$strSQL = \"INSERT INTO driver\";\r\n\t\t$strSQL .=\"(`driver_username`, `driver_password`, `driver_name`, `driver_tel`, `driver_earn_acc_no`, `ID_driver_status`) \r\n\t\tVALUES ('$driver_username','$driver_password','$driver_name','$driver_tel','$driver_earn_acc_no','$ID_driver_status') ;\";\r\n\t\t$objQuery = mysqli_query($conn,$strSQL);\t\t\r\n    mysqli_close($conn);\r\n    echo \"complete\";\r\n\theader(\"location:../index.php\");\r\n?>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/website/regis_drive_data.php b/website/regis_drive_data.php
+--- a/website/regis_drive_data.php	(revision 55a64cec1ccdaa57c0fbf56c4678745f4bca4535)
++++ b/website/regis_drive_data.php	(date 1634027358613)
+@@ -6,7 +6,7 @@
+ 		$servername = 'localhost';
+ 		$username = 'root';
+ 		$password = '';
+-		$dbname = 'grab';
++		$dbname = 'foodpanda';
+ 
+ 		$conn = mysqli_connect($servername, $username, $password, $dbname);
+ 
+@@ -15,20 +15,22 @@
+ 		$driver_username = $_REQUEST["driver_username"];
+ 		$driver_password = $_REQUEST["driver_password"];
+         $driver_name = $_REQUEST["driver_name"];
++		$driver_surname = $_REQUEST["driver_surname"];
+         $driver_tel = $_REQUEST["driver_tel"];
+-		$driver_earn_acc_no = $_REQUEST["driver_earn_acc_no"];
+-        $ID_driver_status = $_REQUEST['ID_driver_status'];
++		$driver_earnacc_no = $_REQUEST["driver_earnacc_no"];
++
+ 
+         echo $driver_username;
+         echo $driver_password;
+         echo $driver_name;
++		echo $driver_surname;
+         echo $driver_tel;
+-        echo $driver_earn_acc_no;
+-        echo $ID_driver_status;
++        echo $driver_earnacc_no;
++
+ 
+ 		$strSQL = "INSERT INTO driver";
+-		$strSQL .="(`driver_username`, `driver_password`, `driver_name`, `driver_tel`, `driver_earn_acc_no`, `ID_driver_status`) 
+-		VALUES ('$driver_username','$driver_password','$driver_name','$driver_tel','$driver_earn_acc_no','$ID_driver_status') ;";
++		$strSQL .="(`driver_username`, `driver_password`, `driver_name`, `driver_surname`, `driver_tel`, `driver_earnacc_no`) 
++		VALUES ('$driver_username','$driver_password','$driver_name','$driver_surname','$driver_tel','$driver_earnacc_no') ;";
+ 		$objQuery = mysqli_query($conn,$strSQL);		
+     mysqli_close($conn);
+     echo "complete";
+Index: website/regis_drive.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html>\r\n<head>\r\n  <!-- Site made with Mobirise Website Builder v5.1.4, https://mobirise.com \r\n  <meta charset=\"UTF-8\">\r\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\r\n  <meta name=\"generator\" content=\"Mobirise v5.1.4, mobirise.com\">\r\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, minimum-scale=1\">\r\n  <link rel=\"shortcut icon\" href=\"assets/images/grab-final-master-logo-2019-rgb-green-121x48.png\" type=\"image/x-icon\">\r\n  <meta name=\"description\" content=\"\">\r\n  \r\n  \r\n  <title>Register</title>\r\n  <link rel=\"stylesheet\" href=\"assets/web/assets/mobirise-icons2/mobirise2.css\">\r\n  <link rel=\"stylesheet\" href=\"assets/tether/tether.min.css\">\r\n  <link rel=\"stylesheet\" href=\"assets/bootstrap/css/bootstrap.min.css\">\r\n  <link rel=\"stylesheet\" href=\"assets/bootstrap/css/bootstrap-grid.min.css\">\r\n  <link rel=\"stylesheet\" href=\"assets/bootstrap/css/bootstrap-reboot.min.css\">\r\n  <link rel=\"stylesheet\" href=\"assets/dropdown/css/style.css\">\r\n  <link rel=\"stylesheet\" href=\"assets/socicon/css/styles.css\">\r\n  <link rel=\"stylesheet\" href=\"assets/theme/css/style.css\">\r\n  <link rel=\"preload\" as=\"style\" href=\"assets/mobirise/css/mbr-additional.css\"><link rel=\"stylesheet\" href=\"assets/mobirise/css/mbr-additional.css\" type=\"text/css\">-->\r\n  \r\n  \r\n    <!-- Required meta tags-->\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\r\n    <meta name=\"description\" content=\"Colorlib Templates\">\r\n    <meta name=\"author\" content=\"Colorlib\">\r\n    <meta name=\"keywords\" content=\"Colorlib Templates\">\r\n\r\n    <!-- Title Page-->\r\n    <title>REGISTER DRIVER</title>\r\n\r\n    <!-- Icons font CSS\r\n    <link href=\"vendor/mdi-font/css/material-design-iconic-font.min.css\" rel=\"stylesheet\" media=\"all\">\r\n    <link href=\"vendor/font-awesome-4.7/css/font-awesome.min.css\" rel=\"stylesheet\" media=\"all\">-->\r\n    <script src=\"https://kit.fontawesome.com/a1850e5a9e.js\" crossorigin=\"anonymous\"></script>\r\n    <!-- Font special for pages-->\r\n    <link href=\"https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i\"\r\n        rel=\"stylesheet\">\r\n\r\n    <!-- Vendor CSS\r\n    <link href=\"vendor/select2/select2.min.css\" rel=\"stylesheet\" media=\"all\">\r\n    <link href=\"vendor/datepicker/daterangepicker.css\" rel=\"stylesheet\" media=\"all\">-->\r\n\r\n    <!-- Main CSS-->\r\n    <link href=\"../css/main.css\" rel=\"stylesheet\" media=\"all\">\r\n    <link href=\"../css/style-register.css\" rel=\"stylesheet\" media=\"all\">\r\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n</head>\r\n<body>\r\n<form action=\"insertdata.php\" method=\"POST\">\r\n        \r\n        <div class=\"page-wrapper p-t-180 p-b-100 font-robo\">\r\n            <div class=\"wrapper wrapper--w960\">\r\n                <div class=\"card card-2\">\r\n                    <div class=\"card-heading\"></div>\r\n                    <div class=\"card-body\">\r\n                        <form class=\"form-insert\">\r\n                            <img src=\"../images/foodpanda.png\">\r\n                            <div class=\"form-group\">\r\n                                <input type=\"text\" name=\"driver_name\" class=\"form-control\" value=\"\" id=\"name-form4-y\">\r\n                                <label class=\"form-label\">Name</label>\r\n                            </div>\r\n                            <div class=\"form-group\">\r\n                                <input type=\"text\" name=\"driver_surname\" class=\"form-control\" value=\"\" id=\"email-form4-y\" >\r\n                                <label class=\"form-label\">Surname</label>\r\n                            </div>\r\n                            <div class=\"form-group\">\r\n                                <input type=\"text\" name=\"driver_username\" class=\"form-control\" value=\"\" id=\"name-form4-y\" >\r\n                                <label class=\"form-label\">Username</label>\r\n                            </div>\r\n                            <div class=\"form-group\">\r\n                                <input type=\"password\" name=\"driver_password\" class=\"form-control\" value=\"\" id=\"email-form4-y\" >\r\n                                <label class=\"form-label\">Password</label>\r\n                            </div>\r\n                            <div class=\"form-group\">\r\n                                <input type=\"text\" name=\"driver_tel\" class=\"form-control\" value=\"\" id=\"email-form4-v\" pattern=\"[0-9]{10}\">\r\n                                <label class=\"form-label\">Tel</label>\r\n                            </div>\r\n                            <div class=\"form-group\">\r\n                                <input type=\"text\" name=\"driver_earnacc_no\" class=\"form-control\" value=\"\" id=\"email-form4-v\">\r\n                                <label class=\"form-label\">Account number</label>\r\n                            </div>\r\n                            <button class=\"btn\" type=\"submit\" >Submit</button>\r\n                        </form>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </form>\r\n    <!-- Main JS-->\r\n    <script src=\"js/global.js\"></script>\r\n    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js\"></script>\r\n    <script type=\"text/javascript\" src=\"AutoProvince.js\"></script>\r\n  <!--<section class=\"menu cid-s48OLK6784\" once=\"menu\" id=\"menu1-s\">\r\n    \r\n    <nav class=\"navbar navbar-dropdown navbar-fixed-top navbar-expand-lg\">\r\n        <div class=\"container-fluid\">\r\n            <div class=\"navbar-brand\">\r\n                <span class=\"navbar-logo\">\r\n                    <a href=\"index.html\">\r\n                        <img src=\"assets/images/grab-final-master-logo-2019-rgb-green-121x48.png\" alt=\"Grab\" style=\"height: 3.8rem;\">\r\n                    </a>\r\n                </span>\r\n                \r\n            </div>\r\n            <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarNavAltMarkup\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n                <div class=\"hamburger\">\r\n                    <span></span>\r\n                    <span></span>\r\n                    <span></span>\r\n                    <span></span>\r\n                </div>\r\n            </button>\r\n            <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n                <ul class=\"navbar-nav nav-dropdown nav-right\" data-app-modern-menu=\"true\"><li class=\"nav-item dropdown\"><a class=\"nav-link link text-black dropdown-toggle display-4\" href=\"#\" data-toggle=\"dropdown-submenu\" aria-expanded=\"false\">สมัครเป็นพาร์ทเนอร์</a><div class=\"dropdown-menu\"><a class=\"text-black dropdown-item text-primary display-4\" href=\"page1.html\">ตัวอย่างเอกสาร</a><a class=\"text-black dropdown-item text-primary display-4\" href=\"page2.html\" aria-expanded=\"false\">รถยนต์และจักรยานยนต์</a><a class=\"text-black dropdown-item text-primary display-4\" href=\"page3.html\" aria-expanded=\"false\">ร้านอาหาร</a></div></li>\r\n                    <li class=\"nav-item\"><a class=\"nav-link link text-black text-primary display-4\" href=\"https://help.grab.com/passenger/th-th/\" target=\"_blank\">\r\n                            ศูนย์ช่วยเหลือ</a></li></ul>\r\n                \r\n                \r\n            </div>\r\n        </div>\r\n    </nav>\r\n\r\n</section>\r\n\r\n<section class=\"form4 cid-sboLr6XEOH mbr-fullscreen\" id=\"form4-v\">\r\n\r\n    \r\n\r\n    \r\n\r\n    <div class=\"container-fluid\">\r\n        <div class=\"row content-wrapper justify-content-center\">\r\n            <div class=\"col-lg-3 offset-lg-1 mbr-form\">\r\n                <form action=\"./regis_drive_data.php\" method=\"POST\" class=\"mbr-form form-with-styler\">\r\n                    <div class=\"dragArea row\">\r\n                        <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                            \r\n                        </div>\r\n                        <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                            <p class=\"mbr-text mbr-fonts-style mb-4 display-7\">สมัครขับแกร็บวันนี้</p>\r\n                        </div>\r\n                        <div class=\"col-lg-6 col-md col-6 form-group\">\r\n                            <input type=\"text\" name=\"driver_username\" placeholder=\"username\" class=\"form-control\" value=\"\" id=\"name-form4-y\" Required >\r\n                        </div>\r\n                        <div class=\"col-lg-6 col-md col-6 form-group\">\r\n                            <input type=\"password\" name=\"driver_password\" placeholder=\"password\" class=\"form-control\" value=\"\" id=\"email-form4-y\" Required >\r\n                        </div>\r\n                        <div class=\"col-lg-12 col-md col-12 form-group\" >\r\n                            <input type=\"text\" name=\"driver_name\" placeholder=\"ชื่อจริง และ นามสกุล\" class=\"form-control\" value=\"\" id=\"name-form4-v\" pattern=\"(([\\u0E01-\\u0E4C]+)(\\s+)([\\u0E01-\\u0E4C]+))||(([A-Za-z]+)(\\s+)([A-Za-z]+))\" Required>\r\n                        </div>\r\n                        <div class=\"col-lg-12 col-md col-12 form-group\" >\r\n                            <input type=\"text\" name=\"driver_tel\" placeholder=\"เบอร์โทรศัพท์\"  class=\"form-control\" value=\"\" id=\"email-form4-v\" pattern=\"[0-9]{10}\">\r\n                        </div>\r\n                        <div class=\"col-lg-12 col-md col-12 form-group\" >\r\n                            <input type=\"text\" name=\"driver_earn_acc_no\" placeholder=\"หมายเลขบัญชี\"  class=\"form-control\" value=\"\" id=\"email-form4-v\" Required>\r\n                        </div>\r\n                        <div class=\"col-lg-12 col-md col-12 form-group\">\r\n                        <?php\r\n                                // type_cus_status Query from Table\r\n                                require('../connect.php');\r\n                                $sql = '\r\n                                    SELECT ID_driver_status,driver_status_name\r\n                                    FROM driver_status;\r\n                                ';\r\n                                $objQuery = mysqli_query($conn, $sql) or die(\"Error Query [\" . $sql . \"]\");\r\n                            ?>\r\n                            <select name=\"ID_driver_status\" Required class=\"form-control\">\r\n                                <?php\r\n                                    while ($objResult = mysqli_fetch_array($objQuery)) {\r\n                                ?>\r\n                                <option value=<?php echo $objResult[\"ID_driver_status\"]; ?>>\r\n                                <?php echo $objResult[\"driver_status_name\"]; ?></option>\r\n                                <?php\r\n                                }\r\n                                ?>\r\n                            </select>\r\n                        </div>\r\n                        <div class=\"col-12 col-md-auto mbr-section-btn\"><button type=\"submit\" class=\"btn btn-primary display-4\">ส่งข้อมูล</button></div>\r\n                    </div>\r\n                </form>\r\n            </div>\r\n            <div class=\"col-lg-7 offset-lg-1 col-12\">\r\n                <div class=\"image-wrapper\">\r\n                    <img class=\"w-100\" src=\"assets/images/covid-image-delivery-services2x-1052x1168.jpg\" alt=\"Grab\">\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</section>\r\n\r\n<section class=\"video1 cid-sboKCjayEr\" id=\"video1-u\">\r\n    \r\n    \r\n    <div class=\"align-center container-fluid\">\r\n        <div class=\"mbr-section-head\">\r\n            <h4 class=\"mbr-section-title mbr-fonts-style mb-0 display-2\"><strong>วิธีสมัครเป็นคนขับแกร็บฟู๊ด</strong></h4>\r\n            \r\n        </div>\r\n        <div class=\"row justify-content-center mt-4\">\r\n            <div class=\"col-12 col-lg-10\">\r\n                <div class=\"box\">\r\n                    <div class=\"mbr-media show-modal align-center\" data-modal=\".modalWindow\">\r\n                        <img src=\"assets/images/mbr-1920x1280.jpg\" alt=\"Grab\">\r\n                        <div class=\"icon-wrap\">\r\n                            <span class=\"mbr-iconfont socicon-youtube socicon\"></span>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div>\r\n        <div class=\"modalWindow\" style=\"display: none;\">\r\n            <div class=\"modalWindow-container\">\r\n                <div class=\"modalWindow-video-container\">\r\n                    <div class=\"modalWindow-video\">\r\n                        <iframe width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen=\"1\" data-src=\"https://www.youtube.com/watch?v=BYG_K8zLIUE\"></iframe>\r\n                    </div>\r\n                    <a class=\"close\" role=\"button\" data-dismiss=\"modal\">\r\n                        <span aria-hidden=\"true\" class=\"mbr-iconfont mobi-mbri-close mobi-mbri closeModal\"></span>\r\n                        <span class=\"sr-only\">Close</span>\r\n                    </a>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</section>\r\n\r\n<section class=\"footer3 cid-s48P1Icc8J\" once=\"footers\" id=\"footer3-t\">\r\n\r\n    \r\n\r\n    \r\n\r\n    <div class=\"container\">\r\n        <div class=\"media-container-row align-center mbr-white\">\r\n            <div class=\"row row-links\">\r\n                <ul class=\"foot-menu\">\r\n                    \r\n                    \r\n                    \r\n                    \r\n                    \r\n                <li class=\"foot-menu-item mbr-fonts-style display-7\"><a href=\"https://help.grab.com/passenger/th-th/\" class=\"text-success text-primary\" target=\"_blank\">Help Center</a></li><li class=\"foot-menu-item mbr-fonts-style display-7\"><a href=\"page2.html\" class=\"text-success\">Join Us</a></li><li class=\"foot-menu-item mbr-fonts-style display-7\"><a href=\"index.html#top\" class=\"text-success text-primary\">Grab.com</a></li></ul>\r\n            </div>\r\n            <div class=\"row social-row\">\r\n                <div class=\"social-list align-right pb-2\">\r\n                    \r\n                    \r\n                    \r\n                    \r\n                    \r\n                    \r\n                <div class=\"soc-item\">\r\n                        <a href=\"#top\" target=\"_blank\">\r\n                            <span class=\"mbr-iconfont mbr-iconfont-social mobi-mbri-arrow-up mobi-mbri\"></span>\r\n                        </a>\r\n                    </div></div>\r\n            </div>\r\n            <div class=\"row row-copirayt\">\r\n                <p class=\"mbr-text mb-0 mbr-fonts-style mbr-white align-center display-7\">GRAB FOOD PROJECT x KMUTNB STUDENT</p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</section><section style=\"background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;\"><a href=\"https://mobirise.site/v\" style=\"flex: 1 1; height: 3rem; padding-left: 1rem;\"></a><p style=\"flex: 0 0 auto; margin:0; padding-right:1rem;\">How to make your own site - <a href=\"https://mobirise.site/x\" style=\"color:#aaa;\">Check it out</a></p></section><script src=\"assets/web/assets/jquery/jquery.min.js\"></script>  <script src=\"assets/popper/popper.min.js\"></script>  <script src=\"assets/tether/tether.min.js\"></script>  <script src=\"assets/bootstrap/js/bootstrap.min.js\"></script>  <script src=\"assets/smoothscroll/smooth-scroll.js\"></script>  <script src=\"assets/dropdown/js/nav-dropdown.js\"></script>  <script src=\"assets/dropdown/js/navbar-dropdown.js\"></script>  <script src=\"assets/touchswipe/jquery.touch-swipe.min.js\"></script>  <script src=\"assets/playervimeo/vimeo_player.js\"></script>  <script src=\"assets/theme/js/script.js\"></script>  <script src=\"assets/formoid/formoid.min.js\"></script>  -->\r\n  \r\n  \r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/website/regis_drive.php b/website/regis_drive.php
+--- a/website/regis_drive.php	(revision 55a64cec1ccdaa57c0fbf56c4678745f4bca4535)
++++ b/website/regis_drive.php	(date 1634027368487)
+@@ -50,7 +50,7 @@
+     <html xmlns="http://www.w3.org/1999/xhtml">
+ </head>
+ <body>
+-<form action="insertdata.php" method="POST">
++<form action="regis_drive_data.php" method="POST">
+         
+         <div class="page-wrapper p-t-180 p-b-100 font-robo">
+             <div class="wrapper wrapper--w960">
+Index: insertdata.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php /* *** No Copyright for Education (Free to Use and Edit) *** * /\r\nPHP 7.1.1 | MySQL 5.7.17 | phpMyAdmin 4.6.6 | by appserv-win32-8.6.0.exe\r\n*/ ?>\r\n<?php\r\nrequire('connect.php');\r\n$errors = array();\r\n\r\n$cus_name\t\t  = $_REQUEST['cus_name'];\r\n$cus_surname\t\t  = $_REQUEST['cus_surname'];\r\n$cus_birthday\t\t  = $_REQUEST['cus_birthday'];\r\n$cus_tel\t\t  = $_REQUEST['cus_tel'];\r\n$cus_email\t  = $_REQUEST['cus_email'];\r\n$cus_username\t\t  = $_REQUEST['cus_username'];\r\n$cus_password\t\t  = $_REQUEST['cus_password'];\r\n$address_detail\t  = $_REQUEST['address_detail'];\r\n// echo($address_detail);\r\n\r\n\r\n// ดัก ERROR USERNAME, TEL, EMAIL กรณีมีซ้ำกัน\r\n\r\n// $user_check = \"SELECT * FROM `customer` WHERE C_username = '$C_username' OR C_tel = '$C_tel' OR C_email = '$C_email' LIMIT 1\";\r\n// $query = mysqli_query($conn,$user_check);\r\n// $result = mysqli_fetch_assoc($query);\r\n\r\n// // mysqli_query($conn, $sql);\r\n// if($result){\r\n// \tif($result['C_username'] == $C_username){\r\n// \t\tarray_push($errors,\"มีชื่อผู้ใช้งานนี้แล้ว\");\r\n// \t\t$_SESSION['error'] = \"มีชื่อผู้ใช้งานนี้แล้ว\";\r\n// \t\t$warning[] ='<script>\r\n// \t\talert( \"มีชื่อผู้ใช้งานนี้แล้ว!\");\r\n//  \t\t</script>';\r\n// \t}\r\n// \tif($result['C_tel'] == $C_tel){\r\n// \t\tarray_push($errors,\"เบอร์โทรนี้มีผู้ใช้แล้ว\");\r\n// \t\t$_SESSION['error'] = \"เบอร์โทรนี้มีผู้ใช้แล้ว\";\r\n// \t\t$warning[] = '<script>\r\n// \t\talert( \"เบอร์โทรนี้มีผู้ใช้แล้ว\");\r\n//  \t\t</script>';\r\n// \t}\r\n// \tif($result['C_email'] == $C_email){\r\n// \t\tarray_push($errors,\"อีเมลนี้มีผู้ใช้แล้ว\");\r\n// \t\t$_SESSION['error'] = \"อีเมลนี้มีผู้ใช้แล้ว\";\r\n// \t\t$warning[] ='<script>\r\n// \t\talert( \"อีเมลนี้มีผู้ใช้แล้ว\");\r\n//  \t\t</script>';\r\n// \t}\r\n// \tprint_r ($warning);\r\n// \techo '<script> window.location.href=\"register.php\"; </script>';\r\n// }\r\n\r\n\r\n// print_r($addrinsertresults);\r\n// echo($addrinsertresults);\r\n\r\n\r\nif(count($errors) == 0){\r\n\t$customerinsert = \"\r\n\tINSERT INTO `customer`(`cus_username`, `cus_password`, `cus_name`, `cus_surname`, `cus_birthday`, `cus_tel`, `cus_email`)\r\n \tVALUES ('$cus_username', '$cus_password', '$cus_name', '$cus_surname', '$cus_birthday', '$cus_tel', '$cus_email');\r\n \t\";\r\n\r\n\t$objQuery = mysqli_query($conn, $customerinsert);\r\n\t$getinsertcusid = mysqli_insert_id($conn);\r\n\t// echo($getinsertcusid);\r\n\r\n\t\r\n\t$addrinsert = \"INSERT INTO address(address_detail, cus_id) VALUES ('$address_detail', $getinsertcusid)\";\r\n\t$addrinsertresults = mysqli_query($conn, $addrinsert);\r\n\t// printf($addrinsertresults);\r\n\r\n\techo '<script>\r\n\t alert( \"Successful registration!\");\r\n\twindow.location.href=\"index.php\";\r\n    </script>';\r\n\t// print_r($address_detail);\r\n}\r\n// print_r ($errors);\r\n\r\n//$objQuery = mysqli_query($conn, $sql);\r\n\r\n// if ($objQuery) {\r\n// \t// alert(\"Successful registration!\");\r\n// \techo '<script>\r\n// \talert( \"Successful registration!\");\r\n// \twindow.location.href=\"index.php\";\r\n// \t</script>';\r\n// } else {\r\n// \tprint_r($objQuery);\r\n// }\r\n\r\nmysqli_close($conn); // ปิดฐานข้อมูล\r\necho \"<br>\";\r\necho \"Successful registration!\";\r\necho \"<br><br>\";\r\necho \"--- END ---\";\r\n?>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/insertdata.php b/insertdata.php
+--- a/insertdata.php	(revision 55a64cec1ccdaa57c0fbf56c4678745f4bca4535)
++++ b/insertdata.php	(date 1634013865468)
+@@ -64,7 +64,6 @@
+ 	$getinsertcusid = mysqli_insert_id($conn);
+ 	// echo($getinsertcusid);
+ 
+-	
+ 	$addrinsert = "INSERT INTO address(address_detail, cus_id) VALUES ('$address_detail', $getinsertcusid)";
+ 	$addrinsertresults = mysqli_query($conn, $addrinsert);
+ 	// printf($addrinsertresults);
+Index: shopping/connect.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n/*\r\n * set var\r\n */\r\n$cfHost = \"localhost\";\r\n$cfUser = \"root\";\r\n$cfPassword = \"\";\r\n$cfDatabase = \"foodpanda\";\r\n\r\n/*\r\n * connection mysql\r\n */\r\n\r\n$meConnect = mysqli_connect($cfHost, $cfUser, $cfPassword,$cfDatabase) or die(\"Error conncetion mysql...\");\r\n\r\nmysqli_set_charset($meConnect, \"utf8\");\r\n?>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/shopping/connect.php b/shopping/connect.php
+--- a/shopping/connect.php	(revision 55a64cec1ccdaa57c0fbf56c4678745f4bca4535)
++++ b/shopping/connect.php	(date 1634010768227)
+@@ -2,9 +2,9 @@
+ /*
+  * set var
+  */
+-$cfHost = "localhost";
+-$cfUser = "root";
+-$cfPassword = "";
++$cfHost = "thoranin.org";
++$cfUser = "proy3258";
++$cfPassword = "Ns94ox^0";
+ $cfDatabase = "foodpanda";
+ 
+ /*

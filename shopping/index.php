@@ -1,8 +1,9 @@
 <?php
 session_start();
-require 'connect.php';
-
-$meSql = "SELECT * FROM shop";
+    require('connect.php');
+    $id_shop = $_SESSION["shop_id"];
+    $meSql = "SELECT * FROM food WHERE shop_id ='$id_shop'";
+    $meSql = "SELECT * FROM shop";
 if(isset($_GET['shop_name'])){
     $name = $_GET['shop_name'];
     $meSql .= " WHERE shop_name LIKE '%".$name."%'";
@@ -34,6 +35,7 @@ if(isset($_SESSION['qty'])){
         <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="bootstrap/css/nava.css" rel="stylesheet">
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -71,7 +73,7 @@ if(isset($_SESSION['qty'])){
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="index.php">หน้าแรกร้านค้า</a></li>
-                            <li><a href="cart.php?shop=<?php echo $id_shop?>">ตะกร้าสินค้าของฉัน <span class="badge"><?php echo $meQty; ?></span></a></li>
+                            <li><a href="cart.php?shop=<?php echo $id_shop;?>">ตะกร้าสินค้าของฉัน <span class="badge"><?php echo $meQty; ?></span></a></li>
                             <form action="search.php" method="post">
                                 <input type="text" name="keyword" id="search_name">
                                 <input type="submit" value="ค้นหา" class="btn btn-primary btn-lg">
@@ -119,15 +121,15 @@ if($action == 'finishOrder'){
                     {
                         ?>
                         <tr>
-                            <td><img src="../Shop/myfile/<?php echo $meResult['FilesName'];?>" width="120px" height="100px" border="0"></td>
+                            <td><img src="../Shop/myfile/<?php echo $meResult['shop_image'];?>" width="120px" height="100px" border="0"></td>
                             <td><?php echo $meResult['shop_name']; ?></td>
                             <td><?php echo $meResult['shop_address']; ?></td>
                             <td><?php echo $meResult['shop_tel']; ?></td>
-                            <td><?php echo $meResult['shop_business_time_day']; ?></td>
-                            <td><?php echo $meResult['shop_business_time_open_time']." - ".$meResult['shop_business_time_open_time']; ?></td>
+                            <td><?php echo $meResult['shop_openday']; ?></td>
+                            <td><?php echo $meResult['shop_opentime']." - ".$meResult['shop_closetime']; ?></td>
                             <td>
                                 <a class="btn btn-primary btn-lg" href="index_2.php?shop=<?php echo $meResult["shop_username"];?>" role="button">
-                                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                                    <span class="fa fa-shopping-cart"></span>
                                     เข้าร้าน</a>
                             </td>
                         </tr>

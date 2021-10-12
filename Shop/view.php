@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>ThaiCreate.Com Tutorial</title>
+<title>Shopfoodpanda | Edit</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
 <body>
 	
@@ -11,7 +11,7 @@
 	$servername = 'localhost';
 	$username = 'root';
 	$password = '';
-	$dbname = 'grab';
+	$dbname = 'foodpanda';
 
 	$conn = mysqli_connect($servername, $username, $password, $dbname);
 
@@ -39,12 +39,12 @@
 	{
 ?>
 <tr>
-<td><center><img src="myfile/<?php echo $objResult["FilesName"];?>" width="100px" ,height="100px"></center></td>
+<td><center><img src="myfile/<?php echo $objResult["Food_image"];?>" width="100px" ,height="100px"></center></td>
 <td><center><?php echo $objResult["food_name"];?></center></td>
 <td><center><?php echo $objResult["food_size"];?></center></td>
-<td><center><?php echo $objResult["food_cash"];?></center></td>
-<td><center><a href="update.php?id_food=<?php echo $objResult["id_food"];?>">Edit</a></center></td>
-<td><center><a href="delete.php?id_food=<?php echo $objResult["id_food"];?>">Delete</a></center></td>
+<td><center><?php echo $objResult["food_price"];?></center></td>
+<td><center><a href="update.php?id_food=<?php echo $objResult["food_id"];?>">Edit</a></center></td>
+<td><center><a href="delete.php?id_food=<?php echo $objResult["food_id"];?>">Delete</a></center></td>
 </tr>
 <?php
 	}

@@ -17,7 +17,7 @@
     <meta name="keywords" content="Colorlib Templates">
 
     <!-- Title Page-->
-    <title>Grab register form</title>
+    <title>REGISTER</title>
 
     <!-- Icons font CSS-->
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -33,6 +33,7 @@
 
     <!-- Main CSS-->
     <link href="css/main.css" rel="stylesheet" media="all">
+    <link href="css/style-register.css" rel="stylesheet" media="all">
     <html xmlns="http://www.w3.org/1999/xhtml">
     <?php
         /*$dbservername = "localhost";
@@ -55,42 +56,49 @@
     
     <form action="insertdata.php" method="POST">
         
-        <div class="page-wrapper p-t-180 p-b-100 font-robo" style= "background color: #FF99CC">
+        <div class="page-wrapper p-t-180 p-b-100 font-robo">
             <div class="wrapper wrapper--w960">
                 <div class="card card-2">
                     <div class="card-heading"></div>
                     <div class="card-body">
-                        <form>
-                            <img src="images/foodpanda.png" width="250px"height="250px">
-                            <div class="input-group">
-                                <input class="input--style-2" type="text" placeholder="Name" name="C_name" >
+                        <form class="form-insert">
+                            <img src="images/foodpanda.png">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="cus_name"/>
+                                <label class="form-label">Name</label>
                             </div>
-                            <div class="input-group">
-                                <input class="input--style-2" type="text" placeholder="Surname" name="C_surname">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="cus_surname"/>
+                                <label class="form-label">Surname</label>
                             </div>
-                            <div class="input-group">
-                                <input class="input--style-2" type="text" placeholder="Tel" name="C_tel" pattern="[0-9]{10}">
+                            <div class="form-group">
+                                <label class="form-label">Birthday</label>
                             </div>
-                            <div class="input-group">
-                                <input class="input--style-2" type="text" placeholder="address" name="A_detail">    
+                            <br><br>
+                            <div class="form-group">
+                                <input type="date" class="form-control" name="cus_birthday"/>
                             </div>
-                            <div class="input-group">
-                                <input class="input--style-2" type="email" placeholder="Email" name="C_email">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="cus_tel" pattern="[0-9]{10}"/>
+                                <label class="form-label">Tel</label>
                             </div>
-                            <div class="row-row-space">
-                                    <div class="input-group">
-                                        <input class="input--style-2" type="text" placeholder="Username"name="C_username">
-                                    </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="address_detail"/>
+                                <label class="form-label">Address</label>
                             </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <input class="input--style-2" id="password-field" placeholder="Password" name="C_password" type="password" class="form-control" >
-                                </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" name="cus_email"/>
+                                <label class="form-label">Email</label>
                             </div>
-                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                            <div class="p-t-30">
-                                <button class="btn btn--radius " style= "background: deeppink" type="submit">Register</button>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="cus_username"/>
+                                <label class="form-label">Username</label>
                             </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="cus_password"/>
+                                <label class="form-label">Password</label>
+                            </div>
+                            <button class="btn" type="submit">Register</button>
                         </form>
                     </div>
                 </div>
