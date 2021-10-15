@@ -43,17 +43,13 @@ if (isset($_SESSION['cart']) and $itemCount > 0)
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>itoffside.com shopping cart</title>
+        <title>shopping cart</title>
 
         <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="bootstrap/css/nava.css" rel="stylesheet">
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
 
     </head>
     <body>
@@ -121,7 +117,7 @@ if (isset($_SESSION['cart']) and $itemCount > 0)
                                     <td><?php echo number_format(($meResult['food_price'] * $_SESSION['qty'][$key]),2); ?></td>
                                     <td>
                                         <a class="btn btn-danger btn-lg" href="removecart.php?itemId=<?php echo $meResult["food_id"]; ?>&shop=<?php echo $id_shop?>" role="button">
-                                            <span class="glyphicon glyphicon-trash"></span>
+                                            <i class="fa fa-trash"></i>
                                             ลบทิ้ง</a>
                                     </td>
                                 </tr>
@@ -137,7 +133,7 @@ if (isset($_SESSION['cart']) and $itemCount > 0)
                             <tr>
                                 <td colspan="8" style="text-align: right;">
                                     <button type="submit" class="btn btn-info btn-lg">คำนวณราคาสินค้าใหม่</button>
-                                    <a href="order.php?shop=<?php echo $id_shop?>" type="button" class="btn btn-primary btn-lg">สังซื้อสินค้า</a>
+                                    <a href="checkout.php?shop=<?php echo $id_shop?>" type="button" class="btn btn-primary btn-lg">สังซื้อสินค้า</a>
                                 </td>
                             </tr>
                         </tbody>
