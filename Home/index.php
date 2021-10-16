@@ -27,19 +27,13 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <?php
 session_start();
-if(empty($_SESSION["cus_username"])){
+if(empty($_SESSION["cus_username"] && $_SESSION["cus_password"])){
     header("location:../index.php");
 }
 if(isset($_GET["shop"])){
     $id_shop = $_GET["shop"];
 }
 
-
-
-/*if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: ../Grab_present/index.php");
-    exit;
-}*/
 ?>
 </head>
 

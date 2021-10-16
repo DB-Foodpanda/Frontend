@@ -87,6 +87,7 @@
         if ($count2 == 1){
             $_SESSION["loggedin"] = true; 
             $_SESSION["driver_username"] = $cus_username;
+            $_SESSION["driver_id"] = $objResult2['driver_id'];
             echo '<script>
             alert( " Welcome \n'. $cus_username .'");
             window.location.href="./website/driver.php";

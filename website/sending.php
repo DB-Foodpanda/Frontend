@@ -4,21 +4,20 @@ Created by Mr.Earn SURIYACHAY | ComSci | KMUTNB | Bangkok | Apr 2018 */ ?>
 <?php
 session_start();
 require('../connect.php');
-$driver_username = $_SESSION["driver_username"]; 
+$driver_id = $_SESSION["driver_id"]; 
 //$EmployeeID   = $_REQUEST['EmployeeID'];
 //$Title		  = $_REQUEST['Title'];
-$id_order = $_GET["id"];
-$id_orders_status = 3;
+$order_id = $_GET["id"];
 
-
-    $sql = "UPDATE `orders` SET `id_orders_status`= $id_orders_status WHERE id_orders ='$id_order'";
+    $sql = "UPDATE `order` SET `order_status`= 3 WHERE order_id = $order_id";
     echo $sql;
     $objQuery = mysqli_query($conn, $sql);
 
     if ($objQuery) {
-	    header("Location: ./driver.php"); 
+	    header("Location: ./driver.php?state=3"); 
         exit;
     }else {
+        echo "<br>";
 	    echo "Error : Input";
     }
 

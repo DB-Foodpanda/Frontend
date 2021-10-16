@@ -1,21 +1,16 @@
 <?php
 session_start();
 require '../connect.php';
-$id_order = $_GET["id"];
-$meSql = "SELECT orders.id_orders,orders.Cus_username,orders.orders_total_price,orders.orders_date_start_send,
-    orders_detail.id_food,orders_detail.orders_detail_item,food.food_name,food.food_size,food.food_cash,
-    food.shop_username,food.FilesName,shop.shop_username,shop.shop_name,shop.shop_address,shop.shop_tel,shop.shop_business_time_day,
-    shop.shop_business_time_open_time,shop.shop_business_time_close_time,customer.Cus_address,customer.Cus_tel,customer.Cus_Name
-    FROM `orders` JOIN orders_detail
-    ON orders.id_orders = orders_detail.id_orders
-    JOIN food
-    ON orders_detail.id_food = food.id_food
-    JOIN shop
-    ON food.shop_username = shop.shop_username
-    JOIN customer
-    ON orders.Cus_username = customer.Cus_username
-WHERE orders.id_orders =$id_order";
-$meQuery = mysqli_query($conn,$meSql);
+$order_id = $_GET["id"];
+
+    $meSql = "SELECT * FROM `order` 
+    JOIN order_details ON order.order_id = order_details.order_id
+    JOIN food ON order_details.food_id = food.food_id 
+    JOIN customer ON order.cus_id = customer.cus_id
+    JOIN shop ON order.shop_id = shop.shop_id
+    JOIN address ON address.cus_id = customer.cus_id
+    WHERE order.order_id =$order_id";
+    $meQuery = mysqli_query($conn,$meSql);
 
 
 $action = isset($_GET['a']) ? $_GET['a'] : "";
@@ -39,7 +34,7 @@ if(isset($_SESSION['qty'])){
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>itoffside.com shopping cart</title>
+        <title>รายละเอียดออเดอร์</title>
 
         <!-- Bootstrap -->
         <link href="../shopping/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -93,18 +88,18 @@ if($action == 'finishOrder'){
                         ?>
                         <tr>
                             
-                            <?php $total_per = $meResult['food_cash']*$meResult['orders_detail_item'];?>
-                            <td><img src="../Shop/myfile/<?php echo $meResult['FilesName'];?>" width="120px" height="100px" border="0"></td>
+                            <?php $total_per = $meResult['food_price']*$meResult['order_details_qty'];?>
+                            <td><img src="../Shop/myfile/<?php echo $meResult['food_image'];?>" width="120px" height="120px" border="0"></td>
                             
                             <td><?php echo $meResult['food_name']; ?></td>
                             
-                            <td>ขนาด <?php echo $meResult['food_size']; ?> สั่งซื้อจำนวน <?php echo $meResult['orders_detail_item'];?> จาน ราคาจานละ <?php echo $meResult['food_cash'];?> บาท</td>
+                            <td>ขนาด <?php echo $meResult['food_size']; ?> สั่งซื้อจำนวน <?php echo $meResult['order_details_qty'];?> จาน ราคาจานละ <?php echo $meResult['food_price'];?> บาท</td>
                             <td><?php echo number_format($total_per,2); ?></td>
                         </tr>
                         <?php
                         if($count==0){
-                            echo '<h4 style="text-align: right;">'.$meResult["Cus_Name"].'<br>ที่อยู่ลูกค้า : '.$meResult["Cus_address"].'<br>เบอร์โทร : '.$meResult["Cus_tel"].'</h4>';
-                        echo '<b>'.$meResult["shop_name"].'</b><br>ที่อยู่ร้านค้า: '.$meResult["shop_address"].'<br> วันที่เปิด:'.$meResult["shop_business_time_day"].'<br> เวลาเปิด-ปิด'.$meResult["shop_business_time_open_time"].' - '.$meResult["shop_business_time_open_time"];
+                            echo '<h4 style="text-align: right;">'.$meResult["cus_name"].'<br>ที่อยู่ลูกค้า : '.$meResult["address_detail"].'<br>เบอร์โทร : '.$meResult["cus_tel"].'</h4>';
+                        echo '<b>'.$meResult["shop_name"].'</b><br>ที่อยู่ร้านค้า: '.$meResult["shop_address"].'<br> วันที่เปิด: '.$meResult["shop_openday"].'<br> เวลาเปิด-ปิด: '.$meResult["shop_opentime"].' - '.$meResult["shop_closetime"];
                         }
                         $count++;
                     }

@@ -8,45 +8,41 @@ require('../connect.php');
 if(empty($_SESSION["driver_username"])){
     header("location:../index.php");
 }
+$driver_id = $_SESSION["driver_id"];
+$driver_username = $_SESSION["driver_username"];
+$state = $_GET["state"];
 
-$driver_username = $_SESSION["driver_username"]; 
-  $sql = "
-  SELECT * 
-FROM `driver` 
-WHERE driver_username = '$driver_username' ;
+  $sql = " SELECT * FROM `driver` WHERE driver_username = '$driver_username' ;
     ";
-
-  $objQuery = mysqli_query($conn, $sql) or die("Error Query [" . $sql . "]");
-  $objResult = mysqli_fetch_array($objQuery);
+    
+    $objQuery = mysqli_query($conn, $sql) or die("Error Query [" . $sql . "]");
+    $objResult = mysqli_fetch_array($objQuery);
   
-    $meSql = "SELECT orders.id_orders,orders.id_orders_status,orders.Cus_username,orders.orders_total_price,
-    orders.orders_date_start_send,
-    orders_detail.id_food,orders_detail.orders_detail_item,food.food_name,food.food_size,food.food_cash,
-food.shop_username,shop.shop_username,shop.shop_name,shop.shop_address,shop.shop_tel,shop.shop_business_time_day,
-shop.shop_business_time_open_time,
-shop.shop_business_time_close_time,customer.Cus_address,customer.Cus_tel,orders_status.orders_status_name
-    FROM `orders` JOIN orders_detail
-    ON orders.id_orders = orders_detail.id_orders
-    JOIN food
-    ON orders_detail.id_food = food.id_food
-    JOIN shop
-    ON food.shop_username = shop.shop_username
-    JOIN customer
-    ON orders.Cus_username = customer.Cus_username
-   JOIN orders_status
-   ON orders.id_orders_status = orders_status.id_orders_status
-    WHERE orders.id_orders_status IN";
+    $meSql = "SELECT * FROM `order` 
+    JOIN order_details ON order.order_id = order_details.order_id
+    JOIN food ON order_details.food_id = food.food_id 
+    JOIN customer ON order.cus_id = customer.cus_id
+    JOIN shop ON order.shop_id = shop.shop_id 
+    WHERE order.order_status = $state
+    ";
+    $objQuery1 = mysqli_query($conn, $meSql);
+
+    // print_r($_SESSION);
     $head1 = "";
     $head2 = "";
     $head3 = "";
+    $head4 = "";
     if(isset($_GET["state"])){
-        $state = $_GET["state"];
-        if(strcmp("$state","4,88,99")==0){
-            $meSql.="(4,88,99)";
+        if(strcmp("$state","4")==0){
+            $meSql.="(4)";
+            $head4 = "active";
+        }
+        else if(strcmp("$state","3")==0){
+            $meSql.="(3)";
             $head3 = "active";
         }
-        else if(strcmp("$state","2,3")==0){
-            $meSql.="(2,3)";
+        else if(strcmp("$state","2")==0){
+            $meSql.="(2)";
             $head2 = "active";
         }
         else if(strcmp("$state","1")==0){
@@ -58,8 +54,7 @@ shop.shop_business_time_close_time,customer.Cus_address,customer.Cus_tel,orders_
         $meSql.="(1)";
         $head1 = "active";
     }
-    $meSql.="GROUP BY orders.id_orders";
-    $objQuery1 = mysqli_query($conn, $meSql);
+    // $meSql.="GROUP BY orders.id_orders";
 ?>
 <?php
 $show="";
@@ -71,7 +66,7 @@ if(!isset($_GET["show"])){
 ?>
 
 <head>
-  <title>กรอกข้อมูลคนขับ</title>
+  <title>Driver</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -95,7 +90,7 @@ if(!isset($_GET["show"])){
             <form action="check_pass.php" method="post">
             <div class="panel-body form-group">
 <div class="col-xs">
-<?php $driver_name = $objResult["driver_firstname"];?>
+<?php $driver_name = $objResult["driver_name"];?>
     <label for="driver_username"><p>ชื่อผู้ใช้</p></label>
     <input type="text" class="form-control" name="driver_username" disabled id="driver_username" placeholder="ชื่อผู้ใช้" value="<?=$objResult["driver_username"]?>">
 </div>
@@ -113,7 +108,7 @@ if(!isset($_GET["show"])){
     <input type="submit" class="btn btn-lg button-pink" name="submit" value="แก้ไขข้อมูล" id="driver_password" placeholder="รหัสผ่าน">
 </div>
 </div>
-            </form>
+        </form>
           </div>
           <div class="panel panel-default font1">
             <div class="panel-heading">ข้อมูล<i class="fa fa-link fa-1x"></i></div>
@@ -174,28 +169,23 @@ if(!isset($_GET["show"])){
                       <div class="form-group">
 
                           <div class="col-xs-3">
-                            <label for="driver_work_name"><h4>สถานะของคนขับ</h4></label>
-                              <input type="text" class="form-control" 
-                              disabled name="driver_work_name" id="driver_work_name"
-                               placeholder="สถานะของคนขับ" title="สถานะคนขับ" 
-                               value="<?=$objResult["driver_workstatus"];?>">
-                          </div>
+                            <label for="driver_work_name"><h4>สถานะของคนขับ</h4></label><br>
+                                <select name="driver_workstatus" <?php echo $show;?>> 
+                                    <?php 
+                                        $options = $objResult["driver_workstatus"];
+                                    ?>
+                                    <option value="1" <?php if($options== 1) echo 'selected="selected"'; ?> >Working</option>
+                                    <option value="2" <?php if($options== 2) echo 'selected="selected"'; ?> >Not Working</option>
+                                </select>
+                            </div>
                       </div>
-                      <div class="form-group">
+                      
+                    <div class="form-group">
 
-                          <div class="col-xs-3">
-                            <label for="driver_work_rate"><h4>ส่วนแบ่ง</h4></label>
-                              <input type="text" class="form-control" disabled name="driver_work_rate" 
-                              id="driver_work_rate" placeholder="ส่วนแบ่ง" title="สถานะคนขับ" 
-                              value="<?=$objResult["driver_rate"];?>">
-                          </div>
-                      </div>
-                      <div class="form-group">
-
-                    <div class="col-xs-6">
-                        <label for="driver_new_password"><h4>รหัสผ่านใหม่</h4></label>
+                    <div class="col-xs-3">
+                        <label for="driver_password"><h4>รหัสผ่านใหม่</h4></label>
                         <input type="text" class="form-control" <?php echo $show;?> 
-                        name="driver_new_password" id="driver_new_password" placeholder="รหัสผ่านใหม่" 
+                        name="driver_password" id="driver_password" placeholder="รหัสผ่านใหม่" 
                         title="รหัสผ่านใหม่" value="">
                     </div>
                     </div>
@@ -215,8 +205,9 @@ if(!isset($_GET["show"])){
                 <div style="text-align: right;">
                 <ul class="nav nav-tabs">
                     <li class="<?=$head1?>"><a href="driver.php?state=1">งานใหม่</a></li>
-                    <li class="<?=$head2?>"><a href="driver.php?state=2,3">งานที่รับมา</a></li>                
-                    <li class="<?=$head3?>"><a href="driver.php?state=4,88,99">ประวัติ</a>
+                    <li class="<?=$head2?>"><a href="driver.php?state=2">งานที่รับมา</a></li>                
+                    <li class="<?=$head3?>"><a href="driver.php?state=3">ประวัติ</a>
+                    <li class="<?=$head4?>"><a href="driver.php?state=4">งานที่ยกเลิก</a>
                 </ul>
                 </div>
              <table class="table table-striped">
@@ -234,51 +225,54 @@ if(!isset($_GET["show"])){
                 </thead>
                 <tbody>
                     <?php
-                    $monthNamesThai = array("มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤษจิกายน","ธันวาคม");
-                    while ($meResult = mysqli_fetch_array($objQuery1))
-                    {
-                        $splitTimeStamp = explode(" ",$meResult["orders_date_start_send"]);
+                    while ($meResult = mysqli_fetch_array($objQuery1)):?>
+                       <?php
+                        
+                        $monthNamesThai = array("มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤษจิกายน","ธันวาคม");
+                        $splitTimeStamp = explode(" ",$meResult["order_datestartsend"]);
                         $date_a = $splitTimeStamp[0];
                         $time_a = $splitTimeStamp[1];
-                        $date = explode("-",$date_a);
-                        ?>
+                        $date = explode("-",$date_a); 
+                        // print_r($objQuery1);
+                         ?>
+                        
                         <tr>
-                            <td><?php echo $meResult['id_orders']; ?></td>
-                            <td><?php echo $meResult['Cus_username']; ?></td>
+                            <td><?php echo $meResult['order_id']; ?></td>
+                            <td><?php echo $meResult['cus_username']; ?></td>
                             <td><?php echo $meResult['shop_name']; ?></td>
                             <td><?php echo intval($date[2])." ".$monthNamesThai[$date[1]-1]." ".($date[0]+543); ?></td>
                             <td><?php echo $time_a; ?></td>
-                            <td><?php echo $meResult['orders_total_price']; ?></td>
-                            <td><?php echo $meResult['orders_status_name']; ?></td>
+                            <td><?php echo $meResult['order_price']; ?></td>
+                            <td><?php echo $meResult["order_status"]; ?></td>
                         </tr>
                         <tr>
+                        
                         <td>
-                                <a class="btn btn-primary btn-lg" href="order_detail_driver.php?id=<?php echo $meResult["id_orders"];?>" role="button" target="_blank">
-                                    ดูรายละเอียด</a>
-                            </td>
+                            <a class="btn btn-primary btn-lg" href="order_detail_driver.php?id=<?php echo $meResult["order_id"];?>" role="button" target="_blank">
+                                ดูรายละเอียด</a>
+                        </td>
+                               
                             <?php
-                                $num = $meResult['id_orders_status'];
+                                
                                 if(strcmp("$head1","active")==0){
                                     echo '<td colspan="8" style="text-align: right;">
-                                    <a class="btn btn-success btn-lg" href="accept.php?id='.$meResult["id_orders"].'" role="button">
+                                    <a class="btn btn-success btn-lg" href="accept.php?id='.$meResult["order_id"].'" role="button">
                                     รับงาน</a>
                                     </td>';
                                 }
-                                else if(strcmp("$head2","active")==0&$num==2){
+                                else if(strcmp("$head2","active")==0){
                                     echo'<td colspan="8" style="text-align: right;">
-                                    <a class="btn btn-danger btn-lg" href="cancel_driver.php?id='.$meResult["id_orders"].'" role="button" target="_blank">
+                                    <a class="btn btn-danger btn-lg" href="cancel_driver.php?id='.$meResult["order_id"].'" role="button" target="_blank">
                                     ยกเลิก</a>
                                     </td>';
                                     echo '<td colspan="8" style="text-align: right;">
-                                    <a class="btn btn-success btn-lg" href="sending.php?id='.$meResult["id_orders"].'" role="button">
+                                    <a class="btn btn-success btn-lg" href="sending.php?id='.$meResult["order_id"].'" role="button">
                                     รับอาหารแล้ว</a>
                                     </td>';
                                 }
                             ?>
                         </tr>
-                        <?php
-                    }
-                    ?>
+                        <?php endwhile;?>
                 </tbody>
             </table>
              </div>

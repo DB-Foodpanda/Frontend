@@ -4,7 +4,7 @@ require('../connect.php');
 if(empty($_SESSION["shop_username"])){
     header("location:../index.php");
 }
-
+$shop_id = $_SESSION["shop_id"];
 $shop_username = $_SESSION["shop_username"]; 
   $sql = " SELECT * FROM `shop` 
   WHERE shop_username = '$shop_username' ; 
@@ -21,7 +21,7 @@ $shop_username = $_SESSION["shop_username"];
   $objQuery2 = mysqli_query($conn, $sql2) or die("Error Query [" . $sql . "]");
 
   $sql3 = " SELECT *
-  FROM `food`
+  FROM `food` WHERE food.shop_id = '$shop_id' ;
   
   ";
     $objQuery3 = mysqli_query($conn, $sql3) or die("Error Query [" . $sql . "]");
@@ -42,7 +42,7 @@ $shop_username = $_SESSION["shop_username"];
     JOIN order_details ON order.order_id = order_details.order_id
     JOIN food ON order_details.food_id = food.food_id 
     JOIN customer ON order.cus_id = customer.cus_id
-    JOIN shop ON order.shop_id = shop.shop_id
+    JOIN shop ON order.shop_id = shop.shop_id WHERE shop.shop_username = '$shop_username'
     ";
     
 
@@ -53,6 +53,7 @@ $shop_username = $_SESSION["shop_username"];
     $head1 = "";
     $head2 = "";
     $head3 = "";
+    $p0 = "";
     $p1 = "";
     $p2 = "";
     $p2_edit = "";
@@ -206,7 +207,7 @@ if(!isset($_GET["show"])){
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="shop_earn_acc_no"><h4>หมายเลขบัญชี</h4></label>
+                              <label for="shop_earnacc_no"><h4>หมายเลขบัญชี</h4></label>
                               <input type="text" class="form-control" Required <?php echo $show;?> name="shop_earnacc_no" id="shop_earnacc_no" placeholder="ใส่หมายเลขบัญชี" title="กรุณาใส่หมายเลขบัญชี" value="<?=$objResult["shop_earnacc_no"];?>">
                           </div>
                       </div>
@@ -220,29 +221,35 @@ if(!isset($_GET["show"])){
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="shop_business_time_day"><h4>วันที่เปิด</h4></label>
+                              <label for="shop_openday"><h4>วันที่เปิด</h4></label>
                               <input type="text" class="form-control" Required <?php echo $show;?> name="shop_openday" id="shop_openday" placeholder="วันที่เปิด" title="กรุณาใส่วันที่เปิด" value="<?=$objResult["shop_openday"];?>">
                           </div>
                       </div>
                       <div class="form-group">
 
                           <div class="col-xs-3">
-                            <label for="shop_business_time_open_time"><h4>เวลาเปิดเริ่ม</h4></label>
+                            <label for="shop_opentime"><h4>เวลาเปิดเริ่ม</h4></label>
                               <input type="time" class="form-control" Required <?php echo $show;?> name="shop_opentime" id="shop_opentime" placeholder="เวลาเปิดเริ่ม" title="เวลาเปิดเริ่ม" value="<?=$objResult["shop_opentime"];?>">
                           </div>
                       </div>
                       <div class="form-group">
 
                           <div class="col-xs-3">
-                            <label for="shop_business_time_close_time"><h4>ถึง</h4></label>
+                            <label for="shop_closetime"><h4>ถึง</h4></label>
                               <input type="time" class="form-control" Required <?php echo $show;?> name="shop_closetime" id="shop_closetime" placeholder="เวลาเปิดถึง" title="เวลาเปิดถึง" value="<?=$objResult["shop_closetime"];?>">
                           </div>
                       </div>
                       <div class="form-group">
 
                           <div class="col-xs-3">
-                            <label for="shop_work_rate"><h4>เรทร้านค้า</h4></label>
-                              <input type="text" class="form-control" disabled name="shop_rate" id="shop_rate" placeholder="เรทร้านค้า" title="เรทร้านค้า" value="<?=$objResult["shop_rate"];?>">
+                            <label for="shop_workstatus"><h4>สถานะร้านค้า</h4></label><br>
+                                <select name="shop_workstatus" <?php echo $show;?>> 
+                                    <?php 
+                                        $options = $objResult["shop_workstatus"];
+                                    ?>
+                                    <option value="1" <?php if($options== 1) echo 'selected="selected"'; ?> >On</option>
+                                    <option value="2" <?php if($options== 2) echo 'selected="selected"'; ?> >Off</option>
+                                </select>
                           </div>
                       </div>
                       <div class="form-group">
@@ -261,7 +268,7 @@ if(!isset($_GET["show"])){
                       <div class="form-group">
                            <div class="col-xs-12">
                                 <br>
-                              	<button class="btn btn-lg button-pink" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> บันทึกข้อมูล</button>
+                              	<button class="btn btn-lg button-pink" type="submit" <?php echo $show;?>><i class="glyphicon glyphicon-ok-sign"></i> บันทึกข้อมูล</button>
                                	<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> ลบทั้งหมด</button>
                             </div>
                       </div>
