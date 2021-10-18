@@ -25,15 +25,22 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
-    <?php
-session_start();
-if(empty($_SESSION["cus_username"] && $_SESSION["cus_password"])){
-    header("location:../index.php");
-}
-if(isset($_GET["shop"])){
-    $id_shop = $_GET["shop"];
-}
+<?php
+    
+    session_start();
+    require('../shopping/connect.php');
+    if(empty($_SESSION["cus_username"] && $_SESSION["cus_password"])){
+        header("location:../index.php");
+    }
+    $mesql = " SELECT * FROM `food` JOIN food_type
+    ON food.food_type = food_type.type_id
+    ";
+    $meQuery = mysqli_query($meConnect,$mesql);
+    $meResult = mysqli_fetch_array($meQuery);
 
+    $mesql1 = "SELECT * FROM `shop`";
+    $meQuery1 = mysqli_query($meConnect,$mesql1);
+    // $meResult1 = mysqli_fetch_array($meQuery1);
 ?>
 </head>
 
@@ -64,8 +71,8 @@ if(isset($_GET["shop"])){
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                        <li><a href="../shopping/index.php"><i class="fa fa-home"></i></a></li>
-                            <li><a href="../shopping/monitor_order.php"><i class="fa fa-check-circle"></i></a></li>
+                        <li><a href="../shopping/shop.php"><i class="fa fa-home"></i></a></li>
+                            <li><a href="../shopping/monitor_order.php?order_status=1"><i class="fa fa-check-circle"></i></a></li>
                             <li><a href="../shopping/cart.php"><i class="fa fa-shopping-cart"></i></a></li>
                         </ul>
                         <a href="../website/logout.php" style="color: #000000">ออกจากระบบ</a>
@@ -83,12 +90,7 @@ if(isset($_GET["shop"])){
             <div class="row">
                 <div class="col-lg-6 ">
                     <br>
-                <div class="hero__search__form">
-                    <form action="#">
-                        <input type="text" placeholder="What do yo u need?">
-                        <button type="submit" class="site-btn" style="background: deeppink">SEARCH</button>
-                    </form>
-                </div>
+                
                 </div>
             </div>
         </div>
@@ -102,47 +104,52 @@ if(isset($_GET["shop"])){
                 <div class="categories__slider owl-carousel ">
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="img/categories/dessert.jpg">
-                            <h5><a href="#">Desserts</a></h5>
+                            <h5><a href="../shopping/index.php?type=<?=$meResult['type_id']=5?> ">Desserts</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="img/categories/chicken.jpg">
-                            <h5><a href="#">Chicken</a></h5>
+                            <h5><a href="../shopping/index.php?type=<?=$meResult['type_id']=4?> ">Chicken</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="img/categories/thai.jpg">
-                            <h5><a href="#">Thai</a></h5>
+                            <h5><a href="../shopping/index.php?type=<?=$meResult['type_id']=1?> ">Thai</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="img/categories/coffee.jpg">
-                            <h5><a href="#">coffee & tea</a></h5>
+                            <h5><a href="../shopping/index.php?type=<?=$meResult['type_id']=2?> ">Coffee & Tea</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="img/categories/sushi.jpg">
-                            <h5><a href="#">japanese</a></h5>
+                            <h5><a href="../shopping/index.php?type=<?=$meResult['type_id']=8?> ">Japanese</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="img/categories/bakery.jpg">
-                            <h5><a href="#">bakery</a></h5>
+                            <h5><a href="../shopping/index.php?type=<?=$meResult['type_id']=3?> ">Bakery</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="img/categories/fastfood.jpg">
-                            <h5><a href="#">fastfood</a></h5>
+                            <h5><a href="../shopping/index.php?type=<?=$meResult['type_id']=7?> ">Fastfood</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="img/categories/korean.jpg">
-                            <h5><a href="#">korean</a></h5>
+                            <h5><a href="../shopping/index.php?type=<?=$meResult['type_id']=9?> ">Korean</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="img/categories/steak.jpg">
-                            <h5><a href="#">steak</a></h5>
+                            <h5><a href="../shopping/index.php?type=<?=$meResult['type_id']=6?> ">Steak</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="img/categories/drink.jpg">
+                            <h5><a href="../shopping/index.php?type=<?=$meResult['type_id']=10?> ">Drink</a></h5>
                         </div>
                     </div>
                 </div>
@@ -152,84 +159,27 @@ if(isset($_GET["shop"])){
     <!-- Categories Section End -->
 
     <!-- Featured Section Begin -->
+    
     <section class="featured spad">
         <div class="container">
+            
             <div class="row featured__filter">
+            <?php while($meResult1 = mysqli_fetch_array($meQuery1)):?>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-1.jpg">
+                        <div class="featured__item__pic set-bg">
+                        <img src="../Shop/myfile/<?php echo $meResult1['shop_image'];?>" width="316px" height="270px" border="0">
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="../shopping/index.php">Meat</a></h6>
+                            <h6><a href="../shopping/index_2.php?shop=<?php echo $meResult1["shop_username"];?>"><?php echo $meResult1['shop_name'];?></a></h6>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-2.jpg">
-                        </div>
-                        <div class="featured__item__text">
-                        <h6><a href="../shopping/index.php">Banana</a></h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-3.jpg">
-                        </div>
-                        <div class="featured__item__text">
-                        <h6><a href="../shopping/index.php">Figs </a></h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-4.jpg">
-                        </div>
-                        <div class="featured__item__text">
-                        <h6><a href="../shopping/index.php">Watermelon</a></h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-5.jpg">
-                        </div>
-                        <div class="featured__item__text">
-                        <h6><a href="../shopping/index.php">Blueberry</a></h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-6.jpg">
-                        </div>
-                        <div class="featured__item__text">
-                        <h6><a href="../shopping/index.php">Hamburger</a></h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-7.jpg">
-                        </div>
-                        <div class="featured__item__text">
-                        <h6><a href="../shopping/index.php">Mango</a></h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-8.jpg">
-                        </div>
-                        <div class="featured__item__text">
-                        <h6><a href="../shopping/index.php">Apple</a></h6>
-                        </div>
-                    </div>
-                </div>
+                <?php endwhile;?>
             </div>
         </div>
     </section>
+   
     <!-- Featured Section End -->
 
     <!-- Footer Section Begin -->

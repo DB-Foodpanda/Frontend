@@ -3,6 +3,11 @@ session_start();
 require 'connect.php';
 $id_shop = $_GET["shop"];
 $_SESSION["shop"] = $id_shop;
+if(!$_GET["shop"]){
+    header("Location:../Home/index.php");
+    exit;
+}
+
 $action = isset($_GET['a']) ? $_GET['a'] : "";
 $itemCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 if (isset($_SESSION['qty']))
@@ -105,7 +110,7 @@ if (isset($_SESSION['cart']) and $itemCount > 0)
                                 $total_price = $total_price + ($meResult['food_price'] * $_SESSION['qty'][$key]);
                                 ?>
                                 <tr>
-                                    <td><img src="../Shop/myfile/<?php echo $meResult['FilesName']; ?>" width="120px" height="100px" border="0"></td>
+                                    <td><img src="../Shop/myfile/<?php echo $meResult['food_image']; ?>" width="120px" height="120px" border="0"></td>
                                     <td><?php echo $meResult['food_name']; ?></td>
                                     <td><?php echo $meResult['food_size']; ?></td>
                            

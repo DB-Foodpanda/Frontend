@@ -7,12 +7,12 @@ require('../connect.php');
 $driver_username = $_SESSION["driver_username"]; 
 $order_id = $_GET["id"];
 
-    $sql = "UPDATE `order` SET `order_status`= 4 WHERE order_id = $order_id";
+    $sql = "UPDATE `order` SET `order_status`= 5 WHERE order_id = $order_id";
     echo $sql;
     $objQuery = mysqli_query($conn, $sql);
 
     if ($objQuery) {
-	    header("Location: ./driver.php?state=4"); 
+	    header("Location: ./driver.php?state=5"); 
         exit;
     }else {
         echo "<br>";

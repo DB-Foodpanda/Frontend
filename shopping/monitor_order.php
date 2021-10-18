@@ -1,46 +1,38 @@
 <?php
 session_start();
 require 'connect.php';
+$order_status_id = $_GET["order_status"];
 $cus_username = $_SESSION["cus_username"];
-$meSql = "SELECT *
-FROM orders JOIN orders_status
-ON orders.orders_status_id = orders_status.orders_status_id
-JOIN orders_detail
-ON orders.orders_id = orders_detail.orders_id
-JOIN food
-ON orders_detail.food_id = food.food_id
-JOIN shop
-ON food.shop_username = shop.shop_username
-JOIN driver
-ON orders.driver_username = driver.driver_username
-WHERE orders.Cus_username =  '$cus_username' AND orders.orders_status_id IN
+$cus_id = $_SESSION["cus_id"];
+
+$meSql = "SELECT * FROM `order` 
+JOIN order_details ON order.order_id = order_details.order_id
+JOIN food ON order_details.food_id = food.food_id 
+JOIN customer ON order.cus_id = customer.cus_id
+JOIN shop ON order.shop_id = shop.shop_id 
+LEFT JOIN driver ON order.driver_id = driver.driver_id
+WHERE order.cus_id =  $cus_id AND order.order_status = $order_status_id
+GROUP BY order.order_id
 ";
-$meSql1 = "SELECT *
-FROM orders JOIN orders_status
-ON orders.orders_status_id = orders_status.orders_status_id
-JOIN orders_detail
-ON orders.orders_id = orders_detail.orders_id
-JOIN food
-ON orders_detail.food_id = food.food_id
-JOIN shop
-ON food.shop_username = shop.shop_username
-WHERE orders.cus_username =  '$cus_username' AND orders.orders_status_id IN
+
+$meSql1 = "SELECT * FROM `order` 
+JOIN order_details ON order.order_id = order_details.order_id
+JOIN food ON order_details.food_id = food.food_id 
+JOIN customer ON order.cus_id = customer.cus_id
+JOIN shop ON order.shop_id = shop.shop_id 
+LEFT JOIN driver ON order.driver_id = driver.driver_id
+WHERE order.cus_id = $cus_id AND order.order_status = $order_status_id
+GROUP BY order.order_id
 ";
-if(isset($_GET["orders_status_id"])){
-    $name = $_GET['orders_status_id'];
-    $meSql .= "(".$name.")";
-    $meSql1 .= "(".$name.")";
+
+if(isset($_GET["order_status"])){
+    $name = $_GET['order_status'];
 }
-else{
-    $meSql .='("1")';
-    $meSql1 .='("1")';
-}
-$meSql.="GROUP BY orders.id_orders";
-$meSql1.="GROUP BY orders.id_orders";
 $meQuery = mysqli_query($meConnect,$meSql);
 $meQuery1 = mysqli_query($meConnect,$meSql1);
 $action = isset($_GET['a']) ? $_GET['a'] : "";
-
+// $meResult = mysqli_fetch_array($meQuery);
+// print_r($meQuery);
 
 $itemCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 if(isset($_SESSION['qty'])){
@@ -60,7 +52,7 @@ if(isset($_SESSION['qty'])){
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>itoffside.com shopping cart</title>
+        <title>สถานะคำสั่งซื้อ</title>
 
         <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -92,24 +84,24 @@ if(isset($_SESSION['qty'])){
                     <div class="navbar-collapse collapse">
                         <?php
                             $wait="";
-                            $wait_buy="";
                             $wait_send="";
+                            $pending_confirm="";
                             $send="";
                             $cancel="";
-                            if(isset($_GET["id_orders_status"])){
-                                if($_GET["id_orders_status"]==1){
+                            if(isset($_GET["order_status"])){
+                                if($_GET["order_status"]==1){
                                     $wait = "active";
                                 }
-                                else if($_GET["id_orders_status"]==2){
-                                    $wait_buy = "active";
-                                }
-                                else if($_GET["id_orders_status"]==3){
+                                else if($_GET["order_status"]==2){
                                     $wait_send = "active";
                                 }
-                                else if($_GET["id_orders_status"]==4){
+                                else if($_GET["order_status"]==3){
+                                    $pending_confirm = "active";
+                                }
+                                else if($_GET["order_status"]==4){
                                     $send = "active";
                                 }
-                                else{
+                                else if($_GET["order_status"]==5){
                                     $cancel = "active";
                                 }
                             }
@@ -118,11 +110,11 @@ if(isset($_SESSION['qty'])){
                             }
                         ?>
                         <ul class="nav navbar-nav">
-                            <li class="<?=$wait?>"><a href="./monitor_order.php?id_orders_status=1">รอคนขับรับงาน</a></li>
-                            <li class="<?=$wait_buy?>"><a href="./monitor_order.php?id_orders_status=2">คนขับรับงานแล้ว</a></li>
-                            <li class="<?=$wait_send?>"><a href="./monitor_order.php?id_orders_status=3">กำลังนำส่ง </a></li>
-                            <li class="<?=$send?>"><a href="./monitor_order.php?id_orders_status=4">จัดส่งเรียบร้อย </a></li>
-                            <li class="<?=$cancel?>"><a href="./monitor_order.php?id_orders_status=88,99">งานที่ถูกยกเลิก</a></li>
+                            <li class="<?=$wait?>"><a href="./monitor_order.php?order_status=1">รอคนขับรับงาน</a></li>
+                            <li class="<?=$wait_send?>"><a href="./monitor_order.php?order_status=2">กำลังนำส่ง </a></li>
+                            <li class="<?=$pending_confirm?>"><a href="./monitor_order.php?order_status=3">รอยืนยัน </a></li>
+                            <li class="<?=$send?>"><a href="./monitor_order.php?order_status=4">จัดส่งเรียบร้อย </a></li>
+                            <li class="<?=$cancel?>"><a href="./monitor_order.php?order_status=5">งานที่ถูกยกเลิก</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->
@@ -156,13 +148,13 @@ if($action == 'finishOrder'){
                         <th>รหัสคำสั่งซื้อ</th>
                         <th>วันที่ซื้อ</th>
                         <th>เวลาที่ซื้อ</th>';
-                            if(isset($_GET["id_orders_status"])){
-                                $id_orders_status = $_GET["id_orders_status"];
-                            if($_GET["id_orders_status"]==4){
+                            if(isset($_GET["order_status"])){
+                                $order_status = $_GET["order_status"];
+                            if($_GET["order_status"]==3 || $_GET["order_status"]== 4 ){
                                 echo"<th>วันที่ส่ง</th>
                                 <th>เวลาที่ส่ง</th>";
                             }
-                            else if(strcmp("$id_orders_status","88,99")==0){
+                            else if(strcmp("$order_status","5")==0){
                                 echo"<th>วันที่ยกเลิก</th>
                                 <th>เวลาที่ยกเลิก</th>";
                             }
@@ -175,43 +167,44 @@ if($action == 'finishOrder'){
                     </tr>
                 </thead>
                 <tbody>';
-                    $monthNamesThai = array("มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤษจิกายน","ธันวาคม");
+                    
                     while ($meResult = mysqli_fetch_array($meQuery))
                     {
-                        $splitTimeStamp = explode(" ",$meResult["orders_date_start_send"]);
+                        $monthNamesThai = array("มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤษจิกายน","ธันวาคม");
+                        $splitTimeStamp = explode(" ",$meResult["order_datestartsend"]);
                         $date_a = $splitTimeStamp[0];
                         $time_a = $splitTimeStamp[1];
                         $date = explode("-",$date_a);
-                        $splitTimeStamp1 = explode(" ",$meResult["orders_date_end_send"]);
+                        $splitTimeStamp1 = explode(" ",$meResult["order_dateendsend"]);
                         $date_a1 = $splitTimeStamp1[0];
                         $time_a1 = $splitTimeStamp1[1];
                         $date1 = explode("-",$date_a1);
                         echo'<tr>
-                            <td>'.$meResult['id_orders'].'</td>
+                            <td>'.$meResult['order_id'].'</td>
                             <td>'.intval($date[2])." ".$monthNamesThai[$date[1]-1]." ".($date[0]+543).'</td>';
-                            if($_GET["id_orders_status"]==4||strcmp("$id_orders_status","88,99")==0){
+                            if($_GET["order_status"]==3||$_GET["order_status"]==4||strcmp("$order_status","5")==0){
                                 echo'<td>'.$time_a.'</td>
                                 <td>'.intval($date1[2])." ".$monthNamesThai[$date[1]-1]." ".($date1[0]+543).'</td>
                                 <td>'.$time_a1.'</td>';
                             }
-                            echo'<td>'.$meResult['orders_total_price'].'</td>
+                            echo'<td>'.$meResult['order_price'].'</td>
                             <td>'.$meResult['driver_username'].'</td>
-                            <td>'.$meResult['orders_status_name'].'</td>
+                            <td>'.$meResult['order_status'].'</td>
                             <td>
-                                            <a class="btn btn-primary btn-lg" href="order_detail.php?id='.$meResult["id_orders"].'" role="button">
+                                            <a class="btn btn-primary btn-lg" href="order_detail.php?id='.$meResult["order_id"].'" role="button">
                                             ดูรายละเอียด</a>
                                         </td>';
-                                if($_GET["id_orders_status"]==1||$_GET["id_orders_status"]==2){
+                                if($_GET["order_status"]==1||$_GET["order_status"]==2){
                                     echo '<td>
-                                            <a class="btn btn-danger btn-lg" href="cancel.php?id='.$meResult["id_orders"].'" role="button">
+                                            <a class="btn btn-danger btn-lg" href="cancel.php?id='.$meResult["order_id"].'" role="button">
                                             ยกเลิก</a>
                                         </td>';
                                 }
-                                else if($_GET["id_orders_status"]==3){
+                                else if($_GET["order_status"]==3){
                                     echo '<td>
-                                            <a class="btn btn-success btn-lg" href="confirm.php?id='.$meResult["id_orders"].'&shop='.$meResult["shop_username"].'
-                                            &d='.$meResult["driver_username"].'&d_r='.$meResult["driver_status_rate"].'&s_s='.$meResult["shop_share"].'
-                                            &tt='.$meResult["orders_total_price"].'&de='.$meResult["driver_earn_price"].'&se='.$meResult["shop_earn_price"].'" role="button">
+                                            <a class="btn btn-success btn-lg" href="confirm.php?id='.$meResult["order_id"].'&shop='.$meResult["shop_username"].'
+                                            &d='.$meResult["driver_username"].'
+                                            &tt='.$meResult["order_price"].'&de='.$meResult["driver_earnprice"].'&se='.$meResult["shop_earnprice"].'" role="button">
                                             ได้รับของและตรวจสอบแล้ว</a>
                                         </td>';
                                 }
@@ -233,30 +226,30 @@ if($action == 'finishOrder'){
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
-                <tbody>';
-                    $monthNamesThai = array("มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤษจิกายน","ธันวาคม");
+                <tbody>'; 
                     while ($meResult = mysqli_fetch_array($meQuery1))
                     {
-                        $splitTimeStamp = explode(" ",$meResult["orders_date_start_send"]);
+                        $monthNamesThai = array("มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤษจิกายน","ธันวาคม");
+                        $splitTimeStamp = explode(" ",$meResult["order_datestartsend"]);
                         $date_a = $splitTimeStamp[0];
                         $time_a = $splitTimeStamp[1];
                         $date = explode("-",$date_a);
-                        $splitTimeStamp1 = explode(" ",$meResult["orders_date_end_send"]);
+                        $splitTimeStamp1 = explode(" ",$meResult["order_dateendsend"]);
                         $date_a1 = $splitTimeStamp1[0];
                         $time_a1 = $splitTimeStamp1[1];
                         $date1 = explode("-",$date_a1);
                         echo'<tr>
-                            <td>'.$meResult['id_orders'].'</td>
+                            <td>'.$meResult['order_id'].'</td>
                             <td>'.intval($date[2])." ".$monthNamesThai[$date[1]-1]." ".($date[0]+543).'</td>';
                             echo'<td>'.$time_a.'</td>';
-                            echo'<td>'.$meResult['orders_total_price'].'</td>
-                            <td>'.$meResult['orders_status_name'].'</td>
+                            echo'<td>'.$meResult['order_price'].'</td>
+                            <td>'.$meResult['order_status'].'</td>
                             <td>
-                                            <a class="btn btn-primary btn-lg" href="order_detail.php?id='.$meResult["id_orders"].'" role="button">
+                                            <a class="btn btn-primary btn-lg" href="order_detail.php?id='.$meResult["order_id"].'" role="button">
                                             ดูรายละเอียด</a>
                                         </td>';
                                     echo '<td>
-                                            <a class="btn btn-danger btn-lg" href="cancel.php?id='.$meResult["id_orders"].'" role="button">
+                                            <a class="btn btn-danger btn-lg" href="cancel.php?id='.$meResult["order_id"].'" role="button">
                                             ยกเลิก</a>
                                         </td>';
                         echo'</tr>';

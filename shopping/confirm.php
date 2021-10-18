@@ -7,38 +7,36 @@ require('../connect.php');
 
 //$EmployeeID   = $_REQUEST['EmployeeID'];
 //$Title		  = $_REQUEST['Title'];
-$id_order = $_GET["id"];
+print_r($_GET);
+$order_id = $_GET["id"];
 $driver_username = $_GET["d"];
 $shop_username = $_GET["shop"];
-$shop_share = $_GET["s_s"];
-$orders_total_price = $_GET["tt"];
-$driver_status_rate =$_GET["d_r"];
+$order_price = $_GET["tt"];
 
 $driver_earn_price =$_GET["de"];
 $shop_earn_price =$_GET["se"];
-$id_orders_status = 4;
+$order_status = 4;
 
-$d_earn = $orders_total_price*$driver_status_rate;
-$d_earn = $driver_earn_price+$d_earn;
+$d_earn = ($order_price *20/100) + $driver_earn_price;
 
-$s_earn = $orders_total_price*$shop_share;
-$s_earn = $shop_earn_price+$s_earn;
+$s_earn = ($order_price *80/100) + $shop_earn_price;
 
 
-    $sql = "UPDATE `orders` SET `id_orders_status`= $id_orders_status ,orders_date_end_send = NOW() WHERE id_orders ='$id_order'";
+
+    $sql = "UPDATE `order` SET `order_status`= $order_status ,order_dateendsend = NOW() WHERE order_id ='$order_id'";
     echo $sql;
     $objQuery = mysqli_query($conn, $sql);
 
-    $sql1 = "UPDATE `driver` SET`driver_earn_price`=$d_earn WHERE driver_username ='$driver_username'";
+    $sql1 = "UPDATE `driver` SET`driver_earnprice`= $d_earn WHERE driver_username ='$driver_username'";
     echo $sql1;
     $objQuery1 = mysqli_query($conn, $sql1);
 
-    $sql2 = "UPDATE `shop` SET`shop_earn_price`=$s_earn WHERE shop_username ='$shop_username'";
+    $sql2 = "UPDATE `shop` SET`shop_earnprice`= $s_earn WHERE shop_username ='$shop_username'";
     echo $sql2;
     $objQuery = mysqli_query($conn, $sql2);    
 
     if ($objQuery) {
-	    header("Location: ./monitor_order.php"); 
+	    header("Location: ./monitor_order.php?order_status=4"); 
         exit;
     }else {
 	    echo "Error : Input";

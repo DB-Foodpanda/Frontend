@@ -6,21 +6,13 @@ session_start();
 }*/
 require('connect.php');
 $cus_username = $_SESSION["cus_username"]; 
-$sql = "
-SELECT * FROM `customer` 
-JOIN customer_status 
-ON customer.ID_Cus_Status = customer_status.ID_Cus_Status 
-WHERE Cus_username = '$cus_username' ;
-  ";
+$sql = " SELECT * FROM `customer` JOIN `address` ON customer.cus_id = address.cus_id WHERE cus_username = '$cus_username' ";
 
   $objQuery = mysqli_query($conn, $sql) or die("Error Query [" . $sql . "]");
   $objResult = mysqli_fetch_array($objQuery);
 
 
-  $sql_pre = "
-SELECT * FROM `customer` 
-WHERE Cus_username = '$cus_username' ;
-  ";
+  $sql_pre = " SELECT * FROM `customer` JOIN `address` ON customer.cus_id = address.cus_id WHERE cus_username = '$cus_username'  ";
 
   $objQuery_pre = mysqli_query($conn, $sql_pre) or die("Error Query [" . $sql . "]");
   $objResult_pre = mysqli_fetch_array($objQuery_pre);
@@ -47,7 +39,7 @@ WHERE Cus_username = '$cus_username' ;
     <meta name="keywords" content="Colorlib Templates">
 
     <!-- Title Page-->
-    <title>Grab register form</title>
+    <title>Foodpanda edit form</title>
 
     <!-- Icons font CSS-->
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -91,89 +83,47 @@ WHERE Cus_username = '$cus_username' ;
                     <div class="card-heading"></div>
                     <div class="card-body">
                         <form method="POST">
-                            <img src="images/grabfood.png" width="250px"height="250px">
+                            <img src="./Home/img/logo_fpd.png" width="100px"height="200px">
+                            <label for="cus_username">Username:</label><br>
                             <div class="input-group">
                                 <input class="input--style-2" type="text" name ="ID_Cus" disabled="disabled" value=<?php 
-                         $cus_username = $_SESSION["cus_username"]; 
-                         echo $cus_username
+                                $cus_username = $_SESSION["cus_username"]; 
+                                echo $cus_username
                     ?>>
                             </div>
+                            <label for="cus_name">Name:</label><br>
                             <div class="input-group">
-                                <input class="input--style-2" type="text" Required placeholder="Name" name="cus_name" pattern="(([\u0E01-\u0E4C]+)(\s+)([\u0E01-\u0E4C]+))||(([A-Za-z]+)(\s+)([A-Za-z]+))" 
-                                value="<?php echo $objResult_pre["Cus_Name"] ?>">
+                                <input class="input--style-2" type="text" Required placeholder="Name" name="cus_name"  
+                                value="<?php echo $objResult_pre["cus_name"] ?>">
                             </div>
+                            <label for="cus_tel">Tel:</label><br>
                             <div class="input-group">
                                 <input class="input--style-2" type="text" Required placeholder="Tel" name="cus_tel" pattern="[0-9]{10}" 
-                                value=<?php echo $objResult_pre["Cus_tel"] ?>>
+                                value=<?php echo $objResult_pre["cus_tel"] ?>>
                             </div>
+                            <label for="cus_birthday">Birthday:</label><br>
                             <div class="input-group">
-                                <input class="input--style-2" type="text" Required placeholder="address" name="cus_address" 
-                                value=<?php echo $objResult_pre["Cus_address"] ?>>    
+                                <input class="input--style-2" type="date" placeholder="Credit card number" name="cus_birthday" pattern="[0-9]{16}"
+                                value=<?php echo $objResult_pre["cus_birthday"] ?>>
                             </div>
+                            <label for="cus_address">Address:</label><br>
+                            <div class="input-group">
+                                <input class="input--style-2" type="textarea" Required placeholder="address" name="address_detail" 
+                                value=<?php echo $objResult_pre["address_detail"] ?>>    
+                            </div>
+                            <label for="cus_email">Email:</label><br>
                             <div class="input-group">
                                 <input class="input--style-2" type="email" Required placeholder="Email" name="cus_email" 
-                                value=<?php echo $objResult_pre["Cus_email"] ?>>
+                                value=<?php echo $objResult_pre["cus_email"] ?>>
                             </div>
+                            <label for="cus_email">Password:</label><br>
                             <div class="col-2">
                                 <div class="input-group">
-                                    <input class="input--style-2" id="password-field" Required type="password" class="form-control" name="cus_old_password" >
+                                    <input class="input--style-2" id="password-field" Required type="password" class="form-control" name="cus_password" placeholder="หากไม่เปลี่ยนรหัสให้ใส่รหัสเดิม">
                                 </div>
                             </div>
-                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <input class="input--style-2" id="password-field" type="password" class="form-control" name="cus_new_password" >
-                                </div>
-                            </div>
-                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password1"></span>
-                            <div class="input-group">
-                                <input class="input--style-2" type="text" placeholder="Credit card number" name="Cus_credit_card_number" pattern="[0-9]{16}"
-                                value=<?php echo $objResult_pre["Cus_credit_card_number"] ?>>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <input class="input--style-2" type="date" placeholder="expired date" class="form-control" name="Cus_credit_card_exp_date"
-                                    value=<?php echo $objResult_pre["Cus_credit_card_exp_date"] ?> >
-                                </div>
-                            </div>
-
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <input class="input--style-2" type="text" placeholder="CVV code" class="form-control" name="cus_credit_card_CVV" pattern="[0-9]{3}"
-                                    value=<?php echo $objResult_pre["cus_credit_card_CVV"] ?>>
-                                </div>
-                            </div>
-
-
-                            <?php
-                            
-                                if(!(isset($objResult["ID_Cus_Status"]))){
-                                $sql = '
-                                    SELECT *
-                                    FROM customer_status;
-                                ';
-                                $objQuery = mysqli_query($conn, $sql) or die("Error Query [" . $sql . "]");
-                            echo'<select name="ID_Cus_Status" Required class="form-control">';
-                                    while ($objResult = mysqli_fetch_array($objQuery)) {
-                                echo'<option value='.$objResult["ID_Cus_Status"].'>';
-                                echo $objResult["type_cus_status"].'</option>';
-                                }
-                            echo'</select>';
-                                }
-                                else{
-                                    echo'<div class="col-2">
-                                <div class="input-group">
-                                    <input class="input--style-2" type="text" disabled placeholder="type_cus_status"
-                                     class="form-control" name="type_cus_status"
-                                    value='.$objResult["type_cus_status"].'>
-                                </div>
-                            </div>';
-                                }
-                            ?>
-                
-
                             <div class="p-t-30">
-                                <button class="btn btn--radius btn--green" type="submit">Register</button>
+                                <button class="btn btn--radius btn--green" type="submit">บันทึกข้อมูล</button>
                             </div>
                         </form>
                     </div>

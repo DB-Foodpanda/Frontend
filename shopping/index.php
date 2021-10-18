@@ -1,9 +1,9 @@
 <?php
 session_start();
     require('connect.php');
-    $id_shop = $_SESSION["shop_id"];
-    $meSql = "SELECT * FROM food WHERE shop_id ='$id_shop'";
-    $meSql = "SELECT * FROM shop";
+    $type_id = $_GET['type'];
+    // print_r($_GET);
+    $meSql = "SELECT * FROM shop WHERE shop.type_id = $type_id ";
 if(isset($_GET['shop_name'])){
     $name = $_GET['shop_name'];
     $meSql .= " WHERE shop_name LIKE '%".$name."%'";

@@ -23,7 +23,7 @@ $state = $_GET["state"];
     JOIN food ON order_details.food_id = food.food_id 
     JOIN customer ON order.cus_id = customer.cus_id
     JOIN shop ON order.shop_id = shop.shop_id 
-    WHERE order.order_status = $state
+    WHERE order.order_status = $state GROUP BY order.order_id
     ";
     $objQuery1 = mysqli_query($conn, $meSql);
 
@@ -32,8 +32,13 @@ $state = $_GET["state"];
     $head2 = "";
     $head3 = "";
     $head4 = "";
+    $head5 = "";
     if(isset($_GET["state"])){
-        if(strcmp("$state","4")==0){
+        if(strcmp("$state","5")==0){
+            $meSql.="(5)";
+            $head5 = "active";
+        }
+        else if(strcmp("$state","4")==0){
             $meSql.="(4)";
             $head4 = "active";
         }
@@ -54,7 +59,6 @@ $state = $_GET["state"];
         $meSql.="(1)";
         $head1 = "active";
     }
-    // $meSql.="GROUP BY orders.id_orders";
 ?>
 <?php
 $show="";
@@ -206,8 +210,9 @@ if(!isset($_GET["show"])){
                 <ul class="nav nav-tabs">
                     <li class="<?=$head1?>"><a href="driver.php?state=1">งานใหม่</a></li>
                     <li class="<?=$head2?>"><a href="driver.php?state=2">งานที่รับมา</a></li>                
-                    <li class="<?=$head3?>"><a href="driver.php?state=3">ประวัติ</a>
-                    <li class="<?=$head4?>"><a href="driver.php?state=4">งานที่ยกเลิก</a>
+                    <li class="<?=$head3?>"><a href="driver.php?state=3">รอยืนยัน</a></li>                
+                    <li class="<?=$head4?>"><a href="driver.php?state=4">จัดส่งสำเร็จ</a></li>                
+                    <li class="<?=$head5?>"><a href="driver.php?state=5">งานที่ยกเลิก</a></li>                
                 </ul>
                 </div>
              <table class="table table-striped">
@@ -233,6 +238,7 @@ if(!isset($_GET["show"])){
                         $date_a = $splitTimeStamp[0];
                         $time_a = $splitTimeStamp[1];
                         $date = explode("-",$date_a); 
+                        
                         // print_r($objQuery1);
                          ?>
                         

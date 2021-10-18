@@ -1,3 +1,11 @@
+<?php 
+    session_start();
+    require('../connect.php');
+    $sql = " SELECT * FROM `shop` ";
+    $objQuery = mysqli_query($conn, $sql) or die("Error Query [" . $sql . "]");
+    $objResult = mysqli_fetch_array($objQuery);
+?>
+
 <!DOCTYPE html>
 <html  >
 <head>
@@ -43,6 +51,24 @@
                             <div class="form-group">
                                 <input type="text" name="shop_name" class="form-control" value="" id="name-form4-y">
                                 <label class="form-label">Shop Name</label>
+                            </div>
+                            <div class="form-group">
+                                <select name="type_id" class="form-control"> 
+                                    <?php 
+                                        $options = $objResult["type_id"];
+                                    ?>
+                                    <option value="1" <?php if($options== 1) echo 'selected="selected"'; ?> >Thai</option>
+                                    <option value="2" <?php if($options== 2) echo 'selected="selected"'; ?> >Coffee & Tea</option>
+                                    <option value="3" <?php if($options== 3) echo 'selected="selected"'; ?> >Bakery</option>
+                                    <option value="4" <?php if($options== 4) echo 'selected="selected"'; ?> >Chicken</option>
+                                    <option value="5" <?php if($options== 5) echo 'selected="selected"'; ?> >Desserts</option>
+                                    <option value="6" <?php if($options== 6) echo 'selected="selected"'; ?> >Steak</option>
+                                    <option value="7" <?php if($options== 7) echo 'selected="selected"'; ?> >Fast food</option>
+                                    <option value="8" <?php if($options== 8) echo 'selected="selected"'; ?> >Japanese</option>
+                                    <option value="9" <?php if($options== 9) echo 'selected="selected"'; ?> >Korea</option>
+                                    <option value="10" <?php if($options== 10) echo 'selected="selected"'; ?> >Drink</option>
+                                </select>
+                                <label class="form-label">Shop Type</label><br>
                             </div>
                             <div class="form-group">
                                 <input type="text" name="shop_tel"  class="form-control" value="" id="email-form4-y" pattern="[0-9]{10}">

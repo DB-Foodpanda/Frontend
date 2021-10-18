@@ -1,7 +1,6 @@
 <?php
 session_start();
 require ('connect.php');
-$id_shop = $_SESSION["shop_id"];
 $shop_name = $_GET['shop'];
 // echo($shop_name);
 if($_GET['shop']){
@@ -77,8 +76,8 @@ if(isset($_SESSION['qty'])){
                         <?php
                             $link = "";
                             if($meQty==0){
-                                $link = "index.php";
-                                $link1 = "../Home/index.php";
+                                $link = "shop.php";
+                                $link1 = "../Home/shop.php";
                             }
                             else{
                                 $link = "index_2.php?a=finishOrder&shop=".$id_shop."";
@@ -124,7 +123,7 @@ if($action == 'finishOrder'){
                         <th>#</th>
                         
                         <th>ชื่อสินค้า</th>
-                        <th>รายละเอียด</th>
+                        <th>ขนาด</th>
                         <th>ราคา</th>
                         <th>&nbsp;</th>
                     </tr>

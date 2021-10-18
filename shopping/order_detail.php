@@ -1,12 +1,15 @@
 <?php
-session_start();
-require 'connect.php';
-$id_order = $_GET["id"];
-$meSql = "SELECT food.id_food,food.food_size,food.FilesName,food.food_name,food.food_cash,orders_detail.id_orders_detail,orders_detail.orders_detail_item ,food.shop_username,orders_detail.orders_detail_item,orders_detail.id_orders FROM orders_detail
-INNER JOIN food ON orders_detail.id_food = food.id_food
-WHERE id_orders =$id_order";
-$meQuery = mysqli_query($meConnect,$meSql);
-$meResult = mysqli_fetch_array($meQuery);
+    session_start();
+    require 'connect.php';
+    $order_id = $_GET["id"];
+    $meSql = "SELECT * FROM `order` 
+        JOIN order_details ON order.order_id = order_details.order_id
+        JOIN food ON order_details.food_id = food.food_id 
+        WHERE order.order_id = $order_id 
+    ";
+
+    $meQuery = mysqli_query($meConnect,$meSql);
+// $meResult = mysqli_fetch_array($meQuery);
 
 
 $action = isset($_GET['a']) ? $_GET['a'] : "";
@@ -52,7 +55,7 @@ if(isset($_SESSION['qty'])){
                 <div class="container-fluid">
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li><a href=<?php echo "monitor_order.php"?>>กลับสู่หน้าติดตามออเดอร์</a></li>
+                            <li><a href=<?php echo "monitor_order.php?order_status=1"?>>กลับสู่หน้าติดตามออเดอร์</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->
@@ -95,12 +98,12 @@ if($action == 'finishOrder'){
                         ?>
                         <tr>
                             
-                            <?php $total_per = $meResult['food_cash']*$meResult['orders_detail_item'];?>
-                            <td><img src="../Shop/myfile/<?php echo $meResult['FilesName'];?>" width="120px" height="100px" border="0"></td>
+                            <?php $total_per = $meResult['food_price']*$meResult['order_details_qty'];?>
+                            <td><img src="../Shop/myfile/<?php echo $meResult['food_image'];?>" width="120px" height="120px" border="0"></td>
                             
                             <td><?php echo $meResult['food_name']; ?></td>
                             
-                            <td>ขนาด <?php echo $meResult['food_size']; ?> สั่งซื้อจำนวน <?php echo $meResult['orders_detail_item'];?> จาน ราคาจานละ <?php echo $meResult['food_cash'];?> บาท</td>
+                            <td>ขนาด <?php echo $meResult['food_size']; ?> สั่งซื้อจำนวน <?php echo $meResult['order_details_qty'];?> จาน ราคาจานละ <?php echo $meResult['food_price'];?> บาท</td>
                             <td><?php echo number_format($total_per,2); ?></td>
                         </tr>
                         <?php

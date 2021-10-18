@@ -56,25 +56,13 @@
             $_SESSION["loggedin"] = true; 
             $_SESSION["cus_username"] = $cus_username;
             $_SESSION["cus_password"] = $cus_password;
+            $_SESSION["cus_id"] = $objResult['cus_id'];
             echo '<script>
             alert( " Welcome \n'. $cus_username .'");
             window.location.href="Home/index.php";
             </script>';
         }
-        // ก้อนไร้ประโยชน์ที่เป็นตัวอย่างให้
-        // if ($count1 == 1){
-        //     $_SESSION["loggedin"] = true; 
-        //     $_SESSION["shop_username"] = $cus_username;
-        //     echo '<script>
-        //     alert( " Welcome \n'. $cus_username .'");
-        //     </script>';
-        //     echo($objResult1['shop_username']);
-        //     // echo($count1);
-        //     // print_r($count1);
-        //     echo('<pre>');
-        //     print_r($objResult1);
-        //     echo('</pre>');
-        // }
+
         if ($count1 == 1){
             $_SESSION["loggedin"] = true; 
             $_SESSION["shop_username"] = $cus_username;
@@ -90,7 +78,7 @@
             $_SESSION["driver_id"] = $objResult2['driver_id'];
             echo '<script>
             alert( " Welcome \n'. $cus_username .'");
-            window.location.href="./website/driver.php";
+            window.location.href="./website/driver.php?state=1";
             </script>';
         }
         else{

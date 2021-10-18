@@ -9,7 +9,7 @@ $driver_id = $_SESSION["driver_id"];
 //$Title		  = $_REQUEST['Title'];
 $order_id = $_GET["id"];
 
-    $sql = "UPDATE `order` SET `order_status`= 3 WHERE order_id = $order_id";
+    $sql = "UPDATE `order` SET `order_status`= 3 , `order_dateendsend` = NOW() WHERE order_id = $order_id";
     echo $sql;
     $objQuery = mysqli_query($conn, $sql);
 

@@ -16,10 +16,11 @@
         $shop_openday = $_REQUEST["shop_openday"];
         $shop_opentime = $_REQUEST["shop_opentime"];
 		$shop_closetime = $_REQUEST["shop_closetime"];
+		$shop_type = $_REQUEST["type_id"];
 
 		$strSQL = "INSERT INTO shop";
-		$strSQL .="(shop_username,shop_password,shop_name,shop_address,shop_tel,shop_earnacc_no,shop_openday,shop_opentime,shop_closetime,shop_image) 
-		VALUES ('$shop_username','$shop_password','$shop_name','$shop_address','$shop_tel','$shop_earnacc_no','$shop_openday','$shop_opentime','$shop_closetime','".$_FILES["filUpload"]["name"]."')";
+		$strSQL .="(type_id,shop_username,shop_password,shop_name,shop_address,shop_tel,shop_earnacc_no,shop_openday,shop_opentime,shop_closetime,shop_image) 
+		VALUES ($shop_type,'$shop_username','$shop_password','$shop_name','$shop_address','$shop_tel','$shop_earnacc_no','$shop_openday','$shop_opentime','$shop_closetime','".$_FILES["filUpload"]["name"]."')";
 		$objQuery = mysqli_query($conn,$strSQL);
 		
 	}
