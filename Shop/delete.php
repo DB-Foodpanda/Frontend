@@ -4,10 +4,7 @@ require('../connect.php');
 session_start();
 $shop_username = $_SESSION["shop_username"];
 
-$sql = "
-    DELETE FROM food
-    WHERE food_id Like '".$_GET["itemId"]."';
-    ";
+$sql = " DELETE FROM food WHERE food_id Like '".$_GET["itemId"]."'; ";
 //echo $sql;
 $objQuery = mysqli_query($conn, $sql);
 if ($objQuery) {

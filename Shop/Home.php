@@ -6,6 +6,7 @@ if(empty($_SESSION["shop_username"])){
 }
 $shop_id = $_SESSION["shop_id"];
 $shop_username = $_SESSION["shop_username"]; 
+
   $sql = " SELECT * FROM `shop` 
   WHERE shop_username = '$shop_username' ; 
   ";
@@ -14,29 +15,14 @@ $shop_username = $_SESSION["shop_username"];
   $objResult = mysqli_fetch_array($objQuery);
 
   $sql2 = " SELECT * 
-    FROM `shop`
-    WHERE shop.shop_username = '$shop_username' ;
+    FROM `shop` JOIN food_type ON shop.type_id = food_type.type_id   WHERE shop.shop_username = '$shop_username' ;
     ";
-
-  $objQuery2 = mysqli_query($conn, $sql2) or die("Error Query [" . $sql . "]");
+    $objQuery2 = mysqli_query($conn, $sql2) or die("Error Query [" . $sql . "]");
 
   $sql3 = " SELECT *
-  FROM `food` WHERE food.shop_id = '$shop_id' ;
-  
-  ";
+  FROM `food` WHERE food.shop_id = $shop_id ";
     $objQuery3 = mysqli_query($conn, $sql3) or die("Error Query [" . $sql . "]");
 
-    // $meSql = "SELECT * FROM `orders`
-    // INNER JOIN orders_status
-    // ON orders.orders_id = orders_status.orders_status_id
-    // INNER JOIN food
-    // ON orders_status.orders_status_id = food.food_id
-    // INNER JOIN shop
-    // ON food.food_id = shop.shop_id
-    // INNER JOIN customer
-    // ON shop.shop_id = customer.cus_id
-    // WHERE shop.shop_username='$shop_username' AND orders_status.orders_status_id=2
-    // ";
     
     $meSql = "SELECT * FROM `order` 
     JOIN order_details ON order.order_id = order_details.order_id
@@ -411,8 +397,14 @@ if(!isset($_GET["show"])){
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-6">
-                                    <label><h4>Type: </h4></label>
-                                     <input type="text" class="form-control" name="food_type" Required>
+                                    <label><h4>Foodtype: </h4></label><br>
+                                     <select name = "food_type" disabled>
+                        ';
+                                        while ($result = mysqli_fetch_array($objQuery2)){
+                                            echo "<option value = '".$result['type_id']."'>".$result['food_typename']."</option>" ;
+                                        }
+                 echo '             </select>
+                        
                                     </div>
                             </div>
                             <div class="form-group">
