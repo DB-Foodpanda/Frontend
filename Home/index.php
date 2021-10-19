@@ -37,7 +37,6 @@
     ";
     $meQuery = mysqli_query($meConnect,$mesql);
     $meResult = mysqli_fetch_array($meQuery);
-
     $mesql1 = "SELECT * FROM `shop`";
     $meQuery1 = mysqli_query($meConnect,$mesql1);
     // $meResult1 = mysqli_fetch_array($meQuery1);
@@ -71,6 +70,7 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
+                            <li><a href="../shopping/shop.php"><i class="fa fa-home"></i></a></li>
                             <li><a href="../shopping/monitor_order.php?order_status=1"><i class="fa fa-check-circle"></i></a></li>
                             <li><a href="../shopping/cart.php"><i class="fa fa-shopping-cart"></i></a></li>
                         </ul>
@@ -191,9 +191,9 @@
                             <a href="./index.html"><img src="img/logo_fpd.png" alt=""></a>
                         </div>
                         <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello@colorlib.com</li>
+                            <li>Address: 2034/88 Italthai, 2034 Phetchaburi Rd, Huai Khwang, Bangkok 10310</li>
+                            <li>Phone: +66 (0)2-250-9281-2</li>
+                            <li>Email: contact@foodpanda.co.th</li>
                         </ul>
                     </div>
                 </div>
@@ -233,7 +233,7 @@
                 <div class="col-lg-12">
                     <div class="footer__copyright">
                         <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by Foodpanda
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
                         <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
                     </div>
@@ -246,10 +246,7 @@
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
     <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
 

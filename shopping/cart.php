@@ -3,10 +3,6 @@ session_start();
 require 'connect.php';
 $id_shop = $_GET["shop"];
 $_SESSION["shop"] = $id_shop;
-if(!$_GET["shop"]){
-    header("Location:../Home/index.php");
-    exit;
-}
 
 $action = isset($_GET['a']) ? $_GET['a'] : "";
 $itemCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;

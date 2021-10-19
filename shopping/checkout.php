@@ -1,13 +1,17 @@
 <?php 
     session_start();
     require('connect.php');
-   
-    $mysql = " SELECT * FROM `customer` JOIN `address` ON customer.cus_id = address.cus_id";
+    $cus_id = $_SESSION["cus_id"];
+
+    $mysql = " SELECT * FROM `customer` JOIN `address` ON customer.cus_id = address.cus_id
+    WHERE customer.cus_id = $cus_id
+    ";
     $objQuery = mysqli_query($meConnect,$mysql);
     $objResult = mysqli_fetch_array($objQuery);
-    
+    // print_r($cus_username);
     $id_shop = $_GET["shop"];
-    $mysql1 = " SELECT * FROM `order` 
+    
+    $mysql1 = " SELECT * FROM order 
     JOIN order_details ON order.order_id = order_details.order_id
     JOIN food ON order_details.food_id = food.food_id
     JOIN shop ON order.shop_id = shop.shop_id 
