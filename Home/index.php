@@ -71,7 +71,6 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                        <li><a href="../shopping/shop.php"><i class="fa fa-home"></i></a></li>
                             <li><a href="../shopping/monitor_order.php?order_status=1"><i class="fa fa-check-circle"></i></a></li>
                             <li><a href="../shopping/cart.php"><i class="fa fa-shopping-cart"></i></a></li>
                         </ul>

@@ -124,7 +124,7 @@ button {
 body {
   font-family: 'Mali', cursive;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -218,7 +218,7 @@ h6 {
   -o-transition: all 0.4s ease;
   -moz-transition: all 0.4s ease;
   transition: all 0.4s ease;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 700;
 }
 

@@ -56,22 +56,7 @@ $sql = " SELECT * FROM `customer` JOIN `address` ON customer.cus_id = address.cu
     <!-- Main CSS-->
     <link href="css/main.css" rel="stylesheet" media="all">
     <html xmlns="http://www.w3.org/1999/xhtml">
-    <?php
-        /*$dbservername = "localhost";
-        $dbname="grab";
-        $dbusername="root";
-        $dbpassword="";
-        $conn = new PDO("mysql:host=$dbservername;dbname=$dbname",$dbusername,$dbpassword);
-
-        $startid = "CUS-";
-        $tablename = "grab";
-        $startnumber="SELECT MAX(ID_Cus) FROM customer";
-        echo "$startnumber";
-        $startnumber =($startnumber+1);
-
-        $autoid = $startid.$startnumber;*/
-    ?>
-</head>
+ </head>
 
 <body>
     
@@ -83,13 +68,13 @@ $sql = " SELECT * FROM `customer` JOIN `address` ON customer.cus_id = address.cu
                     <div class="card-heading"></div>
                     <div class="card-body">
                         <form method="POST">
-                            <img src="./Home/img/logo_fpd.png" width="100px"height="200px">
+                            <img src="./Home/img/istockphoto-1153447350-170667a.png" >
                             <label for="cus_username">Username:</label><br>
                             <div class="input-group">
                                 <input class="input--style-2" type="text" name ="ID_Cus" disabled="disabled" value=<?php 
                                 $cus_username = $_SESSION["cus_username"]; 
                                 echo $cus_username
-                    ?>>
+                                ?>>
                             </div>
                             <label for="cus_name">Name:</label><br>
                             <div class="input-group">
